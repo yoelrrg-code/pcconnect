@@ -1,0 +1,42 @@
+import type { ReactNode } from 'react';
+import Box from '@mui/material/Box';
+import type { BoxProps } from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import { HEADER_DESKTOP, HEADER_MOBILE } from './header';
+
+// ----------------------------------------------------------------------
+
+interface MainProps extends BoxProps {
+  children: ReactNode;
+  navWidth?: number; // Add dynamic width prop
+}
+
+export default function Main({ children, navWidth = 360, sx, ...other }: MainProps) {
+  const theme = useTheme();
+
+  return (
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        minHeight: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        py: `${HEADER_MOBILE + 24}px`,
+        px: 2,
+        transition: theme.transitions.create(['width', 'margin-left'], {
+          duration: theme.transitions.duration.shorter,
+        }),
+        [theme.breakpoints.up('lg')]: {
+          py: `${HEADER_DESKTOP + 32}px`,
+          px: 5,
+          width: `calc(100% - ${navWidth}px)`,
+        },
+        ...sx,
+      }}
+      {...other}
+    >
+      {children}
+    </Box>
+  );
+}
