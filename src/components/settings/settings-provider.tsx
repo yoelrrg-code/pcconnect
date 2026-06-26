@@ -12,7 +12,7 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
     const saved = localStorage.getItem('themeMode');
     if (saved === 'light' || saved === 'dark') return saved;
     // Default to dark mode for rich premium look
-    return 'dark';
+    return 'light';
   });
 
   const [themeColorPreset, setThemeColorPreset] = useState<ColorPresetId>(() => {

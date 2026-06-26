@@ -31,7 +31,7 @@ export default function Logo({ disabledLink = false, compact = false, sx, ...oth
         src={compact ? logoCompactImg : logoImg}
         alt="PC Connect Logo"
         sx={{
-          height: compact ? 32 : 30, // Slightly taller height for compact SVG for clarity
+          height: compact ? 32 : 43, // Slightly taller height for compact SVG for clarity
           width: 'auto',
           objectFit: 'contain',
           // Apply brightness filters in dark mode

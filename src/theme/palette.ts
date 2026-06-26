@@ -2,7 +2,7 @@ import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-export type ColorPresetId = 'default' | 'cyan' | 'blue' | 'purple' | 'orange' | 'red';
+export type ColorPresetId = 'default';
 
 export interface ColorPreset {
   name: string;
@@ -21,65 +21,10 @@ export const colorPresets: Record<ColorPresetId, ColorPreset> = {
     name: 'Magenta (Corporate)',
     primary: {
       lighter: '#FEE7F2',
-      light: '#E6007E',
-      main: '#B4006E',
+      light: '#D01A8E',
+      main: '#B81A80',
       dark: '#80004E',
       darker: '#4D002E',
-      contrastText: '#FFFFFF',
-    },
-  },
-  cyan: {
-    name: 'Cyan',
-    primary: {
-      lighter: '#CAFDF5',
-      light: '#61F3F3',
-      main: '#00B8D9',
-      dark: '#007896',
-      darker: '#003749',
-      contrastText: '#FFFFFF',
-    },
-  },
-  blue: {
-    name: 'Blue',
-    primary: {
-      lighter: '#D0E9FF',
-      light: '#1890FF',
-      main: '#2065D1',
-      dark: '#103996',
-      darker: '#061B64',
-      contrastText: '#FFFFFF',
-    },
-  },
-  purple: {
-    name: 'Purple',
-    primary: {
-      lighter: '#E9D6FF',
-      light: '#AE67FA',
-      main: '#7635DC',
-      dark: '#431A9E',
-      darker: '#200A69',
-      contrastText: '#FFFFFF',
-    },
-  },
-  orange: {
-    name: 'Orange',
-    primary: {
-      lighter: '#FFE9D5',
-      light: '#FFC107',
-      main: '#FDA92D',
-      dark: '#B76E00',
-      darker: '#7A4100',
-      contrastText: '#1C252E',
-    },
-  },
-  red: {
-    name: 'Red',
-    primary: {
-      lighter: '#FFE5EC',
-      light: '#FF6B8B',
-      main: '#FF3030',
-      dark: '#B71D3F',
-      darker: '#7A092A',
       contrastText: '#FFFFFF',
     },
   },
@@ -92,11 +37,11 @@ export const GREY = {
   200: '#F4F6F8',
   300: '#DFE3E8',
   400: '#C4CDD5',
-  500: '#919EAB',
+  500: '#DCDCDC',
   600: '#637381',
-  700: '#454F5B',
+  700: '#30394A',
   800: '#212B36',
-  900: '#161C24',
+  900: '#30394A',
 };
 
 export const PRIMARY = colorPresets.default.primary;
@@ -158,7 +103,7 @@ export const COMMON = {
   warning: WARNING,
   error: ERROR,
   grey: GREY,
-  divider: alpha(GREY[500], 0.2),
+  divider: GREY[500],
   action: {
     hover: alpha(GREY[500], 0.08),
     selected: alpha(GREY[500], 0.16),

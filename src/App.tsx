@@ -40,7 +40,7 @@ function AppContent({ onLogout }: AppContentProps) {
               Configure payor API keys, gateways, and active compliance rules.
             </Typography>
             <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1.5 }}>
                 Active Insurance Integrations
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
@@ -162,6 +162,7 @@ function AppContent({ onLogout }: AppContentProps) {
       <SettingsDrawer 
         open={settingsOpen} 
         onClose={() => setSettingsOpen(false)} 
+        onLogout={onLogout}
       />
     </DashboardLayout>
   );

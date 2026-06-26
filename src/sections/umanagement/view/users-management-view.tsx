@@ -262,15 +262,15 @@ export default function UsersManagementView() {
                 <TableHead>
                     {/* Header Columns */}
                     <TableRow sx={{ bgcolor: 'primary.main' }}>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem' }}>
-                        Provider
-                    </TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 200 }}>
-                        Case Count
-                    </TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 250 }}>
-                        Last Comment Date
-                    </TableCell>
+                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem' }}>
+                          Provider
+                      </TableCell>
+                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 200 }}>
+                          Case Count
+                      </TableCell>
+                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 250 }}>
+                          Last Comment Date
+                      </TableCell>
                     </TableRow>
                     
                     {/* Contains Filter Input Row */}
@@ -661,7 +661,7 @@ export default function UsersManagementView() {
               disabled={!firstName || !lastName || !email}
               sx={{ 
                 borderRadius: 1.5, 
-                fontWeight: 700, 
+                fontWeight: 600, 
                 fontSize: '0.875rem',
                 px: 3,
                 boxShadow: theme.customShadows.primary,

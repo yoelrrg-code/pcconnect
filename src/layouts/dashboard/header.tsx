@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { 
   Menu, 
-  Settings as SettingsIcon,
+  // Settings as SettingsIcon,
   User
 } from 'lucide-react';
 import { Typography } from '@mui/material';
@@ -21,7 +21,6 @@ const HEADER_DESKTOP = 100;
 interface HeaderProps {
   onOpenNav: () => void;
   onOpenSettings: () => void;
-  onLogout: () => void;
   activeTab: string;
   navWidth?: number;
 }
@@ -41,7 +40,7 @@ const TAB_TITLES: Record<string, string> = {
   '#report-management': 'Report Management',
 };
 
-export default function Header({ onOpenNav, onOpenSettings, onLogout, activeTab, navWidth = 360 }: HeaderProps) {
+export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ activeTab, navWidth = 360 }: HeaderProps) {
   const theme = useTheme();
   const pageTitle = TAB_TITLES[activeTab] || 'Dashboard';
 
@@ -109,18 +108,22 @@ export default function Header({ onOpenNav, onOpenSettings, onLogout, activeTab,
           {/* Settings Icon */}
           <IconButton 
             onClick={onOpenSettings}
-            sx={{ 
-              animation: 'spin 12s linear infinite',
-              '@keyframes spin': {
-                '0%': { transform: 'rotate(0deg)' },
-                '100%': { transform: 'rotate(360deg)' }
+            title="Configuración"
+            sx={{
+              width: 38,
+              height: 38,
+              border: `2px solid ${alpha('#2B3445', 0.25)}`,
+              p: 0.8,
+              '&:hover': {
+                bgcolor: alpha('#2B3445', 0.04),
+                borderColor: '#2B3445',
               }
             }}
           >
-            <SettingsIcon size={20} />
+            <User size={20} strokeWidth={2.2} />
           </IconButton>
 
-          {/* Figma-Style User Outline Circular Icon */}
+          {/* Figma-Style User Outline Circular Icon
           <IconButton
             onClick={onLogout}
             title="Cerrar sesión"
@@ -136,7 +139,7 @@ export default function Header({ onOpenNav, onOpenSettings, onLogout, activeTab,
             }}
           >
             <User size={20} strokeWidth={2.2} />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Toolbar>
     </AppBar>

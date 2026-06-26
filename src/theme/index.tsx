@@ -12,13 +12,21 @@ import type { CustomShadows } from './custom-shadows';
 
 // ----------------------------------------------------------------------
 
-// Extend MUI theme to include custom shadows
+// Extend MUI theme to include custom shadows and palette colors
 declare module '@mui/material/styles' {
   interface Theme {
     customShadows: CustomShadows;
   }
   interface ThemeOptions {
     customShadows?: CustomShadows;
+  }
+  interface PaletteColor {
+    lighter: string;
+    darker: string;
+  }
+  interface SimplePaletteColorOptions {
+    lighter?: string;
+    darker?: string;
   }
 }
 

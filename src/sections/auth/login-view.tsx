@@ -82,7 +82,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
           zIndex: 1
         }}
       >
-        <Box sx={{ mb: 6 }}>
+        <Box sx={{ mb: 9.8 }}>
           <Logo disabledLink />
         </Box>
 
@@ -90,7 +90,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
           <Typography 
             sx={{ 
               fontWeight: 400, 
-              fontSize: '2.1rem',
+              fontSize: '32px',
               mb: 1.5
             }}
           >
@@ -98,9 +98,9 @@ export default function LoginView({ onLogin }: LoginViewProps) {
           </Typography>
           <Typography 
             sx={{ 
-              fontWeight: 700,
-              fontSize: '1.25rem',
-              mb: 1
+              fontWeight: 600,
+              fontSize: 20,
+              mb: 2
             }}
           >
             Sign in to your account
@@ -120,8 +120,10 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                 inputLabel: {
                   shrink: true,
                   sx: {
-                    fontWeight: 700,
-                    fontSize: '1rem',
+                    color: GREY[700],
+                    fontWeight: 600,
+                    lineHeight: 2,
+                    fontSize: '12px',
                     bgcolor: 'background.paper',
                     px: 0.5,
                     transform: 'translate(14px, -11px) scale(0.75)',
@@ -133,14 +135,14 @@ export default function LoginView({ onLogin }: LoginViewProps) {
               }}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   bgcolor: '#FFFFFF',
                   height: 48,
                   '& fieldset': {
-                    borderColor: alpha('#2B3445', 0.2),
+                    borderColor: GREY[500],
                   },
                   '&:hover fieldset': {
-                    borderColor: alpha('#2B3445', 0.35),
+                    borderColor: alpha(GREY[500], 0.35),
                   },
                   '&.Mui-focused fieldset': {
                     borderColor: 'primary.main',
@@ -167,8 +169,10 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                 inputLabel: {
                   shrink: true,
                   sx: {
-                    fontWeight: 700,
-                    fontSize: '1rem',
+                    color: GREY[700],
+                    fontWeight: 600,
+                    lineHeight: 2,
+                    fontSize: '12px',
                     bgcolor: 'background.paper',
                     px: 0.5,
                     transform: 'translate(14px, -11px) scale(0.75)',
@@ -189,14 +193,14 @@ export default function LoginView({ onLogin }: LoginViewProps) {
               }}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   bgcolor: '#FFFFFF',
                   height: 48,
                   '& fieldset': {
-                    borderColor: alpha('#2B3445', 0.2),
+                    borderColor: GREY[500],
                   },
                   '&:hover fieldset': {
-                    borderColor: alpha('#2B3445', 0.35),
+                    borderColor: alpha(GREY[500], 0.35),
                   },
                   '&.Mui-focused fieldset': {
                     borderColor: 'primary.main',
@@ -220,10 +224,11 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                 href="#register" 
                 variant="body2" 
                 sx={{ 
-                  fontWeight: 600, 
+                  fontWeight: 400, 
                   textDecoration: 'none',
-                  fontSize: '0.875rem',
-                  '&:hover': { textDecoration: 'underline' }
+                  fontSize: '12px',
+                  color: GREY[700],
+                  '&:hover': { textDecoration: 'underline', color: 'primary.main' }
                 }}
               >
                 Register account
@@ -232,10 +237,11 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                 href="#forgot" 
                 variant="body2" 
                 sx={{ 
-                  fontWeight: 600, 
+                  fontWeight: 400, 
                   textDecoration: 'none',
-                  fontSize: '0.875rem',
-                  '&:hover': { textDecoration: 'underline' }
+                  fontSize: '12px',
+                  color: GREY[700],
+                  '&:hover': { textDecoration: 'underline', color: 'primary.main' }
                 }}
               >
                 Forgot password?
@@ -246,7 +252,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
             <Box 
               sx={{ 
                 p: 2.5, 
-                borderRadius: 2, 
+                borderRadius: 1.5, 
                 border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
                 bgcolor: alpha(theme.palette.grey[500], 0.02),
                 mt: 1
@@ -256,8 +262,9 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                 variant="body2" 
                 sx={{ 
                   color: 'text.primary', 
-                  fontSize: '0.78rem', 
-                  lineHeight: 1.5,
+                  fontSize: '12px',
+                  fontWeight: 400, 
+                  lineHeight: '18px',
                   textAlign: 'justify'
                 }}
               >
@@ -265,7 +272,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
               </Typography>
 
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 1.5, mt: 2 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '0.85rem' }}>
+                <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '12px' }}>
                   Check this box:
                 </Typography>
                 <Checkbox
@@ -298,12 +305,13 @@ export default function LoginView({ onLogin }: LoginViewProps) {
               variant="contained"
               color="primary"
               sx={{
+                height: '48px',
                 py: 1.5,
-                fontSize: '1rem',
-                fontWeight: 800,
-                borderRadius: 30, // Fully pill-shaped matching mockup
-                boxShadow: theme.customShadows.primary,
-                mt: 2
+                fontSize: '16px',
+                fontWeight: 600,
+                borderRadius: 24, // Fully pill-shaped matching mockup
+                mt: 2,
+                '&:hover': { bgcolor: theme.palette.primary.light }
               }}
             >
               Sign In
