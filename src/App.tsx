@@ -154,7 +154,6 @@ function AppContent({ onLogout }: AppContentProps) {
   return (
     <DashboardLayout 
       onOpenSettings={() => setSettingsOpen(true)}
-      onLogout={onLogout}
       activeTab={activeTab}
       setActiveTab={setActiveTab}
     >

@@ -10,7 +10,6 @@ import Main from './main';
 interface DashboardLayoutProps {
   children: ReactNode;
   onOpenSettings: () => void;
-  onLogout: () => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
@@ -18,7 +17,6 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ 
   children, 
   onOpenSettings,
-  onLogout,
   activeTab,
   setActiveTab
 }: DashboardLayoutProps) {
@@ -39,7 +37,6 @@ export default function DashboardLayout({
       <Header 
         onOpenNav={() => setOpenNav(true)} 
         onOpenSettings={onOpenSettings}
-        onLogout={onLogout}
         activeTab={activeTab}
         navWidth={navWidth}
       />
