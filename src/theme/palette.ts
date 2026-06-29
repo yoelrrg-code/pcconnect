@@ -7,6 +7,7 @@ export type ColorPresetId = 'default';
 export interface ColorPreset {
   name: string;
   primary: {
+    hover: string;
     lighter: string;
     light: string;
     main: string;
@@ -20,6 +21,7 @@ export const colorPresets: Record<ColorPresetId, ColorPreset> = {
   default: {
     name: 'Magenta (Corporate)',
     primary: {
+      hover: '#FDEEF7',
       lighter: '#FEE7F2',
       light: '#D01A8E',
       main: '#B81A80',
@@ -35,12 +37,12 @@ export const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
   200: '#F4F6F8',
-  300: '#DFE3E8',
-  400: '#C4CDD5',
+  300: '#F4F4F6',
+  400: '#90949C',
   500: '#DCDCDC',
   600: '#637381',
   700: '#30394A',
-  800: '#212B36',
+  800: '#737373',
   900: '#30394A',
 };
 
@@ -125,11 +127,11 @@ export function getPalette(mode: 'light' | 'dark', presetId: ColorPresetId = 'de
     text: {
       primary: GREY[700],
       secondary: GREY[600],
-      disabled: GREY[500],
+      disabled: GREY[400],
     },
     background: {
       paper: GREY[0],
-      default: '#F4F4F6',
+      default: GREY[300],
       neutral: GREY[200],
     },
     action: {

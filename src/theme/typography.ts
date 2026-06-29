@@ -46,8 +46,9 @@ export const typography = {
     ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
   },
   h4: {
-    fontWeight: 500,
-    lineHeight: 36 / 22,
+    fontWeight: 600,
+    lineHeight: '40px',
+    letterSpacing: '0',
     fontSize: px(28),
     ...responsiveFontSizes({ sm: 18, md: 20, lg: 28 }), // Adjusted to be more balanced and not overly large
   },

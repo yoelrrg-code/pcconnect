@@ -9,9 +9,10 @@ import logoCompactImg from '../../assets/logo-compact.svg';
 interface LogoProps extends BoxProps {
   disabledLink?: boolean;
   compact?: boolean;
+  height?: number;
 }
 
-export default function Logo({ disabledLink = false, compact = false, sx, ...other }: LogoProps) {
+export default function Logo({ disabledLink = false, compact = false, height, sx, ...other }: LogoProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
@@ -31,7 +32,7 @@ export default function Logo({ disabledLink = false, compact = false, sx, ...oth
         src={compact ? logoCompactImg : logoImg}
         alt="PC Connect Logo"
         sx={{
-          height: compact ? 32 : 43, // Slightly taller height for compact SVG for clarity
+          height: height ?? (compact ? 32 : 40), // 40 height by default inside the app, custom height option
           width: 'auto',
           objectFit: 'contain',
           // Apply brightness filters in dark mode

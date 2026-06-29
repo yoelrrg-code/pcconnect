@@ -9,6 +9,7 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Logo from '../../components/logo';
 import { navConfig } from './config-navigation';
+import { GREY } from '../../theme/palette';
 
 // ----------------------------------------------------------------------
 
@@ -41,14 +42,14 @@ export default function Nav({
         height: 1,
         display: 'flex',
         flexDirection: 'column',
-        py: 3,
-        px: isCollapsed ? 0.75 : 2,
+        py: 4,
+        px: isCollapsed ? 0.75 : 4,
         transition: theme.transitions.create(['padding'], {
           duration: theme.transitions.duration.shorter,
         }),
       }}
     >
-      <Box sx={{ px: isCollapsed ? 1 : 2, py: 1.5, display: 'inline-flex', alignItems: 'center', mb: 1 }}>
+      <Box sx={{ px: isCollapsed ? 2 : 0, pb: 1.5, display: 'inline-flex', alignItems: 'center', mb: 2 }}>
         <Logo compact={isCollapsed} />
       </Box>
 
@@ -56,21 +57,21 @@ export default function Nav({
       <Box 
         sx={{ 
           height: '1px', 
-          bgcolor: alpha(theme.palette.primary.main, 0.12),
-          mx: 1,
-          mb: 2.5
+          bgcolor: theme.palette.primary.main,
+          mx: 0,
+          mb: 0.5,
         }} 
       />
 
       <Box 
         component="nav" 
         sx={{ 
-          px: 0.5, 
+          px: 0, 
           flexGrow: 1,
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'auto',
-          pb: 2
+          pb: 2,
         }}
       >
         {navConfig.map((group, index) => (
@@ -79,10 +80,10 @@ export default function Nav({
             {index > 0 && (
               <Box 
                 sx={{ 
-                  my: 1.5, 
                   height: '1px', 
-                  bgcolor: alpha(theme.palette.primary.main, 0.12),
-                  mx: 1 
+                  bgcolor: theme.palette.primary.main,
+                  mx: 0,
+                  mb: 0.5,
                 }} 
               />
             )}
@@ -91,7 +92,7 @@ export default function Nav({
               <Typography
                 variant="caption"
                 sx={{
-                  px: 2,
+                  px: 0,
                   py: 0.5,
                   display: 'block',
                   color: theme.palette.mode === 'light' ? 'primary.main' : alpha(theme.palette.primary.light, 0.8),
@@ -131,6 +132,7 @@ export default function Nav({
                       borderRadius: isCollapsed ? 2 : 3,
                       px: isCollapsed ? 0.5 : 2,
                       py: isCollapsed ? 1 : 1.5,
+                      mb: isCollapsed ? 0 : 0.5,
                       display: 'flex',
                       flexDirection: isCollapsed ? 'column' : 'row',
                       alignItems: 'center',
@@ -138,36 +140,41 @@ export default function Nav({
                       color: 'text.secondary',
                       transition: 'all 0.2s',
                       ...(active && {
-                        color: theme.palette.mode === 'light' ? '#B4006E' : '#E6007E',
-                        bgcolor: alpha('#F4F4F6', 1),
+                        color: theme.palette.primary.main,
+                        bgcolor: alpha(GREY[300], 1),
                         '&:hover': {
-                          bgcolor: alpha('#B4006E', 0.12),
+                          color: theme.palette.primary.light,
+                          bgcolor: alpha(GREY[300], 1),
                         },
                       }),
+                      '&:hover': {
+                          color: theme.palette.primary.main,
+                          bgcolor: alpha(GREY[300], 0),
+                        }
                     }}
                   >
                      <Box 
                       component="span" 
                       sx={{ 
-                        width: 20, 
-                        height: 20, 
+                        width: 26, 
+                        height: 26, 
                         mr: isCollapsed ? 0 : 1.5, 
                         mb: isCollapsed ? 0.5 : 0, 
                         display: 'inline-flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
                         color: active 
-                          ? (theme.palette.mode === 'light' ? '#B4006E' : '#E6007E') 
+                          ? theme.palette.primary.main 
                           : 'text.secondary',
                         '& svg [fill="#737373"]': {
                           fill: active 
-                            ? (theme.palette.mode === 'light' ? '#B4006E' : '#E6007E') 
+                            ? theme.palette.primary.main 
                             : '#737373',
                           transition: 'fill 0.2s ease',
                         },
                         '& svg [stroke="#737373"]': {
                           stroke: active 
-                            ? (theme.palette.mode === 'light' ? '#B4006E' : '#E6007E') 
+                            ? theme.palette.primary.main
                             : '#737373',
                           transition: 'stroke 0.2s ease',
                         }
@@ -272,22 +279,27 @@ export default function Nav({
           position: 'absolute',
           top: 32,
           right: -12, // Floats exactly half outside the sidebar border
-          width: 24,
-          height: 24,
+          width: 32,
+          height: 32,
           bgcolor: 'background.paper',
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
           zIndex: theme.zIndex.drawer + 2, // Float above Drawer and Main content
           p: 0.2,
+          color: theme.palette.mode === 'light' ? GREY[800] : GREY[300],
+          transition: theme.transitions.create(['color', 'background-color'], {
+            duration: theme.transitions.duration.shorter,
+          }),
           '&:hover': {
-            bgcolor: theme.palette.mode === 'light' ? '#F4F6F8' : '#212B36',
+            bgcolor: theme.palette.mode === 'light' ?  GREY[0] : GREY[900],
+            color: 'primary.main',
           },
         }}
       >
         {isCollapsed ? (
-          <ChevronRight size={14} style={{ color: theme.palette.mode === 'light' ? '#B4006E' : '#E6007E' }} />
+          <ChevronRight size={18} />
         ) : (
-          <ChevronLeft size={14} style={{ color: theme.palette.mode === 'light' ? '#B4006E' : '#E6007E' }} />
+          <ChevronLeft size={18} />
         )}
       </IconButton>
     </Box>

@@ -122,10 +122,10 @@ export default function ActiveIncompleteCasesView() {
   }, [filteredCases, page, rowsPerPage]);
 
   return (
-    <Box sx={{ pt: 2, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden' }}>
+    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden' }}>
 
       {/* Action Toolbar */}
-      <Box sx={{ px: 3, display: 'flex', gap: 2, mb: 3, alignItems: 'center', flexWrap: 'wrap' }}>
+      <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>
         <TextField
           size="small"
           placeholder="Search..."
@@ -144,10 +144,11 @@ export default function ActiveIncompleteCasesView() {
             },
           }}
           sx={{ 
-            width: { xs: 1, sm: 320 },
+            width: { xs: 1, sm: 300 },
             '& .MuiInputBase-root': {
               borderRadius: 1,
-              height: 48,
+              height: 40,
+              fontSize: '14px'
             }
           }}
         />
@@ -164,8 +165,11 @@ export default function ActiveIncompleteCasesView() {
             height: 38,
             px: 2,
             fontWeight: 600,
-            fontSize: '0.875rem',
+            fontSize: '14px',
             color: 'text.secondary',
+            '&:hover': {
+              color: 'primary.main',
+            },
           }}
         >
           Filters
@@ -181,8 +185,11 @@ export default function ActiveIncompleteCasesView() {
             height: 38,
             px: 2,
             fontWeight: 600,
-            fontSize: '0.875rem',
+            fontSize: '14px',
             color: 'text.secondary',
+            '&:hover': {
+              color: 'primary.main',
+            },
           }}
         >
           Export
@@ -201,7 +208,7 @@ export default function ActiveIncompleteCasesView() {
               <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 200 }}>
                 Case Count
               </TableCell>
-              <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 250 }}>
+              <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 180 }}>
                 Last Comment Date
               </TableCell>
             </TableRow>
@@ -209,7 +216,7 @@ export default function ActiveIncompleteCasesView() {
             {/* Contains Filter Input Row */}
             {showFiltersRow && (
               <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
-                <TableCell sx={{ py: 2.5, px: 2 }}>
+                <TableCell sx={{ p: 2.5 }}>
                   <TextField
                     size="small"
                     label="Contains"
@@ -246,7 +253,7 @@ export default function ActiveIncompleteCasesView() {
                     }}
                   />
                 </TableCell>
-                <TableCell sx={{ py: 2.5, px: 2 }}>
+                <TableCell sx={{ p: 2.5 }}>
                   <TextField
                     size="small"
                     label="Contains"
@@ -283,7 +290,7 @@ export default function ActiveIncompleteCasesView() {
                     }}
                   />
                 </TableCell>
-                <TableCell sx={{ py: 2.5, px: 2 }}>
+                <TableCell sx={{ p: 2.5 }}>
                   <TextField
                     size="small"
                     label="Is"
@@ -344,18 +351,26 @@ export default function ActiveIncompleteCasesView() {
                     key={row.id}
                     sx={{ 
                       bgcolor: rowBg,
+                      transition: 'background-color 0.2s',
                       '&:hover': {
-                        bgcolor: alpha(theme.palette.primary.main, 0.06)
-                      },
-                      transition: 'background-color 0.2s'
+                        bgcolor: theme.palette.primary.hover,
+                        '& .MuiTableCell-root:first-of-type': {
+                          '&, & .MuiTypography-root, & .MuiLink-root': {
+                            color: theme.palette.primary.main,
+                            transition: 'color 0.2s',
+                            textDecoration: 'none',
+                          }
+                        }
+                      }
                     }}
                   >
                     {/* Provider Link */}
-                    <TableCell sx={{ py: 1.5 }}>
+                    <TableCell sx={{ px: 2.5 }}>
                       <Link 
                         href="#" 
                         onClick={(e) => e.preventDefault()}
                         sx={{ 
+                          fontSize: '16px',
                           fontWeight: 400, 
                           color: theme.palette.text.primary,
                           textDecoration: 'underline',
@@ -369,19 +384,19 @@ export default function ActiveIncompleteCasesView() {
                     </TableCell>
 
                     {/* Case Count */}
-                    <TableCell sx={{ py: 1.5, color: 'text.primary', fontWeight: 400 }}>
+                    <TableCell sx={{ px: 2.5, color: 'text.primary', fontWeight: 400, fontSize: '16px' }}>
                       {row.caseCount}
                     </TableCell>
 
                     {/* Last Comment Date & Time stacked */}
-                    <TableCell sx={{ py: 1.5 }}>
+                    <TableCell sx={{ px: 2.5, fontSize: '16px' }}>
                       {row.isInvalidDate ? (
-                        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 400, textTransform: 'capitalize' }}>
+                        <Typography variant="body2" sx={{ fontSize: '16px', color: 'text.secondary', fontWeight: 400, textTransform: 'capitalize' }}>
                           {row.lastCommentDate}
                         </Typography>
                       ) : (
                         <Box>
-                          <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 400 }}>
+                          <Typography variant="body2" sx={{ fontSize: '16px', color: 'text.primary', fontWeight: 400 }}>
                             {row.lastCommentDate}
                           </Typography>
                           {row.time && (

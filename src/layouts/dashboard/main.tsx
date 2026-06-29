@@ -29,7 +29,8 @@ export default function Main({ children, navWidth = 360, sx, ...other }: MainPro
         }),
         [theme.breakpoints.up('lg')]: {
           py: `${HEADER_DESKTOP + 32}px`,
-          px: 5,
+          pl: 7.5,
+          pr: 6,
           width: `calc(100% - ${navWidth}px)`,
         },
         ...sx,

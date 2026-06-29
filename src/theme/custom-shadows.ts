@@ -26,7 +26,7 @@ export interface CustomShadows {
 }
 
 export function getCustomShadows(mode: 'light' | 'dark', presetId: ColorPresetId = 'default'): CustomShadows {
-  const color = mode === 'light' ? GREY[500] : '#000000';
+  const color = mode === 'light' ? '#000000' : GREY[300];
   const activePrimary = colorPresets[presetId].primary;
 
   return {
@@ -46,7 +46,7 @@ export function getCustomShadows(mode: 'light' | 'dark', presetId: ColorPresetId
     error: `0 8px 16px 0 ${alpha('#FF5630', 0.24)}`,
     //
     card: mode === 'light' 
-      ? `0 0 2px 0 ${alpha(color, 0.2)}, 0 12px 24px -4px ${alpha(color, 0.12)}`
+      ? `0 0px 24px 0px ${alpha(color, 0.15)}`
       : `0 0 2px 0 ${alpha('#000000', 0.4)}, 0 12px 24px -4px ${alpha('#000000', 0.24)}`,
     dialog: `-40px 40px 80px -8px ${alpha(color, 0.24)}`,
     dropdown: `0 12px 24px 0 ${alpha(color, 0.08)}, 0 0 2px 0 ${alpha(color, 0.1)}`,

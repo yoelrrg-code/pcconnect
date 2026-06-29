@@ -2,8 +2,7 @@ import {
   Box, 
   Card, 
   Typography, 
-  useTheme, 
-  alpha
+  useTheme
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { ArrowRight } from 'lucide-react';
@@ -81,9 +80,7 @@ function MenuCard({ title, icon, bgImage, onClick }: MenuCardProps) {
         height: 174, 
         cursor: 'pointer',
         borderRadius: 3,
-        // border: `1px solid ${alpha(theme.palette.divider, 0.4)}`,
-        // boxShadow: theme.customShadows.card,
-        boxShadow: `box-shadow: 0px 0px 24px 0px #00000026`,
+        boxShadow: theme.customShadows.card,
         overflow: 'hidden',
         '&:hover': {
           transform: 'translateY(-4px)',
@@ -129,9 +126,6 @@ function MenuCard({ title, icon, bgImage, onClick }: MenuCardProps) {
           variant="h4" 
           sx={{ 
             color: theme.palette.mode === 'light' ? 'primary.main' : 'text.primary',
-            fontWeight: 600,
-            fontSize: '28px',
-            letterSpacing: 0
           }}
         >
           {title}
@@ -155,7 +149,7 @@ export default function AppView({ onNavigate }: AppViewProps) {
     <Box sx={{ width: 1, pb: 5, mt: 2 }}>
 
       {/* Grid of 5 Menu Cards */}
-      <Grid container spacing={7} sx={{ mb: 10 }}>
+      <Grid container spacing={5} sx={{ mb: 10 }}>
         <Grid size={{ xs: 12, md: 6 }}>
           <MenuCard 
             title="Active Incomplete Cases" 
@@ -203,17 +197,17 @@ export default function AppView({ onNavigate }: AppViewProps) {
       </Grid>
 
       {/* Bottom News Box widget */}
-      <Card sx={{ borderRadius: 3, border: `1px solid ${alpha(theme.palette.divider, 0.4)}`, boxShadow: theme.customShadows.card }}>
-        <Box sx={{ p: 2.5 }}>
+      <Card sx={{ borderRadius: 3, border: `none`, boxShadow: `none` }}>
+        <Box sx={{ py: 3, px: 4 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 600, color: 'text.primary', mb: 1.5 }}>
             News
           </Typography>
           <Box sx={{ height: '1px', bgcolor: theme.palette.divider, mb: 2 }} />
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 400 }}>
+            <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 400 }}>
               No news available.
             </Typography>
-            <Typography variant="caption" sx={{ color: 'text.disabled', fontWeight: 500 }}>
+            <Typography variant="body1" sx={{ color: 'text.disabled', fontWeight: 400 }}>
               a few seconds
             </Typography>
           </Box>

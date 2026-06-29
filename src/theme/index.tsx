@@ -21,10 +21,12 @@ declare module '@mui/material/styles' {
     customShadows?: CustomShadows;
   }
   interface PaletteColor {
+    hover: string;
     lighter: string;
     darker: string;
   }
   interface SimplePaletteColorOptions {
+    hover?: string;
     lighter?: string;
     darker?: string;
   }
