@@ -1184,7 +1184,8 @@ export default function UsersManagementView() {
               display: 'flex', 
               alignItems: 'center', 
               gap: 1.5, 
-              borderBottom: `1px solid ${theme.palette.divider}` 
+              borderBottom: `1px solid ${theme.palette.divider}`,
+              bgcolor: 'background.paper'
             }}
           >
             <Box 
