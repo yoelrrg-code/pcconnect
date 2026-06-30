@@ -953,7 +953,7 @@ export default function ClientManagementView({
                 Administration
               </Typography>
 
-              <Box sx={{ display: 'flex', gap: 3, mb: 3.5, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', columnGap: 3, mb: 3.5, flexWrap: 'wrap' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Switch 
                     checked={profileNpSwitch} 
@@ -984,7 +984,7 @@ export default function ClientManagementView({
                     sx={switchStyles}
                   />
                   <Typography variant="body2" sx={{ fontWeight: 400, ml: 0.5, color: GREY[700], fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>
-                    Residents
+                    Residents/Fellows
                   </Typography>
                 </Box>
               </Box>
@@ -1190,8 +1190,8 @@ export default function ClientManagementView({
                     height: 38,
                     px: 2,
                     fontWeight: 600,
-                    fontSize: '13px',
-                    color: GREY[700],
+                    fontSize: '14px',
+                    color: 'text.secondary',
                     '&:hover': {
                       color: 'primary.main',
                     },
@@ -1210,8 +1210,8 @@ export default function ClientManagementView({
                     height: 38,
                     px: 2,
                     fontWeight: 600,
-                    fontSize: '13px',
-                    color: GREY[700],
+                    fontSize: '14px',
+                    color: 'text.secondary',
                     '&:hover': {
                       color: 'primary.main',
                     },
@@ -1230,8 +1230,8 @@ export default function ClientManagementView({
                     height: 38,
                     px: 2,
                     fontWeight: 600,
-                    fontSize: '13px',
-                    color: GREY[700],
+                    fontSize: '14px',
+                    color: 'text.secondary',
                     '&:hover': {
                       color: 'primary.main',
                     },
@@ -1294,7 +1294,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1334,7 +1334,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1374,7 +1374,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1414,7 +1414,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1454,7 +1454,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1494,7 +1494,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1533,7 +1533,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.60em'
@@ -1573,7 +1573,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -1625,10 +1625,10 @@ export default function ClientManagementView({
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[800],
+                                      borderColor: GREY[500],
                                     },
                                     '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[800],
+                                      borderColor: GREY[500],
                                     },
                                     '& .MuiOutlinedInput-notchedOutline legend': {
                                         fontSize: '0.75em'
@@ -1697,10 +1697,10 @@ export default function ClientManagementView({
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[800],
+                                      borderColor: GREY[500],
                                     },
                                     '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[800],
+                                      borderColor: GREY[500],
                                     },
                                     '& .MuiOutlinedInput-notchedOutline legend': {
                                         fontSize: '0.75em'
@@ -1759,7 +1759,7 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'

@@ -18,6 +18,7 @@ import {
   TablePagination
 } from '@mui/material';
 import { Search, Filter, Download } from 'lucide-react';
+import { GREY } from '../../../theme/palette';
 
 // ----------------------------------------------------------------------
 
@@ -147,7 +148,7 @@ export default function ActiveIncompleteCasesView() {
             width: { xs: 1, sm: 300 },
             '& .MuiInputBase-root': {
               borderRadius: 1,
-              height: 40,
+              height: 48,
               fontSize: '14px'
             }
           }}
@@ -248,7 +249,7 @@ export default function ActiveIncompleteCasesView() {
                         borderRadius: 1,
                       },
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: alpha(theme.palette.divider, 0.5),
+                        borderColor: GREY[500],
                       }
                     }}
                   />
@@ -285,7 +286,7 @@ export default function ActiveIncompleteCasesView() {
                         borderRadius: 1,
                       },
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: alpha(theme.palette.divider, 0.5),
+                        borderColor: GREY[500],
                       }
                     }}
                   />
@@ -322,7 +323,7 @@ export default function ActiveIncompleteCasesView() {
                         borderRadius: 1,
                       },
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: alpha(theme.palette.divider, 0.5),
+                        borderColor: GREY[500],
                       }
                     }}
                   />

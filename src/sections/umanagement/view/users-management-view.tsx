@@ -342,19 +342,19 @@ export default function UsersManagementView() {
                 }}
                 slotProps={{
                     input: {
-                    startAdornment: (
-                        <InputAdornment position="start">
-                        <Search size={18} style={{ color: theme.palette.text.disabled }} />
-                        </InputAdornment>
-                    ),
+                      startAdornment: (
+                          <InputAdornment position="start">
+                            <Search size={18} style={{ color: theme.palette.text.disabled }} />
+                          </InputAdornment>
+                      ),
                     },
                 }}
                 sx={{ 
                     width: { xs: 1, sm: 300 },
                     '& .MuiInputBase-root': {
-                    borderRadius: 1,
-                    height: 48,
-                    fontSize: '14px'
+                      borderRadius: 1,
+                      height: 48,
+                      fontSize: '14px'
                     }
                 }}
             />
@@ -461,7 +461,7 @@ export default function UsersManagementView() {
                                     fontWeight: 600,
                                     transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                    '&.Mui-focused': { color: 'primary.main' }
+                                      '&.Mui-focused': { color: 'primary.main' }
                                     }
                                 }
                               }}
@@ -474,7 +474,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -514,7 +514,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -554,7 +554,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -594,7 +594,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -634,7 +634,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -686,7 +686,7 @@ export default function UsersManagementView() {
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[800],
+                                      borderColor: GREY[500],
                                     },
                                     '& .MuiOutlinedInput-notchedOutline legend': {
                                         fontSize: '0.75em'
@@ -745,7 +745,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -791,7 +791,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -839,7 +839,7 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[800],
+                                    borderColor: GREY[500],
                                 },
                                 '& .MuiOutlinedInput-notchedOutline legend': {
                                     fontSize: '0.75em'
@@ -996,25 +996,69 @@ export default function UsersManagementView() {
 
                             {/* Last Login Cell (Editable date picker) */}
                             <TableCell sx={{ px: 2 }}>
-                              <InputBase
-                                type="date"
-                                value={row.lastLogin}
-                                onChange={(e) => handleCellEdit(row.id, 'lastLogin', e.target.value)}
-                                sx={{
-                                  fontSize: '15px',
-                                  fontFamily: 'Poppins, sans-serif',
-                                  color: 'text.primary',
-                                  width: '100%',
-                                  '& .MuiInputBase-input': {
-                                    padding: '4px 0',
-                                    borderBottom: '2px solid transparent',
-                                    transition: 'border-bottom-color 0.2s',
-                                    '&:focus': {
-                                      borderBottom: `2px solid ${theme.palette.primary.main}`,
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <MobileDatePicker
+                                  value={row.lastLogin ? dayjs(row.lastLogin) : null}
+                                  onChange={(newValue) => {
+                                    handleCellEdit(row.id, 'lastLogin', newValue ? newValue.format('YYYY-MM-DD') : '');
+                                  }}
+                                  slotProps={{
+                                    textField: {
+                                      size: 'small',
+                                      variant: 'standard',
+                                      slotProps: {
+                                        input: {
+                                          disableUnderline: true, // Aquí se desactiva la línea
+                                        },
+                                      },
+                                      sx: {
+                                        width: '140px',
+                                        '& .MuiInputBase-input': {
+                                          padding: '4px 0',
+                                          borderBottom: '2px solid transparent',
+                                          transition: 'border-bottom-color 0.2s',
+                                          cursor: 'pointer',
+                                        },
+                                        '&:focus': {
+                                          borderBottom: `2px solid ${theme.palette.primary.main}`,
+                                        },
+                                        '& .MuiInputBase-root': {
+                                          height: 22,
+                                          bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
+                                          borderRadius: 1,
+                                          paddingRight: '4px',
+                                          fontSize: '15px',
+                                          fontFamily: 'Poppins, sans-serif',
+                                          color: 'text.primary',
+                                        },
+                                        '& .MuiPickersSectionList-sectionContent': {
+                                          fontSize: '15px',
+                                        },
+                                        '& .MuiPickersSectionList-root': {
+                                          padding: '4px 0',
+                                        },
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                          borderColor: GREY[800],
+                                        },
+                                        '& .MuiOutlinedInput-notchedOutline legend': {
+                                            fontSize: '0.75em'
+                                        },
+                                        '& .MuiInputAdornment-root': {
+                                          marginLeft: 0,
+                                        },
+                                        '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
+                                          width: '18px',
+                                          height: '18px',
+                                          marginRight: '5px'
+                                        },
+                                        '& .MuiIconButton-root': {
+                                          padding: 0,
+                                        }
+                                      }
                                     }
-                                  }
-                                }}
-                              />
+                                  }}
+                                />
+                              </LocalizationProvider>
                             </TableCell>
 
                             {/* Allow Print Cell (Editable select) */}
