@@ -6,9 +6,10 @@ import {
   Divider, 
   Button
 } from '@mui/material';
-import { useTheme, alpha } from '@mui/material/styles';
-import { X, Sun, Moon, LogOut } from 'lucide-react';
-import { useSettings } from './settings-context';
+import { useTheme} from '@mui/material/styles';
+import { X, LogOut } from 'lucide-react';
+// import { useSettings } from './settings-context';
+import { GREY } from '../../theme/palette';
 // ----------------------------------------------------------------------
 
 interface SettingsDrawerProps {
@@ -19,7 +20,7 @@ interface SettingsDrawerProps {
 
 export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDrawerProps) {
   const theme = useTheme();
-  const { themeMode, onToggleMode } = useSettings();
+  // const { themeMode, onToggleMode } = useSettings();
 
   return (
     <Drawer
@@ -40,7 +41,7 @@ export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDraw
     >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 2, px: 2.5 }}>
         <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-          Configuración Visual
+          Ajustes
         </Typography>
         <IconButton onClick={onClose} size="small">
           <X size={18} />
@@ -51,7 +52,7 @@ export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDraw
 
       <Box sx={{ p: 2.5, flexGrow: 1, overflowY: 'auto' }}>
         {/* Mode Toggler */}
-        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, mb: 1.5, display: 'block' }}>
+        {/* <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, mb: 1.5, display: 'block' }}>
           MODO DE TEMA
         </Typography>
         
@@ -95,7 +96,7 @@ export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDraw
             <Moon size={24} />
             <Typography variant="caption" sx={{ fontWeight: 600 }}>Oscuro</Typography>
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box sx={{ p: 2.5 }}>
@@ -108,7 +109,7 @@ export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDraw
             mt: 1.5, 
             py: 1, 
             fontWeight: 600, 
-            color: theme.palette.primary.lighter,
+            color: GREY[0],
             bgcolor: theme.palette.primary.main,
             '&:hover': {
               bgcolor: theme.palette.primary.light,

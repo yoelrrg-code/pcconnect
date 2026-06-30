@@ -36,6 +36,7 @@ const TAB_TITLES: Record<string, string> = {
   '#enrollment-dashboard': 'Enrollment Analytics',
   '#provider-management': 'Provider Management',
   '#client-management': 'Client Management',
+  '#client-profile': 'Client Profile',
   '#client-group': 'Client Groups',
   '#active-incomplete-cases': 'Active Incomplete Cases',
   '#ed-floor-visits': 'ED Floor Visits',

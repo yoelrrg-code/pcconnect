@@ -7,6 +7,8 @@ import LoginView from './sections/auth/login-view';
 import SettingsDrawer from './components/settings/settings-drawer';
 import ActiveIncompleteCasesView from './sections/enrollment/view/active-incomplete-cases-view';
 import UsersManagementView from './sections/umanagement/view/users-management-view';
+import ClientManagementView from './sections/cmanagement/view/client-management-view';
+import EducationalResourcesView from './sections/educational/view/educational-resources-view';
 import { 
   Box, 
   Typography, 
@@ -90,15 +92,9 @@ function AppContent({ onLogout }: AppContentProps) {
           </Box>
         );
       case '#client-management':
+      case '#client-profile':
         return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Manage clients, clinical files, and active coverage schedules.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Register Client</Button>
-            </Card>
-          </Box>
+          <ClientManagementView activeTab={activeTab} setActiveTab={setActiveTab} />
         );
       case '#client-group':
         return (
@@ -125,16 +121,7 @@ function AppContent({ onLogout }: AppContentProps) {
           </Box>
         );
       case '#educational-resources':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Download HIPAA training files, corporate branding manuals, and guides.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Download Resources</Button>
-            </Card>
-          </Box>
-        );
+        return <EducationalResourcesView />;
       case '#report-management':
         return (
           <Box sx={{ py: 3, mt: 2 }}>

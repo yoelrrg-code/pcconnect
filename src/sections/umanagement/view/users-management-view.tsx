@@ -1484,11 +1484,16 @@ export default function UsersManagementView() {
               color="inherit" 
               onClick={handleCloseModal}
               sx={{ 
-                borderRadius: 1.5, 
+                borderRadius: 3, 
+                px: 3,
+                py: 1,
                 fontWeight: 600,
-                fontSize: '0.875rem',
+                fontSize: '16px',
                 color: 'text.secondary',
                 borderColor: 'divider',
+                '&:hover': {
+                  bgcolor: 'background.paper'
+                }
               }}
             >
               Cancel
@@ -1499,11 +1504,19 @@ export default function UsersManagementView() {
               color="primary" 
               disabled={!newFirstName || !newLastName || !newEmail}
               sx={{ 
-                borderRadius: 1.5, 
-                fontWeight: 600, 
-                fontSize: '0.875rem',
+                borderRadius: 3, 
                 px: 3,
-                boxShadow: theme.customShadows.primary,
+                py: 1,
+                fontWeight: 600, 
+                fontSize: '16px',
+                bgcolor: theme.palette.primary.main,
+                '&.Mui-disabled ':{
+                  color: GREY[0],
+                  bgcolor: alpha(theme.palette.primary.main, 0.5)
+                },
+                '&:hover': {
+                  bgcolor: theme.palette.primary.light
+                }
               }}
             >
               Add

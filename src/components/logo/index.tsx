@@ -2,7 +2,7 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import type { BoxProps } from '@mui/material/Box';
 import logoImg from '../../assets/logo.png';
-import logoCompactImg from '../../assets/logo-compact.svg';
+import logoCompactImg from '../../assets/logo-small.svg';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ export default function Logo({ disabledLink = false, compact = false, height, sx
         src={compact ? logoCompactImg : logoImg}
         alt="PC Connect Logo"
         sx={{
-          height: height ?? (compact ? 32 : 40), // 40 height by default inside the app, custom height option
+          height: height ?? (compact ? 40 : 40), // 40 height by default inside the app, custom height option
           width: 'auto',
           objectFit: 'contain',
           // Apply brightness filters in dark mode

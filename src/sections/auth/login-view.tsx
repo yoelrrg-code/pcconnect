@@ -454,7 +454,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     boxShadow: '0px 0px 4px 0px rgba(0,0,0,0.05)',
                     width: '302px',
                     height: '76px',
-                    alignSelf: { xs: 'center', sm: 'flex-start' },
+                    alignSelf: { xs: 'flex-start', sm: 'flex-start' },
                     mt: 1
                   }}
                 >

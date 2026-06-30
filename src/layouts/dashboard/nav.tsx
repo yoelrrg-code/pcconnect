@@ -56,10 +56,10 @@ export default function Nav({
       {/* Thin line separating logo from nav */}
       <Box 
         sx={{ 
-          height: '1px', 
+          height: !isCollapsed ? '1px' : 0, 
           bgcolor: theme.palette.primary.main,
           mx: 0,
-          mb: 0.5,
+          mb: !isCollapsed ? 0.5 : 0,
         }} 
       />
 
@@ -75,15 +75,15 @@ export default function Nav({
         }}
       >
         {navConfig.map((group, index) => (
-          <Box key={group.subheader} sx={{ mb: isCollapsed ? 1.25 : 2.5 }}>
+          <Box key={group.subheader} sx={{ mb: isCollapsed ? 0 : 2.5 }}>
             {/* Group divider top for all groups except the first */}
             {index > 0 && (
               <Box 
                 sx={{ 
-                  height: '1px', 
+                  height: !isCollapsed ? '1px' : 0, 
                   bgcolor: theme.palette.primary.main,
                   mx: 0,
-                  mb: 0.5,
+                  mb: !isCollapsed ? 0.5 : 0,
                 }} 
               />
             )}
@@ -108,17 +108,17 @@ export default function Nav({
               // Thin grouping line when collapsed
               <Box 
                 sx={{ 
-                  my: 0.75, 
-                  height: '1px', 
+                  my: !isCollapsed ? 0.75 : 0, 
+                  height: !isCollapsed ? '1px' : 0, 
                   bgcolor: alpha(theme.palette.primary.main, 0.08),
                   mx: 0.5 
                 }} 
               />
             )}
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: isCollapsed ? 0.35 : 0.75, mt: 1 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: !isCollapsed ? 'flex-start' : 'center', gap: isCollapsed ? 0.35 : 0.75, mt: 1 }}>
               {group.items.map((item) => {
-                const active = activeTab === item.path;
+                const active = activeTab === item.path || (item.path === '#client-management' && activeTab === '#client-profile');
 
                 return (
                   <ListItemButton
@@ -128,10 +128,12 @@ export default function Nav({
                       onCloseNav();
                     }}
                     sx={{
-                      minHeight: isCollapsed ? 48 : 40,
-                      borderRadius: isCollapsed ? 2 : 3,
-                      px: isCollapsed ? 0.5 : 2,
-                      py: isCollapsed ? 1 : 1.5,
+                      width: isCollapsed ? 60 : '100%',
+                      maxWidth: isCollapsed ? 60 : 'auto',
+                      minHeight: isCollapsed ? 60 : 40,
+                      borderRadius: isCollapsed ? '100%' : 3,
+                      px: isCollapsed ? 0 : 2,
+                      py: isCollapsed ? 0 : 1.5,
                       mb: isCollapsed ? 0 : 0.5,
                       display: 'flex',
                       flexDirection: isCollapsed ? 'column' : 'row',
@@ -159,7 +161,7 @@ export default function Nav({
                         width: 26, 
                         height: 26, 
                         mr: isCollapsed ? 0 : 1.5, 
-                        mb: isCollapsed ? 0.5 : 0, 
+                        mb: 0, 
                         display: 'inline-flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
@@ -185,18 +187,22 @@ export default function Nav({
                     <Box 
                       component="span" 
                       sx={{ 
-                        fontSize: isCollapsed ? '10px' : '16px',
+                        fontSize: isCollapsed ? '0px' : '16px',
                         textAlign: isCollapsed ? 'center' : 'left',
                         lineHeight: 1.2,
                         fontWeight: active ? 600 : 600,
-                        transition: 'font-size 0.2s',
                         width: '100%',
                         ...(isCollapsed && {
                           whiteSpace: 'nowrap',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           px: 0.25,
-                        })
+                        }),
+                        transition: theme.transitions.create(['opacity', 'font-size'], {
+                          duration: theme.transitions.duration.shorter,
+                        }),
+                        opacity: !isCollapsed ? 1 : 0,
+                        visibility: !isCollapsed ? 'visible' : 'hidden',
                       }}
                     >
                       {item.title}
@@ -278,13 +284,13 @@ export default function Nav({
           display: { xs: 'none', lg: 'flex' },
           position: 'absolute',
           top: 32,
-          right: -12, // Floats exactly half outside the sidebar border
+          right: -16, // Floats exactly half outside the sidebar border
           width: 32,
           height: 32,
           bgcolor: 'background.paper',
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
-          zIndex: theme.zIndex.drawer + 2, // Float above Drawer and Main content
+          zIndex: theme.zIndex.drawer, // Float above Drawer and Main content
           p: 0.2,
           color: theme.palette.mode === 'light' ? GREY[800] : GREY[300],
           transition: theme.transitions.create(['color', 'background-color'], {
