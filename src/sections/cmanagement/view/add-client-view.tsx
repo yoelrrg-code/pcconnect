@@ -82,6 +82,22 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
         onAddClient(newClient);
         handleCloseModal();
     };
+
+    const textFieldStyles = {
+      '& .MuiInputBase-root': {
+        height: 48,
+        fontSize: '12px',
+        bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
+        borderRadius: 1,
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: GREY[800],
+        fontSize: 12
+      },
+      '& .MuiOutlinedInput-notchedOutline legend': {
+          fontSize: '0.95em'
+      }
+    };
     
     return (
         <Dialog 
@@ -144,23 +160,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -176,23 +182,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -210,7 +206,11 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
+                    borderColor: GREY[800],
+                    fontSize: 12
+                  },
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                      fontSize: '0.95em'
                   }
                 }}
                 slotProps={{
@@ -219,7 +219,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
@@ -243,7 +243,11 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
+                    borderColor: GREY[800],
+                    fontSize: 12
+                  },
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                      fontSize: '0.95em'
                   }
                 }}
                 slotProps={{
@@ -252,7 +256,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
@@ -272,23 +276,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -303,23 +297,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -334,23 +318,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -364,23 +338,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -394,23 +358,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -425,23 +379,13 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: alpha(theme.palette.divider, 0.5),
-                  }
-                }}
+                sx={textFieldStyles}
               >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -451,7 +395,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
               <Box sx={{ fontSize: '12px' }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <MobileDatePicker
-                    label="Start Date *"
+                    label="Start Date"
                     value={newStart ? dayjs(newStart) : null}
                     onChange={(newValue) => {
                       setNewStart(newValue ? newValue.format('YYYY-MM-DD') : '');
@@ -466,7 +410,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             sx: {
                               fontSize: '12px',
                               fontWeight: 600,
-                              transform: 'translate(12px, -8px) scale(0.75)',
+                              transform: 'translate(12px, -8px) scale(1)',
                               color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                               '&.Mui-focused': { color: 'primary.main' }
                             }
@@ -494,10 +438,10 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
                           },
                           '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
+                            borderColor: GREY[800],
                           },
                           '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
+                            borderColor: GREY[800],
                           },
                           '& .MuiInputAdornment-root': {
                             marginLeft: 0,
@@ -535,7 +479,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             sx: {
                               fontSize: '12px',
                               fontWeight: 600,
-                              transform: 'translate(12px, -8px) scale(0.75)',
+                              transform: 'translate(12px, -8px) scale(1)',
                               color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                               '&.Mui-focused': { color: 'primary.main' }
                             }
@@ -563,10 +507,10 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
                           },
                           '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
+                            borderColor: GREY[800],
                           },
                           '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
+                            borderColor: GREY[800],
                           },
                           '& .MuiInputAdornment-root': {
                             marginLeft: 0,

@@ -432,8 +432,11 @@ export default function EducationalResourcesView() {
                     bgcolor: isSelected ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
                     color: isSelected ? theme.palette.primary.main : 'text.primary',
                     '&:hover': {
-                      bgcolor: isSelected ? alpha(theme.palette.primary.main, 0.12) : '',
+                      bgcolor: isSelected ? alpha(theme.palette.primary.main, 0.12) : 'transparent',
                       color: theme.palette.primary.main,
+                    },
+                    '&:hover p':{
+                      color: theme.palette.primary.main
                     },
                     transition: 'all 0.2s ease',
                   }}

@@ -28,7 +28,7 @@ export default function Main({ children, navWidth = 360, sx, ...other }: MainPro
           duration: theme.transitions.duration.shorter,
         }),
         [theme.breakpoints.up('lg')]: {
-          py: `${HEADER_DESKTOP + 32}px`,
+          py: `${HEADER_DESKTOP}px`,
           pl: 7.5,
           pr: 6,
           width: `calc(100% - ${navWidth}px)`,

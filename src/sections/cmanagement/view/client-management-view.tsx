@@ -387,13 +387,16 @@ export default function ClientManagementView({
       borderRadius: 1,
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: alpha(theme.palette.divider, 0.5),
+      borderColor: GREY[500],
+    },
+    '& .MuiOutlinedInput-notchedOutline legend': {
+      fontSize: '0.95em'
     },
     '& .MuiInputLabel-root': {
       fontSize: '12px',
       fontWeight: 600,
-      transform: 'translate(12px, -8px) scale(0.75)',
-      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
+      transform: 'translate(14px, -8px) scale(1)',
+      color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
       '&.Mui-focused': { color: 'primary.main' }
     }
   };
@@ -404,9 +407,12 @@ export default function ClientManagementView({
       sx: {
         fontSize: '12px',
         fontWeight: 600,
-        transform: 'translate(12px, -8px) scale(0.75)',
-        color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-        '&.Mui-focused': { color: 'primary.main' }
+        transform: 'translate(14px, -8px) scale(1)',
+        color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
+        '&.Mui-focused': { color: 'primary.main' },
+        '& .MuiOutlinedInput-notchedOutline legend': {
+          fontSize: '0.95em'
+        }
       }
     }
   };
@@ -423,7 +429,7 @@ export default function ClientManagementView({
       height: 48
     },
     '& .MuiPickersOutlinedInput-notchedOutline': {
-      borderColor: alpha(GREY[500], 0.5),
+      borderColor: GREY[500],
     },
     '& .MuiInputBase-input': {
       fontSize: '12px',
@@ -435,7 +441,7 @@ export default function ClientManagementView({
       padding: '4px 0',
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#dcdcdc80',
+      borderColor: GREY[800],
     },
     '& .MuiInputAdornment-root': {
       marginLeft: 0,
@@ -455,15 +461,22 @@ export default function ClientManagementView({
       height: 46,
     },
     '& .MuiSwitch-track': {
-      borderRadius: '16px'
+      borderRadius: '16px',
+      bgcolor: GREY[500],
+      opacity: 1
+    },
+    '& .MuiButtonBase-root.MuiSwitch-switchBase': {
+      top: 6,
+      left: 5,
+    },
+    '& .MuiButtonBase-root.MuiSwitch-switchBase:hover': {
+      bgcolor: 'transparent'
     },
     '& .MuiSwitch-thumb': {
       width: 16,
       height: 16,
-      top: 6,
       borderRadius: '50%',
       position: 'relative',
-      left: 5
     },
     '& .MuiButtonBase-root.MuiSwitch-switchBase.Mui-checked':{
       color: theme.palette.primary.main,
@@ -746,7 +759,7 @@ export default function ClientManagementView({
               </Typography>
 
               {/* Contact Sub-tabs */}
-              <Box sx={{ display: 'flex', gap: 2.5, borderBottom: `1px solid ${theme.palette.divider}`, pb: 1, mb: 3.5, overflowX: 'auto' }}>
+              <Box sx={{ display: 'flex', gap: 2.5, pb: 1, mb: 3.5, overflowX: 'auto' }}>
                 {['Primary', 'Facility', 'Billing', 'Bank', 'Collection Agency', 'Insurance Agency'].map((tab) => {
                   const isSelected = profileContactTab === tab;
                   return (
@@ -1266,7 +1279,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1281,7 +1294,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1303,7 +1319,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1318,7 +1334,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1340,7 +1359,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1355,7 +1374,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1377,7 +1399,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1392,7 +1414,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1414,7 +1439,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1429,7 +1454,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1451,7 +1479,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1466,7 +1494,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1488,7 +1519,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1498,12 +1529,14 @@ export default function ClientManagementView({
                                 width: 1,
                                 '& .MuiInputBase-root': {
                                     height: 32,
-                                    fontSize: '0.8rem',
                                     bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.60em'
                                 }
                               }}
                           />
@@ -1525,7 +1558,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1540,7 +1573,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -1565,7 +1601,7 @@ export default function ClientManagementView({
                                       sx: {
                                         fontSize: '12px',
                                         fontWeight: 600,
-                                        transform: 'translate(12px, -8px) scale(0.75)',
+                                        transform: 'translate(14px, -6px) scale(0.8)',
                                         color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                         '&.Mui-focused': { color: 'primary.main' }
                                       }
@@ -1589,10 +1625,13 @@ export default function ClientManagementView({
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
+                                      borderColor: GREY[800],
                                     },
                                     '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
+                                      borderColor: GREY[800],
+                                    },
+                                    '& .MuiOutlinedInput-notchedOutline legend': {
+                                        fontSize: '0.75em'
                                     },
                                     '& .MuiInputAdornment-root': {
                                       marginLeft: 0,
@@ -1634,7 +1673,7 @@ export default function ClientManagementView({
                                       sx: {
                                         fontSize: '12px',
                                         fontWeight: 600,
-                                        transform: 'translate(12px, -8px) scale(0.75)',
+                                        transform: 'translate(14px, -6px) scale(0.8)',
                                         color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                         '&.Mui-focused': { color: 'primary.main' }
                                       }
@@ -1658,10 +1697,13 @@ export default function ClientManagementView({
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
+                                      borderColor: GREY[800],
                                     },
                                     '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
+                                      borderColor: GREY[800],
+                                    },
+                                    '& .MuiOutlinedInput-notchedOutline legend': {
+                                        fontSize: '0.75em'
                                     },
                                     '& .MuiInputAdornment-root': {
                                       marginLeft: 0,
@@ -1702,7 +1744,7 @@ export default function ClientManagementView({
                                     sx: {
                                       fontSize: '12px',
                                       fontWeight: 600,
-                                      transform: 'translate(12px, -8px) scale(0.75)',
+                                      transform: 'translate(14px, -6px) scale(0.8)',
                                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                       '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -1717,7 +1759,10 @@ export default function ClientManagementView({
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: alpha(theme.palette.divider, 0.5),
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           >

@@ -40,10 +40,10 @@ export const typography = {
     ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
   },
   h3: {
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: 48 / 32,
     fontSize: px(24),
-    ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
+    ...responsiveFontSizes({ sm: 22, md: 24, lg: 24 }),
   },
   h4: {
     fontWeight: 600,

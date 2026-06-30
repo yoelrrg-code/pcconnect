@@ -19,7 +19,7 @@ const UsersIcon = () => (
 // ----------------------------------------------------------------------
 
 const HEADER_MOBILE = 64;
-const HEADER_DESKTOP = 105;
+const HEADER_DESKTOP = 110;
 
 interface HeaderProps {
   onOpenNav: () => void;
@@ -75,6 +75,7 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
           p: { lg: 0 },
           justifyContent: 'space-between',
           borderBottom: activeTab === '#dashboard' ? `1px solid ${theme.palette.divider}` : 'none',
+          mb: activeTab === '#dashboard' ? 4 : 0
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
@@ -93,7 +94,6 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
           <Typography
             variant="h3"
             sx={{
-              fontWeight: 400,
               color: theme.palette.text.primary,
               fontFamily: 'Poppins, sans-serif',
               letterSpacing: -0.5,

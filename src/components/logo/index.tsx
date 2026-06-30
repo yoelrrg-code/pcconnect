@@ -1,7 +1,7 @@
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import type { BoxProps } from '@mui/material/Box';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logo.svg';
 import logoCompactImg from '../../assets/logo-small.svg';
 
 // ----------------------------------------------------------------------

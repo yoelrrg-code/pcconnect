@@ -311,6 +311,22 @@ export default function UsersManagementView() {
     return filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [filteredUsers, page, rowsPerPage]);
 
+  const textFieldStyles = {
+    '& .MuiInputBase-root': {
+      height: 48,
+      fontSize: '12px',
+      bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
+      borderRadius: 1,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: GREY[800],
+      fontSize: '12px'
+    },
+    '& .MuiOutlinedInput-notchedOutline legend': {
+      fontSize: '0.95em'
+    }
+  };
+
   return (
     <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden' }}>
 
@@ -443,7 +459,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -458,7 +474,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -478,9 +497,9 @@ export default function UsersManagementView() {
                                 inputLabel: {
                                     shrink: true,
                                     sx: {
-                                    fontSize: '12px',
+                                    fontSize: '11px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -495,7 +514,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -517,7 +539,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -532,7 +554,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -554,7 +579,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -569,7 +594,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -591,7 +619,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -606,7 +634,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           />
@@ -631,7 +662,7 @@ export default function UsersManagementView() {
                                       sx: {
                                         fontSize: '12px',
                                         fontWeight: 600,
-                                        transform: 'translate(12px, -8px) scale(0.75)',
+                                        transform: 'translate(14px, -6px) scale(0.8)',
                                         color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                         '&.Mui-focused': { color: 'primary.main' }
                                       }
@@ -655,7 +686,10 @@ export default function UsersManagementView() {
                                       padding: '4px 0',
                                     },
                                     '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
+                                      borderColor: GREY[800],
+                                    },
+                                    '& .MuiOutlinedInput-notchedOutline legend': {
+                                        fontSize: '0.75em'
                                     },
                                     '& .MuiInputAdornment-root': {
                                       marginLeft: 0,
@@ -696,7 +730,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -711,7 +745,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           >
@@ -739,7 +776,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -754,7 +791,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           >
@@ -784,7 +824,7 @@ export default function UsersManagementView() {
                                     sx: {
                                     fontSize: '12px',
                                     fontWeight: 600,
-                                    transform: 'translate(12px, -8px) scale(0.75)',
+                                    transform: 'translate(14px, -6px) scale(0.8)',
                                     color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                                     '&.Mui-focused': { color: 'primary.main' }
                                     }
@@ -799,7 +839,10 @@ export default function UsersManagementView() {
                                     borderRadius: 1,
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
+                                    borderColor: GREY[800],
+                                },
+                                '& .MuiOutlinedInput-notchedOutline legend': {
+                                    fontSize: '0.75em'
                                 }
                               }}
                           >
@@ -1221,23 +1264,13 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -1252,23 +1285,13 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -1287,7 +1310,11 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
+                    borderColor: GREY[800],
+                    fontSize: 12
+                  },
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                      fontSize: '1em'
                   }
                 }}
                 slotProps={{
@@ -1296,7 +1323,7 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
@@ -1316,23 +1343,13 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                  }
-                }}
+                sx={textFieldStyles}
               >
                 <option value="Admin">Admin</option>
                 <option value="User">User</option>
@@ -1352,23 +1369,13 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                  }
-                }}
+                sx={textFieldStyles}
               />
 
               <TextField
@@ -1383,23 +1390,13 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
                   }
                 }}
-                sx={{
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                  }
-                }}
+                sx={textFieldStyles}
               >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -1417,7 +1414,7 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
@@ -1431,7 +1428,11 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
+                    borderColor: GREY[800],
+                    fontSize: '12px'
+                  },
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                      fontSize: '0.95em'
                   }
                 }}
               >
@@ -1453,7 +1454,7 @@ export default function UsersManagementView() {
                     sx: {
                       fontSize: '12px',
                       fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(0.75)',
+                      transform: 'translate(12px, -8px) scale(1)',
                       color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
                       '&.Mui-focused': { color: 'primary.main' }
                     }
@@ -1468,7 +1469,11 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
+                    borderColor: GREY[800],
+                    fontSize: '12px'
+                  },
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                      fontSize: '0.95em'
                   }
                 }}
               >
