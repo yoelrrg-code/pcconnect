@@ -91,12 +91,20 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
         borderRadius: 1,
       },
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: GREY[800],
+        borderColor: GREY[500],
         fontSize: 12
       },
       '& .MuiOutlinedInput-notchedOutline legend': {
           fontSize: '0.95em'
       }
+    };
+
+    const textFieldLabelStyle = {
+      fontSize: '12px',
+      fontWeight: 600,
+      transform: 'translate(12px, -8px) scale(1)',
+      color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
+      '&.Mui-focused': { color: 'primary.main' }
     };
     
     return (
@@ -123,7 +131,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
               display: 'flex', 
               alignItems: 'center', 
               gap: 1.5, 
-              borderBottom: `1px solid ${theme.palette.divider}`,
               bgcolor: 'background.paper'
             }}
           >
@@ -157,13 +164,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -179,13 +180,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -206,7 +201,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[800],
+                    borderColor: GREY[500],
                     fontSize: 12
                   },
                   '& .MuiOutlinedInput-notchedOutline legend': {
@@ -216,13 +211,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
               />
@@ -243,7 +232,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[800],
+                    borderColor: GREY[500],
                     fontSize: 12
                   },
                   '& .MuiOutlinedInput-notchedOutline legend': {
@@ -253,13 +242,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
               />
@@ -273,13 +256,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -294,13 +271,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -315,13 +286,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -335,13 +300,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -355,13 +314,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -376,13 +329,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                   select: { native: true },
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -407,13 +354,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                         slotProps: {
                           inputLabel: {
                             shrink: true,
-                            sx: {
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              transform: 'translate(12px, -8px) scale(1)',
-                              color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                              '&.Mui-focused': { color: 'primary.main' }
-                            }
+                            sx: textFieldLabelStyle
                           }
                         },
                         sx: {
@@ -438,10 +379,10 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
                           },
                           '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[800],
+                            borderColor: GREY[500],
                           },
                           '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[800],
+                            borderColor: GREY[500],
                           },
                           '& .MuiInputAdornment-root': {
                             marginLeft: 0,
@@ -476,13 +417,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                         slotProps: {
                           inputLabel: {
                             shrink: true,
-                            sx: {
-                              fontSize: '12px',
-                              fontWeight: 600,
-                              transform: 'translate(12px, -8px) scale(1)',
-                              color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                              '&.Mui-focused': { color: 'primary.main' }
-                            }
+                            sx: textFieldLabelStyle
                           }
                         },
                         sx: {
@@ -507,10 +442,10 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                             bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
                           },
                           '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[800],
+                            borderColor: GREY[500],
                           },
                           '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[800],
+                            borderColor: GREY[500],
                           },
                           '& .MuiInputAdornment-root': {
                             marginLeft: 0,

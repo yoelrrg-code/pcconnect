@@ -319,12 +319,20 @@ export default function UsersManagementView() {
       borderRadius: 1,
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: GREY[800],
+      borderColor: GREY[500],
       fontSize: '12px'
     },
     '& .MuiOutlinedInput-notchedOutline legend': {
       fontSize: '0.95em'
     }
+  };
+
+  const textFieldLabelStyle = {
+    fontSize: '12px',
+    fontWeight: 600,
+    transform: 'translate(12px, -8px) scale(1)',
+    color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
+    '&.Mui-focused': { color: 'primary.main' }
   };
 
   return (
@@ -1271,7 +1279,6 @@ export default function UsersManagementView() {
               display: 'flex', 
               alignItems: 'center', 
               gap: 1.5, 
-              borderBottom: `1px solid ${theme.palette.divider}`,
               bgcolor: 'background.paper'
             }}
           >
@@ -1305,13 +1312,7 @@ export default function UsersManagementView() {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -1326,13 +1327,7 @@ export default function UsersManagementView() {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -1354,7 +1349,7 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[800],
+                    borderColor: GREY[500],
                     fontSize: 12
                   },
                   '& .MuiOutlinedInput-notchedOutline legend': {
@@ -1364,13 +1359,7 @@ export default function UsersManagementView() {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
               />
@@ -1384,13 +1373,7 @@ export default function UsersManagementView() {
                   select: { native: true },
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -1410,13 +1393,7 @@ export default function UsersManagementView() {
                 slotProps={{
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -1431,13 +1408,7 @@ export default function UsersManagementView() {
                   select: { native: true },
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={textFieldStyles}
@@ -1455,13 +1426,7 @@ export default function UsersManagementView() {
                   select: { native: true },
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={{
@@ -1472,11 +1437,11 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[800],
+                    borderColor: GREY[500],
                     fontSize: '12px'
                   },
                   '& .MuiOutlinedInput-notchedOutline legend': {
-                      fontSize: '0.95em'
+                      fontSize: '0.95em',
                   }
                 }}
               >
@@ -1495,13 +1460,7 @@ export default function UsersManagementView() {
                   select: { native: true },
                   inputLabel: {
                     shrink: true,
-                    sx: {
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      transform: 'translate(12px, -8px) scale(1)',
-                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                      '&.Mui-focused': { color: 'primary.main' }
-                    }
+                    sx: textFieldLabelStyle
                   }
                 }}
                 sx={{
@@ -1513,7 +1472,7 @@ export default function UsersManagementView() {
                     borderRadius: 1,
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[800],
+                    borderColor: GREY[500],
                     fontSize: '12px'
                   },
                   '& .MuiOutlinedInput-notchedOutline legend': {
