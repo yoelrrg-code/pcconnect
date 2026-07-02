@@ -8,8 +8,6 @@ import {
 } from '@mui/material';
 import { useTheme} from '@mui/material/styles';
 import { X, LogOut } from 'lucide-react';
-// import { useSettings } from './settings-context';
-import { GREY } from '../../theme/palette';
 // ----------------------------------------------------------------------
 
 interface SettingsDrawerProps {
@@ -20,7 +18,6 @@ interface SettingsDrawerProps {
 
 export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDrawerProps) {
   const theme = useTheme();
-  // const { themeMode, onToggleMode } = useSettings();
 
   return (
     <Drawer
@@ -50,72 +47,14 @@ export default function SettingsDrawer({ open, onClose, onLogout }: SettingsDraw
 
       <Divider />
 
-      <Box sx={{ p: 2.5, flexGrow: 1, overflowY: 'auto' }}>
-        {/* Mode Toggler */}
-        {/* <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, mb: 1.5, display: 'block' }}>
-          MODO DE TEMA
-        </Typography>
-        
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 1.5, mb: 4 }}>
-          <Button
-            variant={themeMode === 'light' ? 'outlined' : 'text'}
-            onClick={() => themeMode === 'dark' && onToggleMode()}
-            sx={{
-              py: 2,
-              flexDirection: 'column',
-              gap: 1,
-              borderRadius: 1.5,
-              color: themeMode === 'light' ? 'primary.main' : 'text.secondary',
-              borderColor: themeMode === 'light' ? 'primary.main' : 'divider',
-              bgcolor: themeMode === 'light' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
-              '&:hover': {
-                bgcolor: themeMode === 'light' ? alpha(theme.palette.primary.main, 0.12) : alpha(theme.palette.grey[500], 0.08),
-              }
-            }}
-          >
-            <Sun size={24} />
-            <Typography variant="caption" sx={{ fontWeight: 600 }}>Claro</Typography>
-          </Button>
-
-          <Button
-            variant={themeMode === 'dark' ? 'outlined' : 'text'}
-            onClick={() => themeMode === 'light' && onToggleMode()}
-            sx={{
-              py: 2,
-              flexDirection: 'column',
-              gap: 1,
-              borderRadius: 1.5,
-              color: themeMode === 'dark' ? 'primary.main' : 'text.secondary',
-              borderColor: themeMode === 'dark' ? 'primary.main' : 'divider',
-              bgcolor: themeMode === 'dark' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
-              '&:hover': {
-                bgcolor: themeMode === 'dark' ? alpha(theme.palette.primary.main, 0.12) : alpha(theme.palette.grey[500], 0.08),
-              }
-            }}
-          >
-            <Moon size={24} />
-            <Typography variant="caption" sx={{ fontWeight: 600 }}>Oscuro</Typography>
-          </Button>
-        </Box> */}
-      </Box>
+      <Box sx={{ p: 2.5, flexGrow: 1, overflowY: 'auto' }} />
 
       <Box sx={{ p: 2.5 }}>
         <Button
           fullWidth
-          variant="outlined"
+          variant="signIn"
           onClick={onLogout}
           startIcon={<LogOut size={18} />}
-          sx={{ 
-            mt: 1.5, 
-            py: 1, 
-            fontWeight: 600, 
-            color: GREY[0],
-            bgcolor: theme.palette.primary.main,
-            '&:hover': {
-              bgcolor: theme.palette.primary.light,
-              color: theme.palette.primary.lighter
-            }
-          }}
         >
           Cerrar sesión
         </Button>

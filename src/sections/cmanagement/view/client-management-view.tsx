@@ -379,82 +379,7 @@ export default function ClientManagementView({
     return filteredClients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [filteredClients, page, rowsPerPage]);
 
-  const inputStyles = {
-    '& .MuiInputBase-root': {
-      height: 48,
-      fontSize: '13px',
-      bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-      borderRadius: 1,
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: GREY[500],
-    },
-    '& .MuiOutlinedInput-notchedOutline legend': {
-      fontSize: '0.95em'
-    },
-    '& .MuiInputLabel-root': {
-      fontSize: '12px',
-      fontWeight: 600,
-      transform: 'translate(14px, -8px) scale(1)',
-      color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
-      '&.Mui-focused': { color: 'primary.main' }
-    }
-  };
 
-  const datePickerSlotProps = {
-    inputLabel: {
-      shrink: true,
-      sx: {
-        fontSize: '12px',
-        fontWeight: 600,
-        transform: 'translate(14px, -8px) scale(1)',
-        color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
-        '&.Mui-focused': { color: 'primary.main' },
-        '& .MuiOutlinedInput-notchedOutline legend': {
-          fontSize: '0.95em'
-        }
-      }
-    }
-  };
-
-  const datePickerStyles = {
-    width: '100%',
-    '& .MuiInputBase-root': {
-      height: 48,
-      bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-      borderRadius: 1,
-      paddingRight: '4px',
-    },
-    '& .MuiPickersInputBase-root': {
-      height: 48
-    },
-    '& .MuiPickersOutlinedInput-notchedOutline': {
-      borderColor: GREY[500],
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '12px',
-    },
-    '& .MuiPickersSectionList-sectionContent': {
-      fontSize: '12px',
-    },
-    '& .MuiPickersSectionList-root': {
-      padding: '4px 0',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: GREY[800],
-    },
-    '& .MuiInputAdornment-root': {
-      marginLeft: 0,
-    },
-    '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
-      width: '18px',
-      height: '18px',
-      marginRight: '5px'
-    },
-    '& .MuiIconButton-root': {
-      padding: 0,
-    }
-  };
 
   const switchStyles = {
     '&.MuiSwitch-root': {
@@ -651,8 +576,7 @@ export default function ClientManagementView({
                 label="Name"
                 value={profileName}
                 onChange={(e) => setProfileName(e.target.value)}
-                slotProps={{ inputLabel: { shrink: true } }}
-                sx={{ gridColumn: 'span 2', ...inputStyles }}
+                sx={{ gridColumn: 'span 2' }}
               />
 
               <TextField
@@ -661,16 +585,12 @@ export default function ClientManagementView({
                 label="Location of Service"
                 value={profileLos}
                 onChange={(e) => setProfileLos(Number(e.target.value))}
-                slotProps={{ inputLabel: { shrink: true } }}
-                sx={inputStyles}
               />
 
               <TextField
                 label="NPI"
                 value={profileNpi}
                 onChange={(e) => setProfileNpi(e.target.value)}
-                slotProps={{ inputLabel: { shrink: true } }}
-                sx={inputStyles}
               />
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -679,12 +599,9 @@ export default function ClientManagementView({
                   value={profileStart ? dayjs(profileStart) : null}
                   onChange={(newValue) => setProfileStart(newValue ? newValue.format('YYYY-MM-DD') : '')}
                   slotProps={{
-                    textField: {
-                      size: 'small',
-                      label: 'Is',
-                      slotProps: datePickerSlotProps,
-                      sx: datePickerStyles
-                    },
+                    textField: { 
+                      className: 'large-input'
+                    }
                   }}
                 />
 
@@ -693,12 +610,9 @@ export default function ClientManagementView({
                   value={profileEnd ? dayjs(profileEnd) : null}
                   onChange={(newValue) => setProfileEnd(newValue ? newValue.format('YYYY-MM-DD') : '')}
                   slotProps={{
-                    textField: {
-                      size: 'small',
-                      label: 'Is',
-                      slotProps: datePickerSlotProps,
-                      sx: datePickerStyles
-                    },
+                    textField: { 
+                      className: 'large-input'
+                    }
                   }}
                 />
               </LocalizationProvider>
@@ -790,16 +704,12 @@ export default function ClientManagementView({
                   label="Address 1"
                   value={profileAddress1}
                   onChange={(e) => setProfileAddress1(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
 
                 <TextField
                   label="Address 2"
                   value={profileAddress2}
                   onChange={(e) => setProfileAddress2(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1.5fr', gap: 2 }}>
@@ -807,22 +717,16 @@ export default function ClientManagementView({
                     label="City"
                     value={profileCity}
                     onChange={(e) => setProfileCity(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <TextField
                     label="State"
                     value={profileState}
                     onChange={(e) => setProfileState(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <TextField
                     label="Zip"
                     value={profileZip}
                     onChange={(e) => setProfileZip(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                 </Box>
 
@@ -831,15 +735,11 @@ export default function ClientManagementView({
                     label="Phone"
                     value={profilePhone}
                     onChange={(e) => setProfilePhone(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <TextField
                     label="Fax"
                     value={profileFax}
                     onChange={(e) => setProfileFax(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                 </Box>
               </Box>
@@ -864,8 +764,6 @@ export default function ClientManagementView({
                   label="EIN"
                   value={profileEin}
                   onChange={(e) => setProfileEin(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
@@ -873,8 +771,6 @@ export default function ClientManagementView({
                     label="Entity Type"
                     value={profileEntityType}
                     onChange={(e) => setProfileEntityType(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <MobileDatePicker
@@ -882,9 +778,8 @@ export default function ClientManagementView({
                       value={profileEntityDate ? dayjs(profileEntityDate) : null}
                       onChange={(newValue) => setProfileEntityDate(newValue ? newValue.format('YYYY-MM-DD') : '')}
                       slotProps={{
-                        textField: {
-                          slotProps: datePickerSlotProps,
-                          sx: datePickerStyles
+                        textField: { 
+                          className: 'large-input'
                         }
                       }}
                     />
@@ -896,15 +791,11 @@ export default function ClientManagementView({
                     label="Fiscal"
                     value={profileFiscal}
                     onChange={(e) => setProfileFiscal(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <TextField
                     label="Permit#"
                     value={profilePermit}
                     onChange={(e) => setProfilePermit(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                 </Box>
 
@@ -915,9 +806,8 @@ export default function ClientManagementView({
                       value={profileBusinessEffective ? dayjs(profileBusinessEffective) : null}
                       onChange={(newValue) => setProfileBusinessEffective(newValue ? newValue.format('YYYY-MM-DD') : '')}
                       slotProps={{
-                        textField: {
-                          slotProps: datePickerSlotProps,
-                          sx: datePickerStyles
+                        textField: { 
+                          className: 'large-input'
                         }
                       }}
                     />
@@ -926,9 +816,8 @@ export default function ClientManagementView({
                       value={profileBusinessExpiration ? dayjs(profileBusinessExpiration) : null}
                       onChange={(newValue) => setProfileBusinessExpiration(newValue ? newValue.format('YYYY-MM-DD') : '')}
                       slotProps={{
-                        textField: {
-                          slotProps: datePickerSlotProps,
-                          sx: datePickerStyles
+                        textField: { 
+                          className: 'large-input'
                         }
                       }}
                     />
@@ -1000,23 +889,17 @@ export default function ClientManagementView({
                       label="Name"
                       value={profilePhysName}
                       onChange={(e) => setProfilePhysName(e.target.value)}
-                      slotProps={{ inputLabel: { shrink: true } }}
-                      sx={inputStyles}
                     />
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                       <TextField
                         label="Phone"
                         value={profilePhysPhone}
                         onChange={(e) => setProfilePhysPhone(e.target.value)}
-                        slotProps={{ inputLabel: { shrink: true } }}
-                        sx={inputStyles}
                       />
                       <TextField
                         label="Fax"
                         value={profilePhysFax}
                         onChange={(e) => setProfilePhysFax(e.target.value)}
-                        slotProps={{ inputLabel: { shrink: true } }}
-                        sx={inputStyles}
                       />
                     </Box>
                   </Box>
@@ -1032,23 +915,17 @@ export default function ClientManagementView({
                       label="Name"
                       value={profileAdminName}
                       onChange={(e) => setProfileAdminName(e.target.value)}
-                      slotProps={{ inputLabel: { shrink: true } }}
-                      sx={inputStyles}
                     />
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                       <TextField
                         label="Phone"
                         value={profileAdminPhone}
                         onChange={(e) => setProfileAdminPhone(e.target.value)}
-                        slotProps={{ inputLabel: { shrink: true } }}
-                        sx={inputStyles}
                       />
                       <TextField
                         label="Fax"
                         value={profileAdminFax}
                         onChange={(e) => setProfileAdminFax(e.target.value)}
-                        slotProps={{ inputLabel: { shrink: true } }}
-                        sx={inputStyles}
                       />
                     </Box>
                   </Box>
@@ -1075,8 +952,6 @@ export default function ClientManagementView({
                   label="Legal Name"
                   value={profileMalLegalName}
                   onChange={(e) => setProfileMalLegalName(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
@@ -1084,15 +959,11 @@ export default function ClientManagementView({
                     label="Carrier"
                     value={profileMalCarrier}
                     onChange={(e) => setProfileMalCarrier(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                   <TextField
                     label="Policy #"
                     value={profileMalPolicy}
                     onChange={(e) => setProfileMalPolicy(e.target.value)}
-                    slotProps={{ inputLabel: { shrink: true } }}
-                    sx={inputStyles}
                   />
                 </Box>
 
@@ -1104,8 +975,7 @@ export default function ClientManagementView({
                       onChange={(newValue) => setProfileMalEffective(newValue ? newValue.format('YYYY-MM-DD') : '')}
                       slotProps={{
                         textField: {
-                          slotProps: datePickerSlotProps,
-                          sx: datePickerStyles
+                          className: 'large-input'
                         }
                       }}
                     />
@@ -1115,8 +985,7 @@ export default function ClientManagementView({
                       onChange={(newValue) => setProfileMalExpiration(newValue ? newValue.format('YYYY-MM-DD') : '')}
                       slotProps={{
                         textField: {
-                          slotProps: datePickerSlotProps,
-                          sx: datePickerStyles
+                          className: 'large-input'
                         }
                       }}
                     />
@@ -1127,16 +996,12 @@ export default function ClientManagementView({
                   label="Limit Occurrence"
                   value={profileMalLimitOccur}
                   onChange={(e) => setProfileMalLimitOccur(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
 
                 <TextField
                   label="Carrier Aggregate"
                   value={profileMalCarrierAgg}
                   onChange={(e) => setProfileMalCarrierAgg(e.target.value)}
-                  slotProps={{ inputLabel: { shrink: true } }}
-                  sx={inputStyles}
                 />
               </Box>
             </Paper>
@@ -1161,6 +1026,7 @@ export default function ClientManagementView({
                 }}
                 slotProps={{
                     input: {
+                      className: 'large',
                       startAdornment: (
                           <InputAdornment position="start">
                             <Search size={18} style={{ color: theme.palette.text.disabled }} />
@@ -1169,98 +1035,59 @@ export default function ClientManagementView({
                     },
                 }}
                 sx={{ 
-                    width: { xs: 1, sm: 300 },
-                    '& .MuiInputBase-root': {
-                      borderRadius: 1,
-                      height: 48,
-                      fontSize: '13px'
-                    }
+                    width: { xs: 1, sm: 300 }
                 }}
             />
             
             <Box sx={{ flexGrow: 1 }} />
 
             <Button
-                color="inherit"
+                variant="toolbar"
                 startIcon={<Plus size={16} />}
                 onClick={handleOpenModal}
-                sx={{ 
-                    borderColor: 'divider',
-                    borderRadius: 1.5,
-                    height: 38,
-                    px: 2,
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    color: 'text.secondary',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                }}
             >
                 Add Client
             </Button>
             
             <Button
-                color="inherit"
+                variant="toolbar"
                 startIcon={<Filter size={16} />}
                 onClick={() => setShowFiltersRow(!showFiltersRow)}
-                sx={{ 
-                    borderColor: 'divider',
-                    borderRadius: 1.5,
-                    height: 38,
-                    px: 2,
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    color: 'text.secondary',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                }}
             >
                 Filters
             </Button>
 
             <Button
-                color="inherit"
+                variant="toolbar"
                 startIcon={<Download size={16} />}
                 onClick={handleExport}
-                sx={{ 
-                    borderColor: 'divider',
-                    borderRadius: 1.5,
-                    height: 38,
-                    px: 2,
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    color: 'text.secondary',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                }}
             >
                 Export
             </Button>
         </Box>
 
         {/* Table Container */}
-        <TableContainer component={Paper} sx={{ borderRadius: 0, boxShadow: '0px 0px 16px 0px #33333326', overflowX: 'auto', border: `1px solid ${theme.palette.divider}` }}>
+        <TableContainer component={Paper}>
             <Table sx={{ minWidth: 1500 }} aria-label="clients management table">
                 <TableHead>
                     {/* Header Columns */}
-                    <TableRow sx={{ bgcolor: 'primary.main' }}>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 80 }}>Data Set</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 200 }}>Name</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 200 }}>Address</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 140 }}>City</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 70 }}>State</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 110 }}>Zip</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 120 }}>Phone</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 110 }}>Fax</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 110 }}>Start</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 110 }}>End</TableCell>
-                      <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, px: 1, fontSize: '12px', width: 100 }}>Active</TableCell>
+                    <TableRow>
+                      <TableCell sx={{ px: 1, width: 80 }}>Data Set</TableCell>
+                      <TableCell sx={{ px: 1, width: 200 }}>Name</TableCell>
+                      <TableCell sx={{ px: 1, width: 200 }}>Address</TableCell>
+                      <TableCell sx={{ px: 1, width: 140 }}>City</TableCell>
+                      <TableCell sx={{ px: 1, width: 70 }}>State</TableCell>
+                      <TableCell sx={{ px: 1, width: 110 }}>Zip</TableCell>
+                      <TableCell sx={{ px: 1, width: 120 }}>Phone</TableCell>
+                      <TableCell sx={{ px: 1, width: 110 }}>Fax</TableCell>
+                      <TableCell sx={{ px: 1, width: 110 }}>Start</TableCell>
+                      <TableCell sx={{ px: 1, width: 110 }}>End</TableCell>
+                      <TableCell sx={{ px: 1, width: 100 }}>Active</TableCell>
                     </TableRow>
-                    
-                    {/* Contains Filter Input Row */}
+                </TableHead>
+
+                <TableBody>
+                  {/* Contains Filter Input Row */}
                     {showFiltersRow && (
                     <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                         {/* Data Set Filter */}
@@ -1273,33 +1100,7 @@ export default function ClientManagementView({
                                 setFilterDataSet(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1313,33 +1114,7 @@ export default function ClientManagementView({
                                 setFilterName(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1353,33 +1128,7 @@ export default function ClientManagementView({
                                 setFilterAddress(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1393,33 +1142,7 @@ export default function ClientManagementView({
                                 setFilterCity(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1433,33 +1156,7 @@ export default function ClientManagementView({
                                 setFilterState(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1473,33 +1170,7 @@ export default function ClientManagementView({
                                 setFilterZip(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1513,32 +1184,7 @@ export default function ClientManagementView({
                                 setFilterPhone(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.60em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1552,33 +1198,7 @@ export default function ClientManagementView({
                                 setFilterFax(e.target.value);
                                 setPage(0);
                               }}
-                              slotProps={{
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
-                              }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           />
                         </TableCell>
 
@@ -1586,68 +1206,15 @@ export default function ClientManagementView({
                         <TableCell sx={{ p: 1.5, fontSize: '12px' }}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <MobileDatePicker
+                              label="Is"
                               value={filterStart ? dayjs(filterStart) : null}
                               onChange={(newValue) => {
                                 setFilterStart(newValue ? newValue.format('YYYY-MM-DD') : '');
                                 setPage(0);
                               }}
                               slotProps={{
-                                textField: {
-                                  size: 'small',
-                                  label: 'Is',
-                                  slotProps: {
-                                    inputLabel: {
-                                      shrink: true,
-                                      sx: {
-                                        fontSize: '12px',
-                                        fontWeight: 600,
-                                        transform: 'translate(14px, -6px) scale(0.8)',
-                                        color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                        '&.Mui-focused': { color: 'primary.main' }
-                                      }
-                                    }
-                                  },
-                                  sx: {
-                                    width: '120px',
-                                    '& .MuiInputBase-root': {
-                                      height: 22,
-                                      bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                      borderRadius: 1,
-                                      paddingRight: '4px',
-                                    },
-                                    '& .MuiInputBase-input': {
-                                      fontSize: '11px',
-                                    },
-                                    '& .MuiPickersSectionList-sectionContent': {
-                                      fontSize: '11px',
-                                    },
-                                    '& .MuiPickersSectionList-root': {
-                                      padding: '4px 0',
-                                    },
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
-                                    },
-                                    '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
-                                    },
-                                    '& .MuiOutlinedInput-notchedOutline legend': {
-                                        fontSize: '0.75em'
-                                    },
-                                    '& .MuiInputAdornment-root': {
-                                      marginLeft: 0,
-                                    },
-                                    '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
-                                      width: '18px',
-                                      height: '18px',
-                                      marginRight: '5px'
-                                    },
-                                    '& .MuiIconButton-root': {
-                                      padding: 0,
-                                    }
-                                  }
-                                },
-                                actionBar: {
-                                  actions: ['clear', 'today', 'accept'],
+                                textField: { 
+                                  className: 'small'
                                 }
                               }}
                             />
@@ -1658,68 +1225,15 @@ export default function ClientManagementView({
                         <TableCell sx={{ p: 1.5, fontSize: '12px' }}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <MobileDatePicker
+                              label="Is"
                               value={filterEnd ? dayjs(filterEnd) : null}
                               onChange={(newValue) => {
                                 setFilterEnd(newValue ? newValue.format('YYYY-MM-DD') : '');
                                 setPage(0);
                               }}
                               slotProps={{
-                                textField: {
-                                  size: 'small',
-                                  label: 'Is',
-                                  slotProps: {
-                                    inputLabel: {
-                                      shrink: true,
-                                      sx: {
-                                        fontSize: '12px',
-                                        fontWeight: 600,
-                                        transform: 'translate(14px, -6px) scale(0.8)',
-                                        color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                        '&.Mui-focused': { color: 'primary.main' }
-                                      }
-                                    }
-                                  },
-                                  sx: {
-                                    width: '120px',
-                                    '& .MuiInputBase-root': {
-                                      height: 22,
-                                      bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                      borderRadius: 1,
-                                      paddingRight: '4px',
-                                    },
-                                    '& .MuiInputBase-input': {
-                                      fontSize: '11px',
-                                    },
-                                    '& .MuiPickersSectionList-sectionContent': {
-                                      fontSize: '11px',
-                                    },
-                                    '& .MuiPickersSectionList-root': {
-                                      padding: '4px 0',
-                                    },
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
-                                    },
-                                    '& .MuiPickersOutlinedInput-notchedOutline': {
-                                      borderColor: GREY[500],
-                                    },
-                                    '& .MuiOutlinedInput-notchedOutline legend': {
-                                        fontSize: '0.75em'
-                                    },
-                                    '& .MuiInputAdornment-root': {
-                                      marginLeft: 0,
-                                    },
-                                    '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
-                                      width: '18px',
-                                      height: '18px',
-                                      marginRight: '5px'
-                                    },
-                                    '& .MuiIconButton-root': {
-                                      padding: 0,
-                                    }
-                                  }
-                                },
-                                actionBar: {
-                                  actions: ['clear', 'today', 'accept'],
+                                textField: { 
+                                  className: 'small'
                                 }
                               }}
                             />
@@ -1738,33 +1252,9 @@ export default function ClientManagementView({
                                 setPage(0);
                               }}
                               slotProps={{
-                                select: { native: true },
-                                inputLabel: {
-                                    shrink: true,
-                                    sx: {
-                                      fontSize: '12px',
-                                      fontWeight: 600,
-                                      transform: 'translate(14px, -6px) scale(0.8)',
-                                      color: theme.palette.mode === 'light' ? GREY[700] : '#919EAB',
-                                      '&.Mui-focused': { color: 'primary.main' }
-                                    }
-                                }
+                                select: { native: true }
                               }}
-                              sx={{
-                                width: 1,
-                                '& .MuiInputBase-root': {
-                                    height: 32,
-                                    fontSize: '0.8rem',
-                                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                    borderRadius: 1,
-                                },
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: GREY[500],
-                                },
-                                '& .MuiOutlinedInput-notchedOutline legend': {
-                                    fontSize: '0.75em'
-                                }
-                              }}
+                              fullWidth
                           >
                             <option value="All">All</option>
                             <option value="Yes">Yes</option>
@@ -1773,9 +1263,6 @@ export default function ClientManagementView({
                         </TableCell>
                     </TableRow>
                     )}
-                </TableHead>
-
-                <TableBody>
                     {visibleClients.length === 0 ? (
                     <TableRow>
                         <TableCell colSpan={11} align="center" sx={{ py: 6, color: GREY[700] }}>
@@ -1805,7 +1292,7 @@ export default function ClientManagementView({
                             }}
                           >
                             {/* Data Set Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif' }}>
+                            <TableCell>
                               <Box 
                                 className="dataset-link"
                                 onClick={() => handleSelectClient(row)}
@@ -1824,52 +1311,52 @@ export default function ClientManagementView({
                             </TableCell>
 
                             {/* Name Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.name}
                             </TableCell>
 
                             {/* Address Cell (Highlight 901 Lakeshore Drive in pink) */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.address}
                             </TableCell>
 
                             {/* City Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.city}
                             </TableCell>
 
                             {/* State Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.state}
                             </TableCell>
 
                             {/* Zip Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.zip}
                             </TableCell>
 
                             {/* Phone Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.phone}
                             </TableCell>
 
                             {/* Fax Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.fax}
                             </TableCell>
 
                             {/* Start Date Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {formatDateDisplay(row.start)}
                             </TableCell>
 
                             {/* End Date Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {formatDateDisplay(row.end)}
                             </TableCell>
 
                             {/* Active Cell */}
-                            <TableCell sx={{ px: 2, py: 1.5, fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: 'text.primary' }}>
+                            <TableCell>
                               {row.active}
                             </TableCell>
                         </TableRow>
@@ -1886,7 +1373,6 @@ export default function ClientManagementView({
                 alignItems: 'center', 
                 px: 2.5,
                 py: 1,
-                borderTop: `1px solid ${theme.palette.divider}`
               }}
             >
               {/* Pagination (Right Aligned) */}

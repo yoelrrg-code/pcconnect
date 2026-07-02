@@ -4,7 +4,6 @@ import {
   Typography, 
   TextField, 
   Button, 
-  alpha,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -15,7 +14,6 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { GREY } from '../../../theme/palette';
 import dayjs from 'dayjs';
 import type { Client } from './client-management-view';
 
@@ -59,7 +57,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
         setNewActive('Yes');
     };
 
-    const handleAddClient = (e: React.FormEvent) => {
+    const handleAddClient = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (!newDataSet || !newName || !newAddress || !newCity || !newStateVal || !newZip || !newStart) return;
 
@@ -83,30 +81,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
         handleCloseModal();
     };
 
-    const textFieldStyles = {
-      '& .MuiInputBase-root': {
-        height: 48,
-        fontSize: '12px',
-        bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-        borderRadius: 1,
-      },
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: GREY[500],
-        fontSize: 12
-      },
-      '& .MuiOutlinedInput-notchedOutline legend': {
-          fontSize: '0.95em'
-      }
-    };
-
-    const textFieldLabelStyle = {
-      fontSize: '12px',
-      fontWeight: 600,
-      transform: 'translate(12px, -8px) scale(1)',
-      color: theme.palette.mode === 'light' ? GREY[800] : '#919EAB',
-      '&.Mui-focused': { color: 'primary.main' }
-    };
-    
     return (
         <Dialog 
           open={open} 
@@ -161,13 +135,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="e.g. A08"
                 value={newDataSet}
                 onChange={(e) => setNewDataSet(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -177,13 +144,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="e.g. 1"
                 value={newLos}
                 onChange={(e) => setNewLos(Number(e.target.value))}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -192,59 +152,16 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="Name"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                sx={{
-                  gridColumn: { sm: 'span 2' },
-                  '& .MuiInputBase-root': {
-                    height: 48,
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                    fontSize: 12
-                  },
-                  '& .MuiOutlinedInput-notchedOutline legend': {
-                      fontSize: '0.95em'
-                  }
-                }}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
+                sx={{ gridColumn: { sm: 'span 2' } }}
               />
 
               <TextField
                 required
-                multiline
-                rows={2}
                 label="Address"
                 placeholder="Address line"
                 value={newAddress}
                 onChange={(e) => setNewAddress(e.target.value)}
-                sx={{
-                  gridColumn: { sm: 'span 2' },
-                  '& .MuiInputBase-root': {
-                    fontSize: '12px',
-                    bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                    borderRadius: 1,
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: GREY[500],
-                    fontSize: 12
-                  },
-                  '& .MuiOutlinedInput-notchedOutline legend': {
-                      fontSize: '0.95em'
-                  }
-                }}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
+                sx={{ gridColumn: { sm: 'span 2' } }}
               />
 
               <TextField
@@ -253,13 +170,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="City"
                 value={newCity}
                 onChange={(e) => setNewCity(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -268,13 +178,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="State (e.g. MI)"
                 value={newStateVal}
                 onChange={(e) => setNewStateVal(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -283,13 +186,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="Zip code"
                 value={newZip}
                 onChange={(e) => setNewZip(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -297,13 +193,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="Phone number"
                 value={newPhone}
                 onChange={(e) => setNewPhone(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -311,13 +200,6 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 placeholder="Fax number"
                 value={newFax}
                 onChange={(e) => setNewFax(e.target.value)}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
               />
 
               <TextField
@@ -325,188 +207,60 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
                 label="Active"
                 value={newActive}
                 onChange={(e) => setNewActive(e.target.value as 'Yes' | 'No')}
-                slotProps={{
-                  select: { native: true },
-                  inputLabel: {
-                    shrink: true,
-                    sx: textFieldLabelStyle
-                  }
-                }}
-                sx={textFieldStyles}
+                slotProps={{ select: { native: true } }}
               >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </TextField>
 
               {/* Start Date Input */}
-              <Box sx={{ fontSize: '12px' }}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    label="Start Date"
-                    value={newStart ? dayjs(newStart) : null}
-                    onChange={(newValue) => {
-                      setNewStart(newValue ? newValue.format('YYYY-MM-DD') : '');
-                    }}
-                    slotProps={{
-                      textField: {
-                        size: 'small',
-                        required: true,
-                        slotProps: {
-                          inputLabel: {
-                            shrink: true,
-                            sx: textFieldLabelStyle
-                          }
-                        },
-                        sx: {
-                          width: '100%',
-                          '& .MuiInputBase-root': {
-                            height: 48,
-                            bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                            borderRadius: 1,
-                            paddingRight: '4px',
-                          },
-                          '& .MuiInputBase-input': {
-                            fontSize: '12px',
-                          },
-                          '& .MuiPickersSectionList-sectionContent': {
-                            fontSize: '12px',
-                          },
-                          '& .MuiPickersSectionList-root': {
-                            padding: '4px 0',
-                          },
-                          '& .MuiPickersInputBase-root.MuiPickersOutlinedInput-root': {
-                            height: 50,
-                            bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                          },
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
-                          },
-                          '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
-                          },
-                          '& .MuiInputAdornment-root': {
-                            marginLeft: 0,
-                          },
-                          '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
-                            width: '18px',
-                            height: '18px',
-                            marginRight: '5px'
-                          },
-                          '& .MuiIconButton-root': {
-                            padding: 0.5,
-                          }
-                        }
-                      }
-                    }}
-                  />
-                </LocalizationProvider>
-              </Box>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                  label="Start Date"
+                  value={newStart ? dayjs(newStart) : null}
+                  onChange={(newValue) => {
+                    setNewStart(newValue ? newValue.format('YYYY-MM-DD') : '');
+                  }}
+                  slotProps={{
+                    textField: { 
+                      required: true, 
+                      className: 'large-input'
+                    }
+                  }}
+                />
+              </LocalizationProvider>
 
               {/* End Date Input */}
-              <Box sx={{ fontSize: '12px' }}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    label="End Date"
-                    value={newEnd ? dayjs(newEnd) : null}
-                    onChange={(newValue) => {
-                      setNewEnd(newValue ? newValue.format('YYYY-MM-DD') : '');
-                    }}
-                    slotProps={{
-                      textField: {
-                        size: 'small',
-                        slotProps: {
-                          inputLabel: {
-                            shrink: true,
-                            sx: textFieldLabelStyle
-                          }
-                        },
-                        sx: {
-                          width: '100%',
-                          '& .MuiInputBase-root': {
-                            height: 48,
-                            bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                            borderRadius: 1,
-                            paddingRight: '4px',
-                          },
-                          '& .MuiInputBase-input': {
-                            fontSize: '12px',
-                          },
-                          '& .MuiPickersSectionList-sectionContent': {
-                            fontSize: '12px',
-                          },
-                          '& .MuiPickersSectionList-root': {
-                            padding: '4px 0',
-                          },
-                          '& .MuiPickersInputBase-root.MuiPickersOutlinedInput-root': {
-                            height: 50,
-                            bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                          },
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
-                          },
-                          '& .MuiPickersOutlinedInput-notchedOutline': {
-                            borderColor: GREY[500],
-                          },
-                          '& .MuiInputAdornment-root': {
-                            marginLeft: 0,
-                          },
-                          '& .MuiInputAdornment-root .MuiButtonBase-root svg': {
-                            width: '18px',
-                            height: '18px',
-                            marginRight: '5px'
-                          },
-                          '& .MuiIconButton-root': {
-                            padding: 0.5,
-                          }
-                        }
-                      }
-                    }}
-                  />
-                </LocalizationProvider>
-              </Box>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                  label="End Date"
+                  value={newEnd ? dayjs(newEnd) : null}
+                  onChange={(newValue) => {
+                    setNewEnd(newValue ? newValue.format('YYYY-MM-DD') : '');
+                  }}
+                  slotProps={{
+                    textField: { 
+                      className: 'large-input'
+                    }
+                  }}
+                />
+              </LocalizationProvider>
             </Box>
           </DialogContent>
 
           <DialogActions sx={{ px: 7, pb: 5, gap: 1.5, bgcolor: theme.palette.background.default }}>
             <Button 
-              variant="outlined" 
+              variant="modalCancel"
               color="inherit" 
               onClick={handleCloseModal}
-              sx={{ 
-                borderRadius: 3, 
-                px: 3,
-                py: 1,
-                fontWeight: 600,
-                fontSize: '16px',
-                color: 'text.secondary',
-                borderColor: 'divider',
-                '&:hover': {
-                  bgcolor: 'background.paper'
-                }
-              }}
             >
               Cancel
             </Button>
             <Button 
               type="submit"
-              variant="contained" 
+              variant="modalAdd" 
               color="primary" 
               disabled={!newDataSet || !newName || !newAddress || !newCity || !newStateVal || !newZip || !newStart}
-              sx={{ 
-                borderRadius: 3, 
-                px: 3,
-                py: 1,
-                fontWeight: 600, 
-                fontSize: '16px',
-                bgcolor: theme.palette.primary.main,
-                '&.Mui-disabled ':{
-                  color: GREY[0],
-                  bgcolor: alpha(theme.palette.primary.main, 0.5)
-                },
-                '&:hover': {
-                  bgcolor: theme.palette.primary.light
-                }
-              }}
             >
               Add
             </Button>

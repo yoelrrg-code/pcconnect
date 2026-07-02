@@ -6,6 +6,7 @@ import {
   ListItemButton,
   IconButton,
 } from '@mui/material';
+import PCTooltip from '../../components/pc-tooltip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Logo from '../../components/logo';
 import { navConfig } from './config-navigation';
@@ -26,6 +27,7 @@ interface NavProps {
   onToggleCollapse?: () => void;
 }
 
+
 export default function Nav({ 
   openNav, 
   onCloseNav, 
@@ -42,7 +44,7 @@ export default function Nav({
         height: 1,
         display: 'flex',
         flexDirection: 'column',
-        py: 4,
+        pt: 4,
         px: isCollapsed ? 0.75 : 4,
         transition: theme.transitions.create(['padding'], {
           duration: theme.transitions.duration.shorter,
@@ -155,35 +157,43 @@ export default function Nav({
                         }
                     }}
                   >
-                     <Box 
-                      component="span" 
-                      sx={{ 
-                        width: 26, 
-                        height: 26, 
-                        mr: isCollapsed ? 0 : 1.5, 
-                        mb: 0, 
-                        display: 'inline-flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        color: active 
-                          ? theme.palette.primary.main 
-                          : 'text.secondary',
-                        '& svg [fill="#737373"]': {
-                          fill: active 
+                    <PCTooltip describeChild title={item.title} placement="right" arrow disableHoverListener={!isCollapsed}>
+                      <Box 
+                        component="span" 
+                        sx={{ 
+                          width: 28, 
+                          height: 28, 
+                          mr: isCollapsed ? 0 : 1.5, 
+                          mb: 0, 
+                          display: 'inline-flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          color: active 
                             ? theme.palette.primary.main 
-                            : '#737373',
-                          transition: 'fill 0.2s ease',
-                        },
-                        '& svg [stroke="#737373"]': {
-                          stroke: active 
-                            ? theme.palette.primary.main
-                            : '#737373',
-                          transition: 'stroke 0.2s ease',
-                        }
-                      }}
-                    >
-                      {item.icon}
-                    </Box>
+                            : 'text.secondary',
+                          '& svg [fill="#737373"]': {
+                            fill: active 
+                              ? theme.palette.primary.main 
+                              : '#737373',
+                            transition: 'fill 0.2s ease',
+                          },
+                          '& svg [stroke="#737373"]': {
+                            stroke: active 
+                              ? theme.palette.primary.main
+                              : '#737373',
+                            transition: 'stroke 0.2s ease',
+                          },
+                          '&:hover svg [stroke="#737373"]': {
+                            stroke: isCollapsed ? theme.palette.primary.main : '#737373'
+                          },
+                          '&:hover svg [fill="#737373"]': {
+                            fill: isCollapsed ? theme.palette.primary.main : '#737373'
+                          }
+                        }}
+                      >
+                        {item.icon}
+                      </Box>
+                    </PCTooltip>
                     <Box 
                       component="span" 
                       sx={{ 

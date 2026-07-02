@@ -18,7 +18,6 @@ import {
   TablePagination
 } from '@mui/material';
 import { Search, Filter, Download } from 'lucide-react';
-import { GREY } from '../../../theme/palette';
 
 // ----------------------------------------------------------------------
 
@@ -137,6 +136,7 @@ export default function ActiveIncompleteCasesView() {
           }}
           slotProps={{
             input: {
+              className: 'large',
               startAdornment: (
                 <InputAdornment position="start">
                   <Search size={18} style={{ color: theme.palette.text.disabled }} />
@@ -145,79 +145,54 @@ export default function ActiveIncompleteCasesView() {
             },
           }}
           sx={{ 
-            width: { xs: 1, sm: 300 },
-            '& .MuiInputBase-root': {
-              borderRadius: 1,
-              height: 48,
-              fontSize: '14px'
-            }
+            width: { xs: 1, sm: 300 }
           }}
         />
         
         <Box sx={{ flexGrow: 1 }} />
         
         <Button
+          variant="toolbar"
           color="inherit"
           startIcon={<Filter size={16} />}
           onClick={() => setShowFiltersRow(!showFiltersRow)}
-          sx={{ 
-            borderColor: 'divider',
-            borderRadius: 1.5,
-            height: 38,
-            px: 2,
-            fontWeight: 600,
-            fontSize: '14px',
-            color: 'text.secondary',
-            '&:hover': {
-              color: 'primary.main',
-            },
-          }}
         >
           Filters
         </Button>
 
         <Button
+          variant="toolbar"
           color="inherit"
           startIcon={<Download size={16} />}
           onClick={handleExport}
-          sx={{ 
-            borderColor: 'divider',
-            borderRadius: 1.5,
-            height: 38,
-            px: 2,
-            fontWeight: 600,
-            fontSize: '14px',
-            color: 'text.secondary',
-            '&:hover': {
-              color: 'primary.main',
-            },
-          }}
         >
           Export
         </Button>
       </Box>
 
       {/* Table Container */}
-      <TableContainer component={Paper} sx={{borderRadius: 0, boxShadow: theme.customShadows.card, overflow: 'hidden', border: `1px solid ${theme.palette.divider}` }}>
+      <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="active incomplete cases table">
           <TableHead>
             {/* Header Columns */}
-            <TableRow sx={{ bgcolor: 'primary.main' }}>
-              <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem' }}>
+            <TableRow>
+              <TableCell>
                 Provider
               </TableCell>
-              <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 200 }}>
+              <TableCell sx={{ width: 200 }}>
                 Case Count
               </TableCell>
-              <TableCell sx={{ color: '#FFFFFF', fontWeight: 600, py: 1.8, fontSize: '0.9rem', width: 180 }}>
+              <TableCell sx={{ width: 180 }}>
                 Last Comment Date
               </TableCell>
             </TableRow>
-            
+          </TableHead>
+
+          <TableBody>
             {/* Contains Filter Input Row */}
             {showFiltersRow && (
               <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
-                <TableCell sx={{ p: 2.5 }}>
+                <TableCell sx={{ p: 1.5 }}>
                   <TextField
                     size="small"
                     label="Contains"
@@ -226,35 +201,10 @@ export default function ActiveIncompleteCasesView() {
                       setFilterProvider(e.target.value);
                       setPage(0);
                     }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          fontSize: '0.85rem',
-                          fontWeight: 600,
-                          transform: 'translate(12px, -8px) scale(0.75)',
-                          color: theme.palette.mode === 'light' ? '#454F5B' : '#919EAB',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      width: 1,
-                      '& .MuiInputBase-root': {
-                        height: 32,
-                        fontSize: '0.8rem',
-                        bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                        borderRadius: 1,
-                      },
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: GREY[500],
-                      }
-                    }}
+                    fullWidth
                   />
                 </TableCell>
-                <TableCell sx={{ p: 2.5 }}>
+                <TableCell sx={{ p: 1.5 }}>
                   <TextField
                     size="small"
                     label="Contains"
@@ -263,35 +213,10 @@ export default function ActiveIncompleteCasesView() {
                       setFilterCaseCount(e.target.value);
                       setPage(0);
                     }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          fontSize: '0.85rem',
-                          fontWeight: 600,
-                          transform: 'translate(12px, -8px) scale(0.75)',
-                          color: theme.palette.mode === 'light' ? '#454F5B' : '#919EAB',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      width: 1,
-                      '& .MuiInputBase-root': {
-                        height: 32,
-                        fontSize: '0.8rem',
-                        bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                        borderRadius: 1,
-                      },
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: GREY[500],
-                      }
-                    }}
+                    fullWidth
                   />
                 </TableCell>
-                <TableCell sx={{ p: 2.5 }}>
+                <TableCell sx={{ p: 1.5 }}>
                   <TextField
                     size="small"
                     label="Is"
@@ -300,39 +225,11 @@ export default function ActiveIncompleteCasesView() {
                       setFilterDate(e.target.value);
                       setPage(0);
                     }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          fontSize: '0.85rem',
-                          fontWeight: 600,
-                          transform: 'translate(12px, -8px) scale(0.75)',
-                          color: theme.palette.mode === 'light' ? '#454F5B' : '#919EAB',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      width: 1,
-                      '& .MuiInputBase-root': {
-                        height: 32,
-                        fontSize: '0.8rem',
-                        bgcolor: theme.palette.mode === 'light' ? '#FFFFFF' : 'background.paper',
-                        borderRadius: 1,
-                      },
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: GREY[500],
-                      }
-                    }}
+                    fullWidth
                   />
                 </TableCell>
               </TableRow>
             )}
-          </TableHead>
-
-          <TableBody>
             {visibleCases.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={3} align="center" sx={{ py: 6, color: 'text.secondary' }}>

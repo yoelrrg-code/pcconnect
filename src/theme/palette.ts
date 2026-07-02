@@ -126,7 +126,7 @@ export function getPalette(mode: 'light' | 'dark', presetId: ColorPresetId = 'de
     primary: activePrimary,
     text: {
       primary: GREY[700],
-      secondary: GREY[600],
+      secondary: GREY[800],
       disabled: GREY[400],
     },
     background: {

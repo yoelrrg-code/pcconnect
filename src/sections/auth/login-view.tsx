@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { FormEvent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { 
   Box, 
   Typography, 
@@ -55,7 +55,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (view === 'login') {
       if (!email || !password) {
@@ -154,44 +154,6 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     variant="outlined"
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          color: GREY[700],
-                          fontWeight: 600,
-                          lineHeight: 2,
-                          fontSize: '12px',
-                          bgcolor: 'background.paper',
-                          px: 0.5,
-                          transform: 'translate(12px, -11px)',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '8px',
-                        bgcolor: '#FFFFFF',
-                        height: 48,
-                        '& fieldset': {
-                          borderColor: GREY[500],
-                        },
-                        '&:hover fieldset': {
-                          borderColor: alpha(GREY[500], 0.35),
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: 'primary.main',
-                          borderWidth: '1.5px',
-                        }
-                      },
-                      '& .MuiInputBase-input': {
-                        color: '#2B3445',
-                        fontWeight: 500,
-                      }
-                    }}
                   />
 
                   {/* Password Input */}
@@ -204,54 +166,14 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     placeholder="6+ characters"
                     variant="outlined"
                     slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          color: GREY[700],
-                          fontWeight: 600,
-                          lineHeight: 2,
-                          fontSize: '12px',
-                          bgcolor: 'background.paper',
-                          px: 0.5,
-                          transform: 'translate(12px, -11px)',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      },
                       input: {
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ }}>
+                            <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                               {showPassword ? <Eye size={20} /> : <ClosedEyeIcon />}
                             </IconButton>
                           </InputAdornment>
                         ),
-                      }
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '8px',
-                        bgcolor: '#FFFFFF',
-                        height: 48,
-                        '& fieldset': {
-                          borderColor: GREY[500],
-                        },
-                        '&:hover fieldset': {
-                          borderColor: alpha(GREY[500], 0.35),
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: 'primary.main',
-                          borderWidth: '1.5px',
-                        }
-                      },
-                      '& .MuiInputBase-input': {
-                        color: '#2B3445',
-                        fontWeight: 500,
-                        '&::placeholder': {
-                          color: alpha('#2B3445', 0.4),
-                          opacity: 1
-                        }
                       }
                     }}
                   />
@@ -344,17 +266,8 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                   <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                      height: '48px',
-                      py: 1.5,
-                      fontSize: '16px',
-                      fontWeight: 600,
-                      borderRadius: 24, // Fully pill-shaped matching mockup
-                      mt: 2,
-                      '&:hover': { bgcolor: theme.palette.primary.light }
-                    }}
+                    variant="signIn"
+                    sx={{ mt: 2 }}
                   >
                     Sign In
                   </Button>
@@ -398,48 +311,6 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     onChange={(e) => setRegisterEmail(e.target.value)}
                     placeholder="example@gmail.com"
                     variant="outlined"
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          color: GREY[700],
-                          fontWeight: 600,
-                          lineHeight: 2,
-                          fontSize: '12px',
-                          bgcolor: 'background.paper',
-                          px: 0.5,
-                          transform: 'translate(12px, -11px)',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '8px',
-                        bgcolor: '#FFFFFF',
-                        height: 48,
-                        '& fieldset': {
-                          borderColor: GREY[500],
-                        },
-                        '&:hover fieldset': {
-                          borderColor: alpha(GREY[500], 0.35),
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: 'primary.main',
-                          borderWidth: '1.5px',
-                        }
-                      },
-                      '& .MuiInputBase-input': {
-                        color: '#2B3445',
-                        fontWeight: 500,
-                        '&::placeholder': {
-                          color: alpha('#2B3445', 0.4),
-                          opacity: 1
-                        }
-                      }
-                    }}
                   />
 
                   {/* reCAPTCHA Simulator */}
@@ -594,48 +465,6 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     onChange={(e) => setRegisterEmail(e.target.value)}
                     placeholder="example@gmail.com"
                     variant="outlined"
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                        sx: {
-                          color: GREY[700],
-                          fontWeight: 600,
-                          lineHeight: 2,
-                          fontSize: '12px',
-                          bgcolor: 'background.paper',
-                          px: 0.5,
-                          transform: 'translate(12px, -11px)',
-                          '&.Mui-focused': {
-                            color: 'primary.main',
-                          }
-                        }
-                      }
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '8px',
-                        bgcolor: '#FFFFFF',
-                        height: 48,
-                        '& fieldset': {
-                          borderColor: GREY[500],
-                        },
-                        '&:hover fieldset': {
-                          borderColor: alpha(GREY[500], 0.35),
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: 'primary.main',
-                          borderWidth: '1.5px',
-                        }
-                      },
-                      '& .MuiInputBase-input': {
-                        color: '#2B3445',
-                        fontWeight: 500,
-                        '&::placeholder': {
-                          color: alpha('#2B3445', 0.4),
-                          opacity: 1
-                        }
-                      }
-                    }}
                   />
 
                   {/* reCAPTCHA Simulator */}
