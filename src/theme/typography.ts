@@ -29,15 +29,15 @@ export const typography = {
   fontWeightBold: 700,
   h1: {
     fontWeight: 600,
-    lineHeight: 80 / 64,
-    fontSize: px(40),
-    ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
+    lineHeight: '100%',
+    fontSize: px(24),
+    ...responsiveFontSizes({ sm: 22, md: 24, lg: 24 }),
   },
   h2: {
     fontWeight: 600,
-    lineHeight: 64 / 48,
-    fontSize: px(32),
-    ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
+    lineHeight: '40px',
+    fontSize: px(28),
+    ...responsiveFontSizes({ sm: 24, md: 26, lg: 28 }),
   },
   h3: {
     fontWeight: 600,
@@ -47,10 +47,10 @@ export const typography = {
   },
   h4: {
     fontWeight: 600,
-    lineHeight: '40px',
+    lineHeight: '30px',
     letterSpacing: '0',
-    fontSize: px(28),
-    ...responsiveFontSizes({ sm: 18, md: 20, lg: 28 }), // Adjusted to be more balanced and not overly large
+    fontSize: px(22),
+    ...responsiveFontSizes({ sm: 18, md: 20, lg: 22 }),
   },
   h5: {
     fontWeight: 600,

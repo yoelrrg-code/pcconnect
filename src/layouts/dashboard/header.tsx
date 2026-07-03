@@ -9,6 +9,7 @@ import {
   Menu, 
 } from 'lucide-react';
 import { Typography } from '@mui/material';
+import { fadeInUp } from '../../theme/effects';
 
 const UsersIcon = () => (
   <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,6 +69,7 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
       }}
     >
       <Toolbar
+        key={activeTab}
         sx={{
           height: 1,
           ml: { lg: 7.5 },
@@ -75,10 +77,17 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
           p: { lg: 0 },
           justifyContent: 'space-between',
           borderBottom: activeTab === '#dashboard' ? `1px solid ${theme.palette.divider}` : 'none',
-          mb: activeTab === '#dashboard' ? 4 : 0
+          opacity: 0,
+          animation: `${fadeInUp} 0.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+          animationDelay: '450ms', // Puedes ajustar este valor (ej. 200ms, 300ms, etc.)
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center', 
+          gap: 2, 
+        }}>
           <IconButton
             onClick={onOpenNav}
             sx={{
@@ -92,11 +101,9 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
 
           {/* Figma-Style Page Title */}
           <Typography
-            variant="h3"
+            variant="h1"
             sx={{
               color: theme.palette.text.primary,
-              fontFamily: 'Poppins, sans-serif',
-              letterSpacing: -0.5,
               display: { xs: 'block' },
             }}
           >

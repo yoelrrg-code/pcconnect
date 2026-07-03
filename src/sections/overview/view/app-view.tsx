@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { ArrowRight } from 'lucide-react';
+import { fadeInUp } from '../../../theme/effects';
 
 // Import your custom background image assets here:
 import cardBgTech from '../../../assets/card-bg-tech.png';
@@ -123,7 +124,7 @@ function MenuCard({ title, icon, bgImage, onClick }: MenuCardProps) {
         }}
       >
         <Typography 
-          variant="h4" 
+          variant="h2" 
           sx={{ 
             color: theme.palette.mode === 'light' ? 'primary.main' : 'text.primary',
           }}
@@ -146,11 +147,18 @@ export default function AppView({ onNavigate }: AppViewProps) {
   const theme = useTheme();
 
   return (
-    <Box sx={{ width: 1, pb: 5, mt: 2 }}>
+    <Box sx={{ width: 1, pb: 5, mt: 7 }}>
 
       {/* Grid of 5 Menu Cards */}
       <Grid container spacing={5} sx={{ mb: 10 }}>
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '100ms'
+          }}
+        >
           <MenuCard 
             title="Active Incomplete Cases" 
             icon={<CasesIcon />} 
@@ -159,7 +167,14 @@ export default function AppView({ onNavigate }: AppViewProps) {
           />
         </Grid>
         
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '200ms'
+          }}
+        >
           <MenuCard 
             title="ED Floor Visits" 
             icon={<VisitsIcon />} 
@@ -168,7 +183,14 @@ export default function AppView({ onNavigate }: AppViewProps) {
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '300ms'
+          }}
+        >
           <MenuCard 
             title="Educational Resources" 
             icon={<EducationIcon />} 
@@ -177,7 +199,14 @@ export default function AppView({ onNavigate }: AppViewProps) {
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '400ms'
+          }}
+        >
           <MenuCard 
             title="Provider Enrollement" 
             icon={<ProviderIcon />} 
@@ -186,7 +215,14 @@ export default function AppView({ onNavigate }: AppViewProps) {
           />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '500ms'
+          }}
+        >
           <MenuCard 
             title="Reports" 
             icon={<ReportsIcon />} 
@@ -197,7 +233,16 @@ export default function AppView({ onNavigate }: AppViewProps) {
       </Grid>
 
       {/* Bottom News Box widget */}
-      <Card sx={{ borderRadius: 3, border: `none`, boxShadow: `none` }}>
+      <Card 
+        sx={{ 
+          borderRadius: 3, 
+          border: `none`, 
+          boxShadow: `none`,
+          opacity: 0,
+          animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+          animationDelay: '600ms'
+        }}
+      >
         <Box sx={{ py: 3, px: 4 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 600, color: 'text.primary', mb: 1.5 }}>
             News

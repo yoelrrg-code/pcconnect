@@ -23,6 +23,7 @@ import {
   Bookmark,
   CheckCircle
 } from 'lucide-react';
+import { fadeInUp } from '../../../theme/effects';
 
 // ----------------------------------------------------------------------
 
@@ -395,7 +396,7 @@ export default function EducationalResourcesView() {
   };
 
   return (
-    <Box sx={{ width: 1, pb: 5, mt: 0 }}>
+    <Box sx={{ width: 1, pb: 5, mt: 0, animation: `${fadeInUp} 0.3s ease-in-out`, }}>
       {/* Main 2-Column Layout */}
       <Box 
         sx={{ 
@@ -644,16 +645,7 @@ export default function EducationalResourcesView() {
                     Page {currentPageNum} of {maxPages}
                   </Typography>
                 </Box>
-                <Typography 
-                  variant="h4" 
-                  sx={{ 
-                    color: '#1A1D23', 
-                    fontWeight: 750, 
-                    mt: 1.5, 
-                    fontSize: '22px',
-                    fontFamily: 'Poppins, sans-serif' 
-                  }}
-                >
+                <Typography variant="h4">
                   {activePage.title}
                 </Typography>
               </Box>

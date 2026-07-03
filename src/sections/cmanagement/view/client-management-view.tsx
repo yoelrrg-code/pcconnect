@@ -25,6 +25,7 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { GREY } from '../../../theme/palette';
 import dayjs from 'dayjs';
 import { AddClient } from './add-client-view';
+import { fadeInUp } from '../../../theme/effects';
 
 // Import your custom background image assets here:
 import profileBG from '../../../assets/bg-profile.png';
@@ -1012,7 +1013,7 @@ export default function ClientManagementView({
   }
 
   return (
-    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden' }}>
+    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
 
         {/* Action Toolbar */}
         <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>

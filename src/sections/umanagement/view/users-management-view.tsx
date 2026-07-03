@@ -24,7 +24,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import dayjs from 'dayjs';
 import { AddUser } from './add-user-view';
-
+import { fadeInUp } from '../../../theme/effects';
 // ----------------------------------------------------------------------
 
 export interface User {
@@ -268,7 +268,7 @@ export default function UsersManagementView() {
   }, [filteredUsers, page, rowsPerPage]);
 
   return (
-    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden' }}>
+    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
 
         {/* Action Toolbar */}
         <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>

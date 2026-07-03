@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import type { User } from './users-management-view';
+import { fadeInUp } from '../../../theme/effects';
 
 interface AddUserProps {
   open: boolean;
@@ -81,6 +82,7 @@ export function AddUser({open, onClose, onAddUser}: AddUserProps) {
               sx: {
                 borderRadius: 2,
                 boxShadow: theme.customShadows.z24,
+                animation: `${fadeInUp} 1s ease-in-out`
               }
             }
           }}

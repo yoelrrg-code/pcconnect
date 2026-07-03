@@ -16,6 +16,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import dayjs from 'dayjs';
 import type { Client } from './client-management-view';
+import { fadeInUp } from '../../../theme/effects';
+
 
 interface AddClientProps {
   open: boolean;
@@ -94,6 +96,7 @@ export function AddClient({ open, onClose, onAddClient }: AddClientProps) {
               sx: {
                 borderRadius: 2,
                 boxShadow: theme.customShadows.z24,
+                animation: `${fadeInUp} 0.3s ease-in-out`
               }
             }
           }}

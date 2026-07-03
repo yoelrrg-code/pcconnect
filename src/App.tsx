@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SettingsProvider } from './components/settings/settings-provider';
 import { ThemeProvider } from './theme';
 import DashboardLayout from './layouts/dashboard';
@@ -9,6 +9,7 @@ import ActiveIncompleteCasesView from './sections/enrollment/view/active-incompl
 import UsersManagementView from './sections/umanagement/view/users-management-view';
 import ClientManagementView from './sections/cmanagement/view/client-management-view';
 import EducationalResourcesView from './sections/educational/view/educational-resources-view';
+import LoadingScreen from './components/loading-screen';
 import { 
   Box, 
   Typography, 
@@ -26,13 +27,34 @@ interface AppContentProps {
 function AppContent({ onLogout }: AppContentProps) {
   const [activeTab, setActiveTab] = useState('#dashboard');
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTabChange = (newTab: string) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setIsLoading(true);
+    setActiveTab(newTab);
+    timerRef.current = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   const renderTabContent = () => {
     // Map paths from mockup navigation sections
     switch (activeTab) {
       case '#dashboard':
-        return <AppView onNavigate={setActiveTab} />;
+        return <AppView onNavigate={handleTabChange} />;
       case '#users-management':
         return <UsersManagementView />;
       case '#insurance-payers':
@@ -94,7 +116,7 @@ function AppContent({ onLogout }: AppContentProps) {
       case '#client-management':
       case '#client-profile':
         return (
-          <ClientManagementView activeTab={activeTab} setActiveTab={setActiveTab} />
+          <ClientManagementView activeTab={activeTab} setActiveTab={handleTabChange} />
         );
       case '#client-group':
         return (
@@ -142,9 +164,9 @@ function AppContent({ onLogout }: AppContentProps) {
     <DashboardLayout 
       onOpenSettings={() => setSettingsOpen(true)}
       activeTab={activeTab}
-      setActiveTab={setActiveTab}
+      setActiveTab={handleTabChange}
     >
-      {renderTabContent()}
+      {isLoading ? <LoadingScreen /> : renderTabContent()}
       <SettingsDrawer 
         open={settingsOpen} 
         onClose={() => setSettingsOpen(false)} 
@@ -156,14 +178,33 @@ function AppContent({ onLogout }: AppContentProps) {
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAppLoading, setIsAppLoading] = useState(true);
+
+  // Initial load loading effect (F5)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAppLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLogin = () => {
+    setIsAppLoading(true);
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setIsAppLoading(false);
+    }, 800);
+  };
 
   return (
     <SettingsProvider>
       <ThemeProvider>
-        {isAuthenticated ? (
+        {isAppLoading ? (
+          <LoadingScreen />
+        ) : isAuthenticated ? (
           <AppContent onLogout={() => setIsAuthenticated(false)} />
         ) : (
-          <LoginView onLogin={() => setIsAuthenticated(true)} />
+          <LoginView onLogin={handleLogin} />
         )}
       </ThemeProvider>
     </SettingsProvider>
