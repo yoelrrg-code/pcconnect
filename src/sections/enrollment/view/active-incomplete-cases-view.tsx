@@ -172,7 +172,7 @@ export default function ActiveIncompleteCasesView() {
       </Box>
 
       {/* Table Container */}
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
         <Table sx={{ minWidth: 650 }} aria-label="active incomplete cases table">
           <TableHead>
             {/* Header Columns */}

@@ -413,7 +413,7 @@ export default function ClientManagementView({
   // Render Client Profile View if #client-profile route is active
   if (activeTab === '#client-profile' && selectedClient) {
     return (
-      <Box sx={{ pb: 5 }}>
+      <Box key={`profile-${selectedClient.id}`} sx={{ pb: 5, animation: `${fadeInUp} 0.3s ease-in-out` }}>
         {/* Breadcrumbs */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 3.5, mt: -1 }}>
           <Typography 
@@ -564,7 +564,8 @@ export default function ClientManagementView({
               borderRadius: 2, 
               boxShadow: '0px 0px 16px 0px #33333326',
               mb: 4,
-              bgcolor: 'background.paper'
+              bgcolor: 'background.paper',
+              animation: `${fadeInUp} 0.3s ease-in-out`
             }}
           >
             <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 3, fontSize: '16px', color: 'text.primary', fontFamily: 'Poppins, sans-serif' }}>
@@ -666,7 +667,8 @@ export default function ClientManagementView({
                 borderRadius: 2, 
                 border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
                 boxShadow: '0px 0px 16px 0px #33333326',
-                bgcolor: 'background.paper'
+                bgcolor: 'background.paper',
+                animation: `${fadeInUp} 0.3s ease-in-out`
               }}
             >
               <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2.5, fontSize: '16px', color: 'text.primary', fontFamily: 'Poppins, sans-serif' }}>
@@ -753,7 +755,8 @@ export default function ClientManagementView({
                 borderRadius: 2, 
                 border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
                 boxShadow: '0px 0px 16px 0px #33333326',
-                bgcolor: 'background.paper'
+                bgcolor: 'background.paper',
+                animation: `${fadeInUp} 0.3s ease-in-out`
               }}
             >
               <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2.5, fontSize: '16px', color: 'text.primary', fontFamily: 'Poppins, sans-serif' }}>
@@ -836,7 +839,8 @@ export default function ClientManagementView({
                 borderRadius: 2, 
                 border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
                 boxShadow: '0px 0px 16px 0px #33333326',
-                bgcolor: 'background.paper'
+                bgcolor: 'background.paper',
+                animation: `${fadeInUp} 0.3s ease-in-out`
               }}
             >
               <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2.5, fontSize: '16px', color: 'text.primary', fontFamily: 'Poppins, sans-serif' }}>
@@ -941,7 +945,8 @@ export default function ClientManagementView({
                 borderRadius: 2, 
                 border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
                 boxShadow: '0px 0px 16px 0px #33333326',
-                bgcolor: 'background.paper'
+                bgcolor: 'background.paper',
+                animation: `${fadeInUp} 0.3s ease-in-out`
               }}
             >
               <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2.5, fontSize: '16px', color: 'text.primary', fontFamily: 'Poppins, sans-serif' }}>
@@ -1068,7 +1073,7 @@ export default function ClientManagementView({
         </Box>
 
         {/* Table Container */}
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
             <Table sx={{ minWidth: 1500 }} aria-label="clients management table">
                 <TableHead>
                     {/* Header Columns */}

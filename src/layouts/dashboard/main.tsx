@@ -22,6 +22,8 @@ export default function Main({ children, navWidth = 360, sx, ...other }: MainPro
         minHeight: 1,
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
+        minWidth: 0,
         py: `${HEADER_MOBILE + 24}px`,
         px: 2,
         transition: theme.transitions.create(['width', 'margin-left'], {

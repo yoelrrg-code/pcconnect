@@ -35,11 +35,20 @@ function AppContent({ onLogout }: AppContentProps) {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-    setIsLoading(true);
-    setActiveTab(newTab);
-    timerRef.current = setTimeout(() => {
-      setIsLoading(false);
-    }, 600);
+    
+    const isClientSubTransition = 
+      (activeTab === '#client-management' && newTab === '#client-profile') ||
+      (activeTab === '#client-profile' && newTab === '#client-management');
+
+    if (isClientSubTransition) {
+      setActiveTab(newTab);
+    } else {
+      setIsLoading(true);
+      setActiveTab(newTab);
+      timerRef.current = setTimeout(() => {
+        setIsLoading(false);
+      }, 600);
+    }
   };
 
   useEffect(() => {
