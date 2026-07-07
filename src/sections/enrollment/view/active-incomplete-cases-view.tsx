@@ -22,6 +22,9 @@ import { fadeInUp } from '../../../theme/effects';
 
 // ----------------------------------------------------------------------
 
+/**
+ * Interfaz que define la estructura de un caso activo o incompleto de inscripción.
+ */
 interface ActiveIncompleteCase {
   id: string;
   provider: string;
@@ -47,6 +50,10 @@ const MOCK_CASES: ActiveIncompleteCase[] = [
   { id: '13', provider: 'OC Emergency Physicians 523-154', caseCount: '154/56', lastCommentDate: '05/06/2026', time: '3:12 pm' },
 ];
 
+/**
+ * Vista del listado de Casos Activos e Incompletos.
+ * Muestra una tabla con métricas clave y permite filtrar por proveedor, cantidad de casos y fechas.
+ */
 export default function ActiveIncompleteCasesView() {
   const theme = useTheme();
 

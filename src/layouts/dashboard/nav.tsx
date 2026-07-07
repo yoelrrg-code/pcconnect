@@ -18,6 +18,9 @@ const NAV_WIDTH = 360;
 
 // ----------------------------------------------------------------------
 
+/**
+ * Propiedades de la barra de navegación lateral.
+ */
 interface NavProps {
   openNav: boolean;
   onCloseNav: () => void;
@@ -28,6 +31,13 @@ interface NavProps {
 }
 
 
+/**
+ * Barra de navegación lateral (Sidebar).
+ * Renderiza los enlaces del menú basados en la configuración (navConfig) y maneja 
+ * sus dos modos visuales: expandido (por defecto) o colapsado (íconos compactos).
+ * 
+ * En mobile, se comporta como un Drawer superpuesto temporal, mientras que en desktop es un contenedor permanente.
+ */
 export default function Nav({ 
   openNav, 
   onCloseNav, 

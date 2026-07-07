@@ -27,6 +27,9 @@ import { AddUser } from './add-user-view';
 import { fadeInUp } from '../../../theme/effects';
 // ----------------------------------------------------------------------
 
+/**
+ * Interfaz que define la estructura de datos de un usuario del sistema.
+ */
 export interface User {
   id: string;
   email: string;
@@ -66,6 +69,11 @@ const formatDateDisplay = (dateStr: string) => {
   return dateStr;
 };
 
+/**
+ * Vista de Gestión de Usuarios (Users Management).
+ * Presenta una tabla interactiva para editar inline los datos de los usuarios,
+ * con soporte para filtros por columna, búsqueda global, guardado en lote y exportación CSV.
+ */
 export default function UsersManagementView() {
   const theme = useTheme();
 

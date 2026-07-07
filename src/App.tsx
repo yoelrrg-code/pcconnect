@@ -20,10 +20,20 @@ import {
 
 // ----------------------------------------------------------------------
 
+/**
+ * Propiedades para el componente principal de contenido una vez autenticado.
+ */
 interface AppContentProps {
   onLogout: () => void;
 }
 
+/**
+ * Renderiza el layout principal y el contenido de la pestaña (ruta simulada) activa.
+ * Mantiene el estado de navegación (activeTab) y coordina las transiciones visuales.
+ * 
+ * @param props - Las propiedades del componente.
+ * @param props.onLogout - Función callback que se ejecuta para cerrar la sesión del usuario.
+ */
 function AppContent({ onLogout }: AppContentProps) {
   const [activeTab, setActiveTab] = useState('#dashboard');
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -185,6 +195,11 @@ function AppContent({ onLogout }: AppContentProps) {
   );
 }
 
+/**
+ * Componente raíz de la aplicación.
+ * Se encarga de inicializar los proveedores globales (Settings, Theme)
+ * y manejar el estado de autenticación y carga inicial.
+ */
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAppLoading, setIsAppLoading] = useState(true);

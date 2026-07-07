@@ -7,6 +7,9 @@ import Main from './main';
 
 // ----------------------------------------------------------------------
 
+/**
+ * Propiedades del Layout principal (Dashboard).
+ */
 interface DashboardLayoutProps {
   children: ReactNode;
   onOpenSettings: () => void;
@@ -14,6 +17,13 @@ interface DashboardLayoutProps {
   setActiveTab: (tab: string) => void;
 }
 
+/**
+ * Layout principal de la aplicación (Dashboard).
+ * Gestiona la estructura general incluyendo el sidebar de navegación (Nav), la cabecera (Header) 
+ * y el área principal de contenido (Main). Además, coordina el estado de colapso del menú lateral.
+ * 
+ * @param props - Propiedades del layout
+ */
 export default function DashboardLayout({ 
   children, 
   onOpenSettings,

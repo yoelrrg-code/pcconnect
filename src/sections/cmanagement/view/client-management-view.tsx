@@ -32,6 +32,9 @@ import profileBG from '../../../assets/bg-profile.png';
 
 // ----------------------------------------------------------------------
 
+/**
+ * Interfaz que define la estructura de datos de un cliente en el sistema.
+ */
 export interface Client {
   id: string;
   dataSet: string; // e.g. A01
@@ -71,6 +74,16 @@ const formatDateDisplay = (dateStr: string) => {
   return dateStr;
 };
 
+/**
+ * Vista principal de la gestión de clientes (Client Management).
+ * Maneja dos estados principales:
+ * 1. Tabla de listado de clientes con filtros múltiples, búsqueda global, paginación y exportación CSV.
+ * 2. Vista de perfil de cliente detallado (cuando activeTab es '#client-profile').
+ * 
+ * @param props - Propiedades del componente.
+ * @param props.activeTab - El ID de la vista/tab actualmente activo.
+ * @param props.setActiveTab - Función callback para navegar entre vistas.
+ */
 export default function ClientManagementView({ 
   activeTab, 
   setActiveTab 
