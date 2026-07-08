@@ -66,8 +66,8 @@ export default function LoginView({ onLogin }: LoginViewProps) {
         setError('You must acknowledge and accept the HIPAA disclaimer.');
         return;
       }
-      setError('');
-      onLogin();
+      setError('Login disabled!');
+      // onLogin();
     } else if (view === 'forgot') {
       if (!registerEmail) {
         setError('Please enter your email address.');
