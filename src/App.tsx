@@ -212,13 +212,13 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // const handleLogin = () => {
-  //   setIsAppLoading(true);
-  //   setTimeout(() => {
-  //     setIsAuthenticated(true);
-  //     setIsAppLoading(false);
-  //   }, 800);
-  // };
+  const handleLogin = () => {
+    setIsAppLoading(true);
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setIsAppLoading(false);
+    }, 800);
+  };
 
   return (
     <SettingsProvider>
@@ -229,7 +229,7 @@ export default function App() {
           <AppContent onLogout={() => setIsAuthenticated(false)} />
         ) : (
           //onLogin={handleLogin} parametro de LoginView
-          <LoginView />
+          <LoginView onLogin={handleLogin} />
         )}
       </ThemeProvider>
     </SettingsProvider>

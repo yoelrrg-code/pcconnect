@@ -40,11 +40,12 @@ const RecaptchaLogo = () => (
   </svg>
 );
 
-// interface LoginViewProps {
-//   onLogin: () => void;
-// }
+interface LoginViewProps {
+  onLogin: () => void;
+}
+
 //{ onLogin }: LoginViewProps este es el parametro de la LoginView
-export default function LoginView() {
+export default function LoginView({ onLogin }: LoginViewProps) {
   const theme = useTheme();
   const [view, setView] = useState<'login' | 'register' | 'forgot'>('login');
   const [showPassword, setShowPassword] = useState(false);
@@ -67,7 +68,7 @@ export default function LoginView() {
         return;
       }
       setError('Login disabled!');
-      // onLogin();
+      onLogin();
     } else if (view === 'forgot') {
       if (!registerEmail) {
         setError('Please enter your email address.');
