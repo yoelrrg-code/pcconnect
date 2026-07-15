@@ -1,4 +1,8 @@
 import { useState, useMemo } from 'react';
+import ActiveIncompleteCasesDetailsView from './active-incomplete-cases-details-view';
+import ActiveIncompleteCasesChartView from './active-incomplete-cases-chart-view';
+import { MOCK_PC_QUEUE, MOCK_WAITING_REVIEW } from './active-incomplete-cases-mock';
+import type { PCQueueCase, WaitingReviewCase } from './active-incomplete-cases-mock';
 import { 
   Box, 
   Typography, 
@@ -56,6 +60,42 @@ const MOCK_CASES: ActiveIncompleteCase[] = [
  */
 export default function ActiveIncompleteCasesView() {
   const theme = useTheme();
+
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
+  const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
+  const [selectedAccountData, setSelectedAccountData] = useState<PCQueueCase | WaitingReviewCase | null>(null);
+
+  const combinedAccounts = useMemo(() => {
+    return [...MOCK_PC_QUEUE, ...MOCK_WAITING_REVIEW];
+  }, []);
+
+  const handlePreviousAccount = () => {
+    if (!selectedAccount) return;
+    const currentIndex = combinedAccounts.findIndex(item => item.account === selectedAccount);
+    if (currentIndex > 0) {
+      const prevItem = combinedAccounts[currentIndex - 1];
+      setSelectedAccount(prevItem.account);
+      setSelectedAccountData(prevItem);
+    } else {
+      const lastItem = combinedAccounts[combinedAccounts.length - 1];
+      setSelectedAccount(lastItem.account);
+      setSelectedAccountData(lastItem);
+    }
+  };
+
+  const handleNextAccount = () => {
+    if (!selectedAccount) return;
+    const currentIndex = combinedAccounts.findIndex(item => item.account === selectedAccount);
+    if (currentIndex >= 0 && currentIndex < combinedAccounts.length - 1) {
+      const nextItem = combinedAccounts[currentIndex + 1];
+      setSelectedAccount(nextItem.account);
+      setSelectedAccountData(nextItem);
+    } else {
+      const firstItem = combinedAccounts[0];
+      setSelectedAccount(firstItem.account);
+      setSelectedAccountData(firstItem);
+    }
+  };
 
   // Search & filter states
   const [globalSearch, setGlobalSearch] = useState('');
@@ -128,6 +168,39 @@ export default function ActiveIncompleteCasesView() {
   const visibleCases = useMemo(() => {
     return filteredCases.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [filteredCases, page, rowsPerPage]);
+  if (selectedAccount) {
+    return (
+      <ActiveIncompleteCasesChartView
+        providerName={selectedProvider || ''}
+        accountNumber={selectedAccount}
+        accountData={selectedAccountData || undefined}
+        onBack={() => {
+          setSelectedAccount(null);
+          setSelectedAccountData(null);
+        }}
+        onBackToDashboard={() => {
+          setSelectedAccount(null);
+          setSelectedAccountData(null);
+          setSelectedProvider(null);
+        }}
+        onPrevious={handlePreviousAccount}
+        onNext={handleNextAccount}
+      />
+    );
+  }
+
+  if (selectedProvider) {
+    return (
+      <ActiveIncompleteCasesDetailsView 
+        providerName={selectedProvider} 
+        onBack={() => setSelectedProvider(null)} 
+        onSelectAccount={(accountNum, rowData) => {
+          setSelectedAccount(accountNum);
+          setSelectedAccountData(rowData);
+        }}
+      />
+    );
+  }
 
   return (
     <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
@@ -274,7 +347,7 @@ export default function ActiveIncompleteCasesView() {
                     <TableCell sx={{ px: 2.5 }}>
                       <Link 
                         href="#" 
-                        onClick={(e) => e.preventDefault()}
+                        onClick={(e) => { e.preventDefault(); setSelectedProvider(row.provider); }}
                         sx={{ 
                           fontSize: '16px',
                           fontWeight: 400, 

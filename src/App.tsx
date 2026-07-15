@@ -5,10 +5,12 @@ import DashboardLayout from './layouts/dashboard';
 import AppView from './sections/overview/view/app-view';
 import LoginView from './sections/auth/login-view';
 import SettingsDrawer from './components/settings/settings-drawer';
-import ActiveIncompleteCasesView from './sections/enrollment/view/active-incomplete-cases-view';
+import ActiveIncompleteCasesView from './sections/activecases/view/active-incomplete-cases-view';
+import EnrollmentManagementView from './sections/enrollment/view/enrollment-management-view';
 import UsersManagementView from './sections/umanagement/view/users-management-view';
 import ClientManagementView from './sections/cmanagement/view/client-management-view';
 import EducationalResourcesView from './sections/educational/view/educational-resources-view';
+import EDFloorVisitsView from './sections/edfloorvisits/view/ed-floor-visits-view';
 import LoadingScreen from './components/loading-screen';
 import { 
   Box, 
@@ -122,16 +124,7 @@ function AppContent({ onLogout }: AppContentProps) {
           </Box>
         );
       case '#provider-management':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Directory and credentials of medical providers and doctors in network.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Add Provider</Button>
-            </Card>
-          </Box>
-        );
+        return <EnrollmentManagementView />;
       case '#client-management':
       case '#client-profile':
         return (
@@ -151,16 +144,7 @@ function AppContent({ onLogout }: AppContentProps) {
       case '#active-incomplete-cases':
         return <ActiveIncompleteCasesView />;
       case '#ed-floor-visits':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Real-time patient floor visits feed and medical device allocations.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Refresh Visit Feed</Button>
-            </Card>
-          </Box>
-        );
+        return <EDFloorVisitsView />;
       case '#educational-resources':
         return <EducationalResourcesView />;
       case '#report-management':
