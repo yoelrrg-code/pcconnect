@@ -11,15 +11,12 @@ import UsersManagementView from './sections/umanagement/view/users-management-vi
 import ClientManagementView from './sections/cmanagement/view/client-management-view';
 import EducationalResourcesView from './sections/educational/view/educational-resources-view';
 import EDFloorVisitsView from './sections/edfloorvisits/view/ed-floor-visits-view';
+import InsurancePayersView from './sections/insurancepayers/view/insurance-payers-view';
+import PlaidManagementView from './sections/plaid/view/plaid-management-view';
+import ClientGroupsView from './sections/clientgroups/view/client-groups-view';
+import ReportManagementView from './sections/reports/view/report-management-view';
+import EnrollmentDashboardView from './sections/enrollmentdashboard/view/enrollment-dashboard-view';
 import LoadingScreen from './components/loading-screen';
-import { 
-  Box, 
-  Typography, 
-  Card, 
-  Button, 
-  useTheme
-} from '@mui/material';
-
 // ----------------------------------------------------------------------
 
 /**
@@ -40,7 +37,6 @@ function AppContent({ onLogout }: AppContentProps) {
   const [activeTab, setActiveTab] = useState('#dashboard');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const theme = useTheme();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleTabChange = (newTab: string) => {
@@ -79,50 +75,11 @@ function AppContent({ onLogout }: AppContentProps) {
       case '#users-management':
         return <UsersManagementView />;
       case '#insurance-payers':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Configure payor API keys, gateways, and active compliance rules.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1.5 }}>
-                Active Insurance Integrations
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
-                Configure electronic claims transfer details.
-              </Typography>
-              <Button variant="contained" color="primary">Add Payer Connection</Button>
-            </Card>
-          </Box>
-        );
+        return <InsurancePayersView />;
       case '#plaid':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Secure bank account verification and transaction processing settings.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
-                Link Account Credentials
-              </Typography>
-              <Button variant="contained" color="primary">Launch Plaid Link</Button>
-            </Card>
-          </Box>
-        );
+        return <PlaidManagementView />;
       case '#enrollment-dashboard':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Visual statistics for active patient enrollments and clinical files.
-            </Typography>
-            <Card sx={{ p: 4, textAlign: 'center', border: `1px dashed ${theme.palette.divider}`, borderRadius: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Enrollment Overview
-              </Typography>
-              <Button variant="contained" color="primary">View Full Report</Button>
-            </Card>
-          </Box>
-        );
+        return <EnrollmentDashboardView />;
       case '#provider-management':
         return <EnrollmentManagementView />;
       case '#client-management':
@@ -131,16 +88,7 @@ function AppContent({ onLogout }: AppContentProps) {
           <ClientManagementView activeTab={activeTab} setActiveTab={handleTabChange} />
         );
       case '#client-group':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Configure corporate accounts, group discounts, and compliance units.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Create Group</Button>
-            </Card>
-          </Box>
-        );
+        return <ClientGroupsView />;
       case '#active-incomplete-cases':
         return <ActiveIncompleteCasesView />;
       case '#ed-floor-visits':
@@ -148,16 +96,7 @@ function AppContent({ onLogout }: AppContentProps) {
       case '#educational-resources':
         return <EducationalResourcesView />;
       case '#report-management':
-        return (
-          <Box sx={{ py: 3, mt: 2 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4 }}>
-              Compile spreadsheets, medical audits, and PDF files.
-            </Typography>
-            <Card sx={{ p: 4, borderRadius: 3 }}>
-              <Button variant="contained" color="primary">Compile Spreadsheet</Button>
-            </Card>
-          </Box>
-        );
+        return <ReportManagementView />;
       default:
         return <AppView />;
     }

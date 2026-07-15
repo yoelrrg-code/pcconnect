@@ -1,28 +1,28 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Logo from '../logo';
 import { pulse } from '../../theme/effects';
 // ----------------------------------------------------------------------
 
-const loadingTexts = [
-  'Loading section...',
-  'Preparing enviroment...',
-  'Syncing data...',
-  'Loading components...',
-];
+// const loadingTexts = [
+//   'Loading section...',
+//   'Preparing enviroment...',
+//   'Syncing data...',
+//   'Loading components...',
+// ];
 
 export default function LoadingScreen() {
-  const [textIndex, setTextIndex] = useState(0);
+  // const [textIndex, setTextIndex] = useState(0);
 
-  useEffect(() => {
-    const textInterval = setInterval(() => {
-      setTextIndex((prev) => (prev + 1) % loadingTexts.length);
-    }, 1500);
+  // useEffect(() => {
+  //   const textInterval = setInterval(() => {
+  //     setTextIndex((prev) => (prev + 1) % loadingTexts.length);
+  //   }, 1500);
 
-    return () => clearInterval(textInterval);
-  }, []);
+  //   return () => clearInterval(textInterval);
+  // }, []);
 
   return (
     <Box
@@ -49,22 +49,7 @@ export default function LoadingScreen() {
           flexDirection: 'column',
           alignItems: 'center',
           p: 4,
-          borderRadius: 3,
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'dark'
-              ? 'rgba(28, 28, 30, 0.4)'
-              : 'rgba(255, 255, 255, 0.4)',
-          backdropFilter: 'blur(8px)',
-          border: (theme) =>
-            `1px solid ${
-              theme.palette.mode === 'dark'
-                ? 'rgba(255, 255, 255, 0.05)'
-                : 'rgba(0, 0, 0, 0.05)'
-            }`,
-          boxShadow: (theme) =>
-            theme.palette.mode === 'dark'
-              ? '0 8px 32px 0 rgba(0, 0, 0, 0.3)'
-              : '0 8px 32px 0 rgba(145, 158, 171, 0.15)',
+          borderRadius: 3
         }}
       >
         {/* Pulsing logo */}
@@ -81,7 +66,7 @@ export default function LoadingScreen() {
         </Box>
 
         {/* Text with dynamic messages */}
-        <Typography
+        {/* <Typography
           variant="subtitle2"
           sx={{
             mb: 2,
@@ -95,7 +80,7 @@ export default function LoadingScreen() {
           }}
         >
           {loadingTexts[textIndex]}
-        </Typography>
+        </Typography> */}
 
         {/* Modern styled progress bar */}
         <Box sx={{ width: 180 }}>
