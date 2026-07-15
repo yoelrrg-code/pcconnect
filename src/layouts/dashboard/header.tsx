@@ -34,7 +34,7 @@ const TAB_TITLES: Record<string, string> = {
   '#users-management': 'Users Management',
   '#insurance-payers': 'Insurance Payers',
   '#plaid': 'Plaid Integration',
-  '#enrollment-dashboard': 'Enrollment Analytics',
+  '#enrollment-dashboard': 'Enrollment Dashboard',
   '#provider-management': 'Enrollment Management',
   '#client-management': 'Client Management',
   '#client-profile': 'Client Profile',
