@@ -7,10 +7,10 @@ import { pulse } from '../../theme/effects';
 // ----------------------------------------------------------------------
 
 const loadingTexts = [
-  'Cargando sección...',
-  'Preparando entorno...',
-  'Sincronizando datos...',
-  'Cargando componentes...',
+  'Loading section...',
+  'Preparing enviroment...',
+  'Syncing data...',
+  'Loading components...',
 ];
 
 export default function LoadingScreen() {
