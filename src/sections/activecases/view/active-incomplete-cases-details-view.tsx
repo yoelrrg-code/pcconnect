@@ -259,7 +259,7 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
         </Box>
 
         {/* Table */}
-        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
           <Table sx={{ minWidth: 1500 }} aria-label="pc queue cases table">
             <TableHead>
               <TableRow>
@@ -476,7 +476,7 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
         </Box>
 
         {/* Table */}
-        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
           <Table sx={{ minWidth: 1500 }} aria-label="waiting review cases table">
             <TableHead>
               <TableRow>

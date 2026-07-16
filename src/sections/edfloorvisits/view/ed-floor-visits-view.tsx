@@ -342,7 +342,7 @@ export default function EDFloorVisitsView() {
       </Box>
 
       {/* Table Container */}
-      <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
         <Table sx={{ minWidth: 1500 }} aria-label="ed floor visits table">
           <TableHead>
             <TableRow>

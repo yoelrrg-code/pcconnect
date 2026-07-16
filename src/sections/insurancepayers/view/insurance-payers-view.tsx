@@ -258,7 +258,7 @@ export default function InsurancePayersView() {
       </Box>
 
       {/* Table Container */}
-      <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+      <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
         <Table sx={{ minWidth: 600 }} aria-label="insurance payers table">
           <TableHead>
             <TableRow>

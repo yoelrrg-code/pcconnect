@@ -330,7 +330,7 @@ export default function UsersManagementView() {
         </Box>
 
         {/* Table Container */}
-        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
             <Table sx={{ minWidth: 1500 }} aria-label="users management table">
                 <TableHead>
                     {/* Header Columns */}

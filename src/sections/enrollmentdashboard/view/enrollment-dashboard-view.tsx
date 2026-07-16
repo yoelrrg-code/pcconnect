@@ -290,7 +290,7 @@ export default function EnrollmentDashboardView() {
         </Box>
 
         {/* Top Table */}
-        <TableContainer sx={{ overflowX: 'auto', width: '100%' }}>
+        <TableContainer sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
           <Table sx={{ minWidth: 800 }}>
             <TableHead>
               <TableRow sx={{ '& th': { fontWeight: 600, fontSize: '13px' } }}>
@@ -430,7 +430,7 @@ export default function EnrollmentDashboardView() {
           </Box>
 
           {/* Table Container */}
-          <TableContainer sx={{ overflowX: 'auto', width: '100%' }}>
+          <TableContainer sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
             <Table sx={{ minWidth: 1100 }}>
               <TableHead>
                 <TableRow sx={{ '& th': { fontSize: '13px' } }}>
@@ -659,7 +659,7 @@ export default function EnrollmentDashboardView() {
           </Box>
 
           {/* Nested Header Table */}
-          <TableContainer sx={{ overflowX: 'auto', width: '100%' }}>
+          <TableContainer sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
             <Table sx={{ minWidth: 1500 }}>
               <TableHead>
                 {/* Row 1: Top Level */}

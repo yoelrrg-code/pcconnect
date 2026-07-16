@@ -298,7 +298,7 @@ export function getComponents(
         {
           props: { variant: 'cellEdit' },
           style: {
-            fontSize: '15px',
+            fontSize: '13px',
             fontFamily: 'Poppins, sans-serif',
             color: palette.text.primary,
             width: '100%',

@@ -381,7 +381,7 @@ export default function EnrollmentManagementView() {
         </Box>
 
         {/* Table Container */}
-        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%' }}>
+        <TableContainer component={Paper} sx={{ overflowX: 'auto', width: '100%', border: 'none' }}>
           <Table sx={{ minWidth: 1000 }} aria-label="provider enrollment table">
             <TableHead>
               {/* Header Columns */}

@@ -62,7 +62,7 @@ export default function LoadingScreen() {
             justifyContent: 'center',
           }}
         >
-          <Logo disabledLink height={50} />
+          <Logo disabledLink height={34} />
         </Box>
 
         {/* Text with dynamic messages */}
