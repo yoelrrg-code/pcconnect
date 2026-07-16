@@ -1,28 +1,10 @@
-// import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-// import Typography from '@mui/material/Typography';
 import Logo from '../logo';
 import { pulse } from '../../theme/effects';
 // ----------------------------------------------------------------------
 
-// const loadingTexts = [
-//   'Loading section...',
-//   'Preparing enviroment...',
-//   'Syncing data...',
-//   'Loading components...',
-// ];
-
 export default function LoadingScreen() {
-  // const [textIndex, setTextIndex] = useState(0);
-
-  // useEffect(() => {
-  //   const textInterval = setInterval(() => {
-  //     setTextIndex((prev) => (prev + 1) % loadingTexts.length);
-  //   }, 1500);
-
-  //   return () => clearInterval(textInterval);
-  // }, []);
 
   return (
     <Box
@@ -64,23 +46,6 @@ export default function LoadingScreen() {
         >
           <Logo disabledLink height={34} />
         </Box>
-
-        {/* Text with dynamic messages */}
-        {/* <Typography
-          variant="subtitle2"
-          sx={{
-            mb: 2,
-            fontWeight: 600,
-            letterSpacing: 0.5,
-            color: 'text.secondary',
-            minHeight: '24px',
-            textAlign: 'center',
-            // Transition effect for text changes
-            transition: 'opacity 0.2s ease-in-out',
-          }}
-        >
-          {loadingTexts[textIndex]}
-        </Typography> */}
 
         {/* Modern styled progress bar */}
         <Box sx={{ width: 180 }}>
