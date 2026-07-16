@@ -56,7 +56,7 @@ export default function LoadingScreen() {
         <Box
           sx={{
             mb: 3,
-            animation: `${pulse} 2s infinite ease-in-out`,
+            animation: `${pulse} 1s infinite ease-in-out`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
