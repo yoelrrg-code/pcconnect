@@ -19,9 +19,12 @@ import {
   Link, 
   useTheme, 
   alpha,
-  TablePagination
+  TablePagination,
+  Popover,
+  IconButton
 } from '@mui/material';
-import { Search, Filter, Download } from 'lucide-react';
+import { Search, Filter, Download, X } from 'lucide-react';
+import { GREY } from '../../../theme/palette';
 import { fadeInUp } from '../../../theme/effects';
 
 // ----------------------------------------------------------------------
@@ -102,7 +105,26 @@ export default function ActiveIncompleteCasesView() {
   const [filterProvider, setFilterProvider] = useState('');
   const [filterCaseCount, setFilterCaseCount] = useState('');
   const [filterDate, setFilterDate] = useState('');
-  const [showFiltersRow, setShowFiltersRow] = useState(true);
+
+  // Popover States
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [filterColumn, setFilterColumn] = useState<keyof ActiveIncompleteCase>('provider');
+  const [filterOperator, setFilterOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
+
+  const handleOpenFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseFilters = () => {
+    setFilterAnchorEl(null);
+  };
+  const isFiltersOpen = Boolean(filterAnchorEl);
+
+  const REPORT_COLUMNS: { key: keyof ActiveIncompleteCase; label: string }[] = [
+    { key: 'provider', label: 'Provider' },
+    { key: 'caseCount', label: 'Case Count' },
+    { key: 'lastCommentDate', label: 'Last Comment Date' },
+  ];
 
   // Pagination states
   const [page, setPage] = useState(0);
@@ -130,9 +152,60 @@ export default function ActiveIncompleteCasesView() {
         c.lastCommentDate.toLowerCase().includes(filterDate.toLowerCase()) ||
         (c.time && c.time.toLowerCase().includes(filterDate.toLowerCase()));
 
-      return matchesGlobal && matchesProvider && matchesCaseCount && matchesDate;
+      if (!(matchesGlobal && matchesProvider && matchesCaseCount && matchesDate)) {
+        return false;
+      }
+
+      // Popover Filter
+      if (filterValue === '' && filterOperator !== 'is empty' && filterOperator !== 'is not empty') {
+        return true;
+      }
+
+      // custom fallback for date / time fields
+      let targetValue = '';
+      if (filterColumn === 'lastCommentDate') {
+        targetValue = c.isInvalidDate ? 'invalid date' : `${c.lastCommentDate} ${c.time || ''}`.trim();
+      } else {
+        targetValue = (c[filterColumn] ?? '').toString();
+      }
+
+      const val = targetValue.toLowerCase();
+      const term = filterValue.toLowerCase();
+
+      switch (filterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
     });
-  }, [globalSearch, filterProvider, filterCaseCount, filterDate]);
+  }, [
+    globalSearch,
+    filterProvider,
+    filterCaseCount,
+    filterDate,
+    filterColumn,
+    filterOperator,
+    filterValue
+  ]);
 
   // Handle pages
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -236,10 +309,106 @@ export default function ActiveIncompleteCasesView() {
           variant="toolbar"
           color="inherit"
           startIcon={<Filter size={16} />}
-          onClick={() => setShowFiltersRow(!showFiltersRow)}
+          onClick={handleOpenFilters}
         >
           Filters
         </Button>
+
+        <Popover
+          open={isFiltersOpen}
+          anchorEl={filterAnchorEl}
+          onClose={handleCloseFilters}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          slotProps={{
+            paper: {
+              sx: {
+                p: 3,
+                mt: 0.5,
+                borderRadius: 2,
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+              }
+            }
+          }}
+        >
+          <IconButton 
+            size="small" 
+            onClick={() => {
+              setFilterValue('');
+              handleCloseFilters();
+            }}
+            sx={{ color: GREY[700] }}
+          >
+            <X size={18} />
+          </IconButton>
+
+          <TextField
+            select
+            label="Columns"
+            value={filterColumn}
+            onChange={(e) => {
+              setFilterColumn(e.target.value as keyof ActiveIncompleteCase);
+              setPage(0);
+            }}
+            slotProps={{
+              select: { native: true }
+            }}
+            sx={{ minWidth: 140 }}
+          >
+            {REPORT_COLUMNS.map((col) => (
+              <option key={col.key} value={col.key}>
+                {col.label}
+              </option>
+            ))}
+          </TextField>
+
+          <TextField
+            select
+            label="Operator"
+            value={filterOperator}
+            onChange={(e) => {
+              setFilterOperator(e.target.value);
+              setPage(0);
+            }}
+            slotProps={{
+              select: { native: true }
+            }}
+            sx={{ minWidth: 160 }}
+          >
+            <option value="contains">contains</option>
+            <option value="does not contain">does not contain</option>
+            <option value="equals">equals</option>
+            <option value="does not equal">does not equal</option>
+            <option value="starts with">starts with</option>
+            <option value="ends with">ends with</option>
+            <option value="is empty">is empty</option>
+            <option value="is not empty">is not empty</option>
+            <option value="is any of">is any of</option>
+          </TextField>
+
+          <TextField
+            label="Value"
+            placeholder="Filter value"
+            value={filterValue}
+            onChange={(e) => {
+              setFilterValue(e.target.value);
+              setPage(0);
+            }}
+            sx={{ minWidth: 160 }}
+          />
+        </Popover>
 
         <Button
           variant="toolbar"
@@ -271,7 +440,6 @@ export default function ActiveIncompleteCasesView() {
 
           <TableBody>
             {/* Contains Filter Input Row */}
-            {showFiltersRow && (
               <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                 <TableCell sx={{ p: 1.5 }}>
                   <TextField
@@ -310,7 +478,6 @@ export default function ActiveIncompleteCasesView() {
                   />
                 </TableCell>
               </TableRow>
-            )}
             {visibleCases.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={3} align="center" sx={{ py: 6, color: 'text.secondary' }}>

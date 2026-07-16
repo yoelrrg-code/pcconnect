@@ -6,7 +6,7 @@ import AppView from './sections/overview/view/app-view';
 import LoginView from './sections/auth/login-view';
 import SettingsDrawer from './components/settings/settings-drawer';
 import ActiveIncompleteCasesView from './sections/activecases/view/active-incomplete-cases-view';
-import EnrollmentManagementView from './sections/enrollment/view/enrollment-management-view';
+import ProviderManagementView from './sections/provider/view/provider-management-view';
 import UsersManagementView from './sections/umanagement/view/users-management-view';
 import ClientManagementView from './sections/cmanagement/view/client-management-view';
 import EducationalResourcesView from './sections/educational/view/educational-resources-view';
@@ -81,7 +81,7 @@ function AppContent({ onLogout }: AppContentProps) {
       case '#enrollment-dashboard':
         return <EnrollmentDashboardView />;
       case '#provider-management':
-        return <EnrollmentManagementView />;
+        return <ProviderManagementView />;
       case '#client-management':
       case '#client-profile':
         return (

@@ -16,8 +16,18 @@ import {
   useTheme, 
   alpha,
   TablePagination,
-  Card} from '@mui/material';
-import { Search, Filter, Download, Plus } from 'lucide-react';
+  Card,
+  Popover,
+  IconButton,
+  Select,
+  MenuItem,
+  Checkbox,
+  ListItemText,
+  FormControl
+} from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material';
+import { Search, Filter, Download, Plus, X } from 'lucide-react';
+import { GREY } from '../../../theme/palette';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -29,6 +39,32 @@ import { fadeInUp } from '../../../theme/effects';
 /**
  * Interface that defines the structure of a medical provider.
  */
+const ALL_DATASETS = [
+  'A01',
+  'A03',
+  'A05',
+  'A05A',
+  'A07',
+  'A07 A',
+  'A07 B',
+  'A07B',
+  'A07C',
+  'A08',
+  'A08C',
+  'A08D',
+  'A08E',
+  'A08F',
+  'A09',
+  'A09 A',
+  'A09A',
+  'A10',
+  'A11',
+  'A12',
+  'A12A',
+  'E01',
+  'E02'
+];
+
 interface Provider {
   id: string;
   name: string;
@@ -41,38 +77,37 @@ interface Provider {
   license: string;
   dea: string;
   active: 'Yes' | 'No';
-}
-
-interface FilterCriteria {
-  id: string;
-  field: string;
-  operator: string;
-  value: string;
+  dataSet: string;
 }
 
 const MOCK_PROVIDERS: Provider[] = [
-  { id: '1', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No' },
-  { id: '2', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No' },
-  { id: '3', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No' },
-  { id: '4', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No' },
-  { id: '5', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No' },
-  { id: '6', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No' },
-  { id: '7', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No' },
-  { id: '8', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No' },
-  { id: '9', name: 'Stephen Cady MD', email: 'scady@me.com', firstName: 'Stephen', lastName: 'Cady', dob: '11/14/1980', phone: '4155551212', npi: '1982736450', license: 'C12345', dea: 'BC1234567', active: 'Yes' },
-  { id: '10', name: 'Susan Bradshaw MD', email: 'susanbeemd@sbcglobal.net', firstName: 'Susan', lastName: 'Bradshaw', dob: '09/05/1972', phone: '5105559876', npi: '1092837465', license: 'G98765', dea: 'BS9876543', active: 'Yes' },
-  { id: '11', name: 'Aaron Andrade MD', email: 'aaron.j.andrade@gmail.com', firstName: 'Aaron', lastName: 'Andrade', dob: '12/30/1985', phone: '4085554321', npi: '1384729104', license: 'A84729', dea: 'BA8472910', active: 'Yes' },
-  { id: '12', name: 'Patricia Bruens MD', email: 'pbruens@comcast.net', firstName: 'Patricia', lastName: 'Bruens', dob: '06/18/1968', phone: '9255553344', npi: '1728394056', license: 'A72839', dea: 'BP7283940', active: 'No' }
+  { id: '1', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No', dataSet: 'A01' },
+  { id: '2', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No', dataSet: 'A03' },
+  { id: '3', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No', dataSet: 'A01' },
+  { id: '4', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No', dataSet: 'A03' },
+  { id: '5', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No', dataSet: 'A01' },
+  { id: '6', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No', dataSet: 'A03' },
+  { id: '7', name: 'Veronique Au MD', email: 'veronique.au@hotmail.com', firstName: 'Veronique', lastName: 'Au', dob: '04/21/1975', phone: '9252126302', npi: '1255399531', license: 'A79952', dea: 'BA7983946', active: 'No', dataSet: 'A01' },
+  { id: '8', name: 'Richard Bodony MD', email: 'awby@earthlink.net', firstName: 'Richard', lastName: 'Bodony', dob: '01/22/1963', phone: '510671730', npi: '1225011422', license: 'G67219', dea: 'BB2093502', active: 'No', dataSet: 'A03' },
+  { id: '9', name: 'Stephen Cady MD', email: 'scady@me.com', firstName: 'Stephen', lastName: 'Cady', dob: '11/14/1980', phone: '4155551212', npi: '1982736450', license: 'C12345', dea: 'BC1234567', active: 'Yes', dataSet: 'A05' },
+  { id: '10', name: 'Susan Bradshaw MD', email: 'susanbeemd@sbcglobal.net', firstName: 'Susan', lastName: 'Bradshaw', dob: '09/05/1972', phone: '5105559876', npi: '1092837465', license: 'G98765', dea: 'BS9876543', active: 'Yes', dataSet: 'A05A' },
+  { id: '11', name: 'Aaron Andrade MD', email: 'aaron.j.andrade@gmail.com', firstName: 'Aaron', lastName: 'Andrade', dob: '12/30/1985', phone: '4085554321', npi: '1384729104', license: 'A84729', dea: 'BA8472910', active: 'Yes', dataSet: 'A07' },
+  { id: '12', name: 'Patricia Bruens MD', email: 'pbruens@comcast.net', firstName: 'Patricia', lastName: 'Bruens', dob: '06/18/1968', phone: '9255553344', npi: '1728394056', license: 'A72839', dea: 'BP7283940', active: 'No', dataSet: 'A07 A' }
 ];
 
-export default function EnrollmentManagementView() {
+export default function ProviderManagementView() {
   const theme = useTheme();
 
   // Top Filters builder state
-  const [filterRows, setFilterRows] = useState<FilterCriteria[]>([
-    { id: '1', field: 'Data Sets', operator: 'Education', value: '' }
-  ]);
-  const [appliedTopFilters, setAppliedTopFilters] = useState<FilterCriteria[]>([]);
+  const [selectedDataSets, setSelectedDataSets] = useState<string[]>([]);
+  const [showCriteria, setShowCriteria] = useState(false);
+  const [criteriaOperator, setCriteriaOperator] = useState('Education');
+  const [criteriaValue, setCriteriaValue] = useState('');
+
+  const [appliedDataSets, setAppliedDataSets] = useState<string[]>([]);
+  const [appliedShowCriteria, setAppliedShowCriteria] = useState(false);
+  const [appliedOperator, setAppliedOperator] = useState('Education');
+  const [appliedValue, setAppliedValue] = useState('');
 
   // Search & inline filter states
   const [globalSearch, setGlobalSearch] = useState('');
@@ -86,7 +121,31 @@ export default function EnrollmentManagementView() {
   const [filterDea, setFilterDea] = useState('');
   const [filterActive, setFilterActive] = useState('All');
 
-  const [showFiltersRow, setShowFiltersRow] = useState(true);
+  // Popover States
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [filterColumn, setFilterColumn] = useState<keyof Provider>('email');
+  const [filterOperator, setFilterOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
+
+  const handleOpenFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseFilters = () => {
+    setFilterAnchorEl(null);
+  };
+  const isFiltersOpen = Boolean(filterAnchorEl);
+
+  const REPORT_COLUMNS: { key: keyof Provider; label: string }[] = [
+    { key: 'email', label: 'Email' },
+    { key: 'firstName', label: 'First Name' },
+    { key: 'lastName', label: 'Last Name' },
+    { key: 'dob', label: 'DOB' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'npi', label: 'NPI' },
+    { key: 'license', label: 'License' },
+    { key: 'dea', label: 'DEA#' },
+    { key: 'active', label: 'Active' },
+  ];
 
   // Pagination states
   const [page, setPage] = useState(0);
@@ -94,76 +153,49 @@ export default function EnrollmentManagementView() {
 
   // Manage top filters criteria
   const handleAddCriteria = () => {
-    setFilterRows([
-      ...filterRows,
-      { id: String(Date.now()), field: 'Data Sets', operator: 'Education', value: '' }
-    ]);
+    setShowCriteria(true);
   };
 
-  const handleDeleteCriteria = (id: string) => {
-    // If only one row remains, clear it instead of leaving empty
-    if (filterRows.length === 1) {
-      setFilterRows([{ id: '1', field: 'Data Sets', operator: 'Education', value: '' }]);
-      setAppliedTopFilters([]);
-    } else {
-      setFilterRows(filterRows.filter((row) => row.id !== id));
-    }
-  };
-
-  const handleUpdateCriteria = (id: string, updates: Partial<FilterCriteria>) => {
-    setFilterRows(
-      filterRows.map((row) => (row.id === id ? { ...row, ...updates } : row))
-    );
+  const handleDeleteCriteria = () => {
+    setShowCriteria(false);
+    setCriteriaOperator('Education');
+    setCriteriaValue('');
   };
 
   const handleApplySearch = () => {
-    setAppliedTopFilters([...filterRows]);
+    setAppliedDataSets([...selectedDataSets]);
+    setAppliedShowCriteria(showCriteria);
+    setAppliedOperator(criteriaOperator);
+    setAppliedValue(criteriaValue);
     setPage(0);
+  };
+
+  const handleChangeDataSets = (event: SelectChangeEvent<string[]>) => {
+    const value = event.target.value;
+    setSelectedDataSets(typeof value === 'string' ? value.split(',') : (value as string[]));
   };
 
   // Main filter logic combining: Top Query Builder + Global Search + Inline Table Filters
   const filteredProviders = useMemo(() => {
     return MOCK_PROVIDERS.filter((provider) => {
       // 1. Top Applied Filters
-      const matchesTopFilters = appliedTopFilters.every((f) => {
-        // Skip default placeholder options
-        if (f.field === 'Data Sets' && f.operator === 'Education' && !f.value) {
-          return true;
+      if (appliedDataSets.length > 0) {
+        if (!appliedDataSets.includes(provider.dataSet)) {
+          return false;
         }
+      }
 
-        const searchTerm = f.value.toLowerCase();
-        if (!searchTerm) return true;
+      if (appliedShowCriteria && appliedValue) {
+        const searchTerm = appliedValue.toLowerCase();
+        const targetValue =
+          appliedOperator === 'License'
+            ? provider.license
+            : `${provider.name} ${provider.email} ${provider.firstName} ${provider.lastName} ${provider.dob} ${provider.phone} ${provider.npi} ${provider.license} ${provider.dea} ${provider.active}`;
 
-        // Map field selection to actual property
-        let targetValue: string;
-        if (f.field === 'Email' || f.field === 'email') targetValue = provider.email;
-        else if (f.field === 'First Name' || f.field === 'firstName') targetValue = provider.firstName;
-        else if (f.field === 'Last Name' || f.field === 'lastName') targetValue = provider.lastName;
-        else if (f.field === 'DOB' || f.field === 'dob') targetValue = provider.dob;
-        else if (f.field === 'Phone' || f.field === 'phone') targetValue = provider.phone;
-        else if (f.field === 'NPI' || f.field === 'npi') targetValue = provider.npi;
-        else if (f.field === 'License' || f.field === 'license') targetValue = provider.license;
-        else if (f.field === 'DEA#' || f.field === 'dea') targetValue = provider.dea;
-        else if (f.field === 'Active' || f.field === 'active') targetValue = provider.active;
-        else {
-          // If default/unmapped, search across all relevant fields
-          targetValue = `${provider.name} ${provider.email} ${provider.firstName} ${provider.lastName} ${provider.dob} ${provider.phone} ${provider.npi} ${provider.license} ${provider.dea} ${provider.active}`;
+        if (!targetValue.toLowerCase().includes(searchTerm)) {
+          return false;
         }
-
-        if (f.operator === 'Is') {
-          return targetValue.toLowerCase() === searchTerm;
-        }
-        if (f.operator === 'Starts With') {
-          return targetValue.toLowerCase().startsWith(searchTerm);
-        }
-        if (f.operator === 'Ends With') {
-          return targetValue.toLowerCase().endsWith(searchTerm);
-        }
-        // Default operator "Contains" or "Education" fallback (contains)
-        return targetValue.toLowerCase().includes(searchTerm);
-      });
-
-      if (!matchesTopFilters) return false;
+      }
 
       // 2. Global Search Toolbar
       const matchesGlobal = 
@@ -193,7 +225,7 @@ export default function EnrollmentManagementView() {
 
       return matchesEmail && matchesFirst && matchesLast && matchesDob && matchesPhone && matchesNpi && matchesLicense && matchesDea && matchesActive;
     });
-  }, [appliedTopFilters, globalSearch, filterEmail, filterFirst, filterLast, filterDob, filterPhone, filterNpi, filterLicense, filterDea, filterActive]);
+  }, [appliedDataSets, appliedShowCriteria, appliedOperator, appliedValue, globalSearch, filterEmail, filterFirst, filterLast, filterDob, filterPhone, filterNpi, filterLicense, filterDea, filterActive]);
 
   // Handle pages
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -247,78 +279,70 @@ export default function EnrollmentManagementView() {
         </Typography>
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {filterRows.map((row) => (
-            <Box 
-              key={row.id} 
-              sx={{ 
-                display: 'flex', 
-                gap: 2, 
-                alignItems: 'center', 
-                flexWrap: 'wrap' 
-              }}
+          {/* Top Row: Dataset select & general buttons */}
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              gap: 2, 
+              alignItems: 'center', 
+              flexWrap: 'wrap' 
+            }}
+          >
+            <FormControl sx={{ minWidth: 200 }}>
+              <Select<string[]>
+                multiple
+                displayEmpty
+                value={selectedDataSets}
+                onChange={handleChangeDataSets}
+                renderValue={(selected) => {
+                  if (selected.length === 0) {
+                    return <span style={{ color: theme.palette.text.disabled }}>Data Sets</span>;
+                  }
+                  return selected.join(', ');
+                }}
+                sx={{
+                  height: 40,
+                  bgcolor: 'background.paper',
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(0, 0, 0, 0.15)',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: theme.palette.text.secondary,
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: theme.palette.primary.main,
+                  },
+                }}
+                MenuProps={{
+                  slotProps: {
+                    paper: {
+                      sx: {
+                        maxHeight: 300,
+                        width: 250,
+                      },
+                    },
+                  },
+                }}
+              >
+                {ALL_DATASETS.map((ds) => (
+                  <MenuItem key={ds} value={ds}>
+                    <Checkbox checked={selectedDataSets.indexOf(ds) > -1} />
+                    <ListItemText primary={ds} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* Search Button */}
+            <Button
+              variant="modalAdd"
+              onClick={handleApplySearch}
             >
-              {/* Dropdown 1: Fields / Data Sets */}
-              <TextField
-                  select
-                  value={row.field}
-                  onChange={(e) => handleUpdateCriteria(row.id, { field: e.target.value })}
-                  slotProps={{
-                    select: { native: true }
-                  }}
-              >
-                <option value="Data Sets">Data Sets</option>
-                <option value="Email">Email</option>
-                <option value="First Name">First Name</option>
-                <option value="Last Name">Last Name</option>
-                <option value="DOB">DOB</option>
-                <option value="Phone">Phone</option>
-                <option value="NPI">NPI</option>
-                <option value="License">License</option>
-                <option value="DEA#">DEA#</option>
-                <option value="Active">Active</option>
-              </TextField>
+              Search
+            </Button>
 
-              {/* Dropdown 2: Operators / Education */}
-              <TextField
-                  select
-                  value={row.operator}
-                  onChange={(e) => handleUpdateCriteria(row.id, { operator: e.target.value })}
-                  slotProps={{
-                    select: { native: true }
-                  }}
-              >
-                <option value="Education">Education</option>
-                <option value="Contains">Contains</option>
-                <option value="Is">Is</option>
-                <option value="Starts With">Starts With</option>
-                <option value="Ends With">Ends With</option>
-              </TextField>
-
-              {/* Input Value */}
-              <TextField
-                placeholder="Value"
-                value={row.value}
-                onChange={(e) => handleUpdateCriteria(row.id, { value: e.target.value })}
-              />
-
-              {/* Delete Button */}
-              <Button
-                variant="modalCancel"
-                onClick={() => handleDeleteCriteria(row.id)}
-                sx={{ marginRight: 10 }}
-              >
-                Delete
-              </Button>
-
-              {/* Search Button */}
-              <Button
-                variant="modalAdd"
-                onClick={handleApplySearch}
-              >
-                Search
-              </Button>
-
-              {/* Add Criteria Button */}
+            {/* Add Criteria Button */}
+            {!showCriteria && (
               <Button
                 variant="modalCancel"
                 startIcon={<Plus size={16} />}
@@ -326,8 +350,59 @@ export default function EnrollmentManagementView() {
               >
                 Add Criteria
               </Button>
+            )}
+          </Box>
+
+          {/* Conditional Row: Operator, Value and Delete button */}
+          {showCriteria && (
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                gap: 2, 
+                alignItems: 'center', 
+                flexWrap: 'wrap',
+                animation: `${fadeInUp} 0.2s ease-in-out`
+              }}
+            >
+              {/* Dropdown 2: Operators / Education */}
+              <TextField
+                select
+                value={criteriaOperator}
+                onChange={(e) => setCriteriaOperator(e.target.value)}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    height: 40,
+                  }
+                }}
+              >
+                <option value="Education">Education</option>
+                <option value="License">License</option>
+              </TextField>
+
+              {/* Input Value */}
+              <TextField
+                placeholder="Value"
+                value={criteriaValue}
+                onChange={(e) => setCriteriaValue(e.target.value)}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    height: 40,
+                  }
+                }}
+              />
+
+              {/* Delete Button */}
+              <Button
+                variant="modalCancel"
+                onClick={handleDeleteCriteria}
+              >
+                Delete
+              </Button>
             </Box>
-          ))}
+          )}
         </Box>
       </Card>
 
@@ -365,10 +440,106 @@ export default function EnrollmentManagementView() {
             variant="toolbar"
             color="inherit"
             startIcon={<Filter size={16} />}
-            onClick={() => setShowFiltersRow(!showFiltersRow)}
+            onClick={handleOpenFilters}
           >
             Filters
           </Button>
+
+          <Popover
+            open={isFiltersOpen}
+            anchorEl={filterAnchorEl}
+            onClose={handleCloseFilters}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  p: 3,
+                  mt: 0.5,
+                  borderRadius: 2,
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                  background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }
+              }
+            }}
+          >
+            <IconButton 
+              size="small" 
+              onClick={() => {
+                setFilterValue('');
+                handleCloseFilters();
+              }}
+              sx={{ color: GREY[700] }}
+            >
+              <X size={18} />
+            </IconButton>
+
+            <TextField
+              select
+              label="Columns"
+              value={filterColumn}
+              onChange={(e) => {
+                setFilterColumn(e.target.value as keyof Provider);
+                setPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 140 }}
+            >
+              {REPORT_COLUMNS.map((col) => (
+                <option key={col.key} value={col.key}>
+                  {col.label}
+                </option>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              label="Operator"
+              value={filterOperator}
+              onChange={(e) => {
+                setFilterOperator(e.target.value);
+                setPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 160 }}
+            >
+              <option value="contains">contains</option>
+              <option value="does not contain">does not contain</option>
+              <option value="equals">equals</option>
+              <option value="does not equal">does not equal</option>
+              <option value="starts with">starts with</option>
+              <option value="ends with">ends with</option>
+              <option value="is empty">is empty</option>
+              <option value="is not empty">is not empty</option>
+              <option value="is any of">is any of</option>
+            </TextField>
+
+            <TextField
+              label="Value"
+              placeholder="Filter value"
+              value={filterValue}
+              onChange={(e) => {
+                setFilterValue(e.target.value);
+                setPage(0);
+              }}
+              sx={{ minWidth: 160 }}
+            />
+          </Popover>
 
           <Button
             variant="toolbar"
@@ -400,7 +571,6 @@ export default function EnrollmentManagementView() {
 
             <TableBody>
               {/* Contains Filter Input Row */}
-              {showFiltersRow && (
                 <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                   {/* Email Filter */}
                   <TableCell sx={{ p: 1.5 }}>
@@ -542,7 +712,6 @@ export default function EnrollmentManagementView() {
                     </TextField>
                   </TableCell>
                 </TableRow>
-              )}
 
               {visibleProviders.length === 0 ? (
                 <TableRow>

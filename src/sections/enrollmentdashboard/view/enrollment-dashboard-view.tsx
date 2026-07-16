@@ -22,7 +22,8 @@ import {
   DialogContent,
   DialogActions,
   Typography,
-  Card
+  Card,
+  Popover
 } from '@mui/material';
 import { 
   Search, 
@@ -36,8 +37,10 @@ import {
   UserPlus, 
   Check, 
   History,
-  Users
+  Users,
+  X
 } from 'lucide-react';
+import { GREY } from '../../../theme/palette';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -130,6 +133,33 @@ export default function EnrollmentDashboardView() {
   const [topPage, setTopPage] = useState(0);
   const [topRowsPerPage, setTopRowsPerPage] = useState(5);
 
+  // Top Table Inline Filters
+  const [filterTopName, setFilterTopName] = useState('');
+  const [filterTopDataSet, setFilterTopDataSet] = useState('');
+  const [filterTopNote, setFilterTopNote] = useState('');
+  const [filterTopCreated, setFilterTopCreated] = useState('');
+
+  // Top Table Popover Filters
+  const [topFilterAnchorEl, setTopFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [topFilterColumn, setTopFilterColumn] = useState<keyof TopTableRow>('name');
+  const [topFilterOperator, setTopFilterOperator] = useState('contains');
+  const [topFilterValue, setTopFilterValue] = useState('');
+
+  const handleOpenTopFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setTopFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseTopFilters = () => {
+    setTopFilterAnchorEl(null);
+  };
+  const isTopFiltersOpen = Boolean(topFilterAnchorEl);
+
+  const TOP_REPORT_COLUMNS: { key: keyof TopTableRow; label: string }[] = [
+    { key: 'name', label: 'Name' },
+    { key: 'dataSet', label: 'Data Set' },
+    { key: 'note', label: 'Note' },
+    { key: 'created', label: 'Created' },
+  ];
+
   // --- Tabs States ---
   const [activeTab, setActiveTab] = useState(0);
 
@@ -154,6 +184,41 @@ export default function EnrollmentDashboardView() {
 
   const [bottomPage, setBottomPage] = useState(0);
   const [bottomRowsPerPage, setBottomRowsPerPage] = useState(25);
+
+  // Potential Provider Inline Filters
+  const [filterPpNotification, setFilterPpNotification] = useState('');
+  const [filterPpDataSet, setFilterPpDataSet] = useState('');
+  const [filterPpFirstName, setFilterPpFirstName] = useState('');
+  const [filterPpLastName, setFilterPpLastName] = useState('');
+  const [filterPpTitle, setFilterPpTitle] = useState('');
+  const [filterPpNpi, setFilterPpNpi] = useState('');
+  const [filterPpEmail, setFilterPpEmail] = useState('');
+  const [filterPpStart, setFilterPpStart] = useState('');
+
+  // Potential Provider Popover Filters
+  const [ppFilterAnchorEl, setPpFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [ppFilterColumn, setPpFilterColumn] = useState<keyof PotentialProvider>('firstName');
+  const [ppFilterOperator, setPpFilterOperator] = useState('contains');
+  const [ppFilterValue, setPpFilterValue] = useState('');
+
+  const handleOpenPpFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPpFilterAnchorEl(event.currentTarget);
+  };
+  const handleClosePpFilters = () => {
+    setPpFilterAnchorEl(null);
+  };
+  const isPpFiltersOpen = Boolean(ppFilterAnchorEl);
+
+  const PP_REPORT_COLUMNS: { key: keyof PotentialProvider; label: string }[] = [
+    { key: 'notification', label: 'Notification' },
+    { key: 'dataSet', label: 'Data Set' },
+    { key: 'firstName', label: 'First Name' },
+    { key: 'lastName', label: 'Last Name' },
+    { key: 'title', label: 'Title' },
+    { key: 'npi', label: 'NPI' },
+    { key: 'email', label: 'Email' },
+    { key: 'start', label: 'Start' },
+  ];
 
   // Handle cell edit for potential providers
   const handlePPCellEdit = (id: string, field: keyof PotentialProvider, value: string) => {
@@ -227,32 +292,318 @@ export default function EnrollmentDashboardView() {
   const [enrollPage, setEnrollPage] = useState(0);
   const [enrollRowsPerPage, setEnrollRowsPerPage] = useState(10);
 
+  // Enrollment Inline Filters
+  const [filterEnrollDataSet, setFilterEnrollDataSet] = useState('');
+  const [filterEnrollProvider, setFilterEnrollProvider] = useState('');
+  const [filterEnrollFirst, setFilterEnrollFirst] = useState('');
+  const [filterEnrollLast, setFilterEnrollLast] = useState('');
+  const [filterEnrollProgram, setFilterEnrollProgram] = useState('');
+  const [filterEnrollProviderNum, setFilterEnrollProviderNum] = useState('');
+  const [filterEnrollTrackingNum, setFilterEnrollTrackingNum] = useState('');
+  const [filterEnrollNotification, setFilterEnrollNotification] = useState('');
+  const [filterEnrollEntry, setFilterEnrollEntry] = useState('');
+  const [filterEnrollSent, setFilterEnrollSent] = useState('');
+  const [filterEnrollNotes, setFilterEnrollNotes] = useState('');
+  const [filterEnrollCarrier, setFilterEnrollCarrier] = useState('');
+  const [filterEnrollCompleted, setFilterEnrollCompleted] = useState('All');
+
+  // Enrollment Popover Filters
+  const [enrollFilterAnchorEl, setEnrollFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [enrollFilterColumn, setEnrollFilterColumn] = useState<keyof ProviderEnrollment>('providerName');
+  const [enrollFilterOperator, setEnrollFilterOperator] = useState('contains');
+  const [enrollFilterValue, setEnrollFilterValue] = useState('');
+
+  const handleOpenEnrollFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setEnrollFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseEnrollFilters = () => {
+    setEnrollFilterAnchorEl(null);
+  };
+  const isEnrollFiltersOpen = Boolean(enrollFilterAnchorEl);
+
+  const ENROLL_REPORT_COLUMNS: { key: keyof ProviderEnrollment; label: string }[] = [
+    { key: 'dataSet', label: 'Data Set' },
+    { key: 'providerName', label: 'Provider Name' },
+    { key: 'providerEmail', label: 'Provider Email' },
+    { key: 'first', label: 'First' },
+    { key: 'last', label: 'Last' },
+    { key: 'program', label: 'Program' },
+    { key: 'providerNum', label: 'Provider#' },
+    { key: 'trackingNum', label: 'Tracking#' },
+    { key: 'notification', label: 'Notification' },
+    { key: 'entryDate', label: 'Entry Date' },
+    { key: 'sentDate', label: 'Sent Date' },
+    { key: 'notes', label: 'Missing/Notes' },
+    { key: 'carrierDate', label: 'Carrier Date' },
+    { key: 'completed', label: 'Completed' },
+  ];
+
   // --- Filters ---
   const filteredTopRows = useMemo(() => {
-    return topRows.filter(r => 
-      r.name.toLowerCase().includes(topSearch.toLowerCase()) ||
-      r.note.toLowerCase().includes(topSearch.toLowerCase()) ||
-      r.dataSet.toLowerCase().includes(topSearch.toLowerCase())
-    );
-  }, [topRows, topSearch]);
+    return topRows.filter(r => {
+      const matchesGlobal = 
+        r.name.toLowerCase().includes(topSearch.toLowerCase()) ||
+        r.note.toLowerCase().includes(topSearch.toLowerCase()) ||
+        r.dataSet.toLowerCase().includes(topSearch.toLowerCase());
+
+      const matchesName = filterTopName === '' || r.name.toLowerCase().includes(filterTopName.toLowerCase());
+      const matchesDataSet = filterTopDataSet === '' || r.dataSet.toLowerCase().includes(filterTopDataSet.toLowerCase());
+      const matchesNote = filterTopNote === '' || r.note.toLowerCase().includes(filterTopNote.toLowerCase());
+      
+      const formattedCreated = dayjs(r.created).format('MM/DD/YYYY');
+      const matchesCreated = filterTopCreated === '' || formattedCreated.includes(filterTopCreated);
+
+      if (!(matchesGlobal && matchesName && matchesDataSet && matchesNote && matchesCreated)) {
+        return false;
+      }
+
+      // Popover Filter
+      if (topFilterValue === '' && topFilterOperator !== 'is empty' && topFilterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        topFilterColumn === 'created' ? formattedCreated :
+        (r[topFilterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = topFilterValue.toLowerCase();
+
+      switch (topFilterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
+    });
+  }, [
+    topRows,
+    topSearch,
+    filterTopName,
+    filterTopDataSet,
+    filterTopNote,
+    filterTopCreated,
+    topFilterColumn,
+    topFilterOperator,
+    topFilterValue
+  ]);
 
   const filteredPP = useMemo(() => {
-    return potentialProviders.filter(p => 
-      p.firstName.toLowerCase().includes(bottomSearch.toLowerCase()) ||
-      p.lastName.toLowerCase().includes(bottomSearch.toLowerCase()) ||
-      p.email.toLowerCase().includes(bottomSearch.toLowerCase()) ||
-      p.dataSet.toLowerCase().includes(bottomSearch.toLowerCase())
-    );
-  }, [potentialProviders, bottomSearch]);
+    return potentialProviders.filter(p => {
+      const matchesGlobal = 
+        p.firstName.toLowerCase().includes(bottomSearch.toLowerCase()) ||
+        p.lastName.toLowerCase().includes(bottomSearch.toLowerCase()) ||
+        p.email.toLowerCase().includes(bottomSearch.toLowerCase()) ||
+        p.dataSet.toLowerCase().includes(bottomSearch.toLowerCase());
+
+      const formattedNotification = p.notification ? dayjs(p.notification).format('MM/DD/YYYY') : '';
+      const formattedStart = p.start ? dayjs(p.start).format('MM/DD/YYYY') : '';
+
+      const matchesNotification = filterPpNotification === '' || formattedNotification.includes(filterPpNotification);
+      const matchesDataSet = filterPpDataSet === '' || p.dataSet.toLowerCase().includes(filterPpDataSet.toLowerCase());
+      const matchesFirstName = filterPpFirstName === '' || p.firstName.toLowerCase().includes(filterPpFirstName.toLowerCase());
+      const matchesLastName = filterPpLastName === '' || p.lastName.toLowerCase().includes(filterPpLastName.toLowerCase());
+      const matchesTitle = filterPpTitle === '' || p.title.toLowerCase().includes(filterPpTitle.toLowerCase());
+      const matchesNpi = filterPpNpi === '' || p.npi.toLowerCase().includes(filterPpNpi.toLowerCase());
+      const matchesEmail = filterPpEmail === '' || p.email.toLowerCase().includes(filterPpEmail.toLowerCase());
+      const matchesStart = filterPpStart === '' || formattedStart.includes(filterPpStart);
+
+      if (!(
+        matchesGlobal &&
+        matchesNotification &&
+        matchesDataSet &&
+        matchesFirstName &&
+        matchesLastName &&
+        matchesTitle &&
+        matchesNpi &&
+        matchesEmail &&
+        matchesStart
+      )) {
+        return false;
+      }
+
+      // Popover Filter
+      if (ppFilterValue === '' && ppFilterOperator !== 'is empty' && ppFilterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        ppFilterColumn === 'notification' ? formattedNotification :
+        ppFilterColumn === 'start' ? formattedStart :
+        (p[ppFilterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = ppFilterValue.toLowerCase();
+
+      switch (ppFilterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
+    });
+  }, [
+    potentialProviders,
+    bottomSearch,
+    filterPpNotification,
+    filterPpDataSet,
+    filterPpFirstName,
+    filterPpLastName,
+    filterPpTitle,
+    filterPpNpi,
+    filterPpEmail,
+    filterPpStart,
+    ppFilterColumn,
+    ppFilterOperator,
+    ppFilterValue
+  ]);
 
   const filteredEnrollments = useMemo(() => {
-    return MOCK_ENROLLMENTS.filter(e => 
-      e.providerName.toLowerCase().includes(enrollSearch.toLowerCase()) ||
-      e.program.toLowerCase().includes(enrollSearch.toLowerCase()) ||
-      e.dataSet.toLowerCase().includes(enrollSearch.toLowerCase()) ||
-      e.notes.toLowerCase().includes(enrollSearch.toLowerCase())
-    );
-  }, [enrollSearch]);
+    return MOCK_ENROLLMENTS.filter(e => {
+      const matchesGlobal = 
+        e.providerName.toLowerCase().includes(enrollSearch.toLowerCase()) ||
+        e.program.toLowerCase().includes(enrollSearch.toLowerCase()) ||
+        e.dataSet.toLowerCase().includes(enrollSearch.toLowerCase()) ||
+        e.notes.toLowerCase().includes(enrollSearch.toLowerCase());
+
+      const formattedNotification = e.notification ? dayjs(e.notification).format('MM/DD/YYYY') : '';
+      const formattedEntry = e.entryDate ? dayjs(e.entryDate).format('MM/DD/YYYY') : '';
+      const formattedSent = e.sentDate ? dayjs(e.sentDate).format('MM/DD/YYYY') : '';
+      const formattedCarrier = e.carrierDate ? dayjs(e.carrierDate).format('MM/DD/YYYY') : '';
+
+      const matchesDataSet = filterEnrollDataSet === '' || e.dataSet.toLowerCase().includes(filterEnrollDataSet.toLowerCase());
+      const matchesProvider = filterEnrollProvider === '' || e.providerName.toLowerCase().includes(filterEnrollProvider.toLowerCase()) || e.providerEmail.toLowerCase().includes(filterEnrollProvider.toLowerCase());
+      const matchesFirst = filterEnrollFirst === '' || e.first.toLowerCase().includes(filterEnrollFirst.toLowerCase());
+      const matchesLast = filterEnrollLast === '' || e.last.toLowerCase().includes(filterEnrollLast.toLowerCase());
+      const matchesProgram = filterEnrollProgram === '' || e.program.toLowerCase().includes(filterEnrollProgram.toLowerCase());
+      const matchesProviderNum = filterEnrollProviderNum === '' || e.providerNum.toLowerCase().includes(filterEnrollProviderNum.toLowerCase());
+      const matchesTrackingNum = filterEnrollTrackingNum === '' || e.trackingNum.toLowerCase().includes(filterEnrollTrackingNum.toLowerCase());
+      const matchesNotification = filterEnrollNotification === '' || formattedNotification.includes(filterEnrollNotification);
+      const matchesEntry = filterEnrollEntry === '' || formattedEntry.includes(filterEnrollEntry);
+      const matchesSent = filterEnrollSent === '' || formattedSent.includes(filterEnrollSent);
+      const matchesNotes = filterEnrollNotes === '' || e.notes.toLowerCase().includes(filterEnrollNotes.toLowerCase());
+      const matchesCarrier = filterEnrollCarrier === '' || formattedCarrier.includes(filterEnrollCarrier);
+      
+      const matchesCompleted = 
+        filterEnrollCompleted === 'All' ||
+        (filterEnrollCompleted === 'Yes' && e.completed) ||
+        (filterEnrollCompleted === 'No' && !e.completed);
+
+      if (!(
+        matchesGlobal &&
+        matchesDataSet &&
+        matchesProvider &&
+        matchesFirst &&
+        matchesLast &&
+        matchesProgram &&
+        matchesProviderNum &&
+        matchesTrackingNum &&
+        matchesNotification &&
+        matchesEntry &&
+        matchesSent &&
+        matchesNotes &&
+        matchesCarrier &&
+        matchesCompleted
+      )) {
+        return false;
+      }
+
+      // Popover Filter
+      if (enrollFilterValue === '' && enrollFilterOperator !== 'is empty' && enrollFilterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        enrollFilterColumn === 'notification' ? formattedNotification :
+        enrollFilterColumn === 'entryDate' ? formattedEntry :
+        enrollFilterColumn === 'sentDate' ? formattedSent :
+        enrollFilterColumn === 'carrierDate' ? formattedCarrier :
+        enrollFilterColumn === 'completed' ? (e.completed ? 'yes' : 'no') :
+        (e[enrollFilterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = enrollFilterValue.toLowerCase();
+
+      switch (enrollFilterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
+    });
+  }, [
+    enrollSearch,
+    filterEnrollDataSet,
+    filterEnrollProvider,
+    filterEnrollFirst,
+    filterEnrollLast,
+    filterEnrollProgram,
+    filterEnrollProviderNum,
+    filterEnrollTrackingNum,
+    filterEnrollNotification,
+    filterEnrollEntry,
+    filterEnrollSent,
+    filterEnrollNotes,
+    filterEnrollCarrier,
+    filterEnrollCompleted,
+    enrollFilterColumn,
+    enrollFilterOperator,
+    enrollFilterValue
+  ]);
 
   return (
     <Box sx={{ width: 1, pb: 5, animation: `${fadeInUp} 0.3s ease-in-out` }}>
@@ -281,9 +632,109 @@ export default function EnrollmentDashboardView() {
             sx={{ width: { xs: 1, sm: 300 } }}
           />
           <Box sx={{ flexGrow: 1 }} />
-          <Button variant="toolbar" startIcon={<Filter size={16} />}>
+          <Button 
+            variant="toolbar" 
+            startIcon={<Filter size={16} />}
+            onClick={handleOpenTopFilters}
+          >
             Filters
           </Button>
+
+          <Popover
+            open={isTopFiltersOpen}
+            anchorEl={topFilterAnchorEl}
+            onClose={handleCloseTopFilters}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  p: 3,
+                  mt: 0.5,
+                  borderRadius: 2,
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                  background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }
+              }
+            }}
+          >
+            <IconButton 
+              size="small" 
+              onClick={() => {
+                setTopFilterValue('');
+                handleCloseTopFilters();
+              }}
+              sx={{ color: GREY[700] }}
+            >
+              <X size={18} />
+            </IconButton>
+
+            <TextField
+              select
+              label="Columns"
+              value={topFilterColumn}
+              onChange={(e) => {
+                setTopFilterColumn(e.target.value as keyof TopTableRow);
+                setTopPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 140 }}
+            >
+              {TOP_REPORT_COLUMNS.map((col) => (
+                <option key={col.key} value={col.key}>
+                  {col.label}
+                </option>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              label="Operator"
+              value={topFilterOperator}
+              onChange={(e) => {
+                setTopFilterOperator(e.target.value);
+                setTopPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 160 }}
+            >
+              <option value="contains">contains</option>
+              <option value="does not contain">does not contain</option>
+              <option value="equals">equals</option>
+              <option value="does not equal">does not equal</option>
+              <option value="starts with">starts with</option>
+              <option value="ends with">ends with</option>
+              <option value="is empty">is empty</option>
+              <option value="is not empty">is not empty</option>
+              <option value="is any of">is any of</option>
+            </TextField>
+
+            <TextField
+              label="Value"
+              placeholder="Filter value"
+              value={topFilterValue}
+              onChange={(e) => {
+                setTopFilterValue(e.target.value);
+                setTopPage(0);
+              }}
+              sx={{ minWidth: 160 }}
+            />
+          </Popover>
           <Button variant="toolbar" startIcon={<Download size={16} />}>
             Export
           </Button>
@@ -302,6 +753,65 @@ export default function EnrollmentDashboardView() {
               </TableRow>
             </TableHead>
             <TableBody>
+              <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
+                {/* Name Filter */}
+                <TableCell sx={{ p: 1.5 }}>
+                  <TextField
+                    size="small"
+                    label="Contains"
+                    value={filterTopName}
+                    onChange={(e) => {
+                      setFilterTopName(e.target.value);
+                      setTopPage(0);
+                    }}
+                    fullWidth
+                  />
+                </TableCell>
+
+                {/* Data Set Filter */}
+                <TableCell sx={{ p: 1.5 }}>
+                  <TextField
+                    size="small"
+                    label="Contains"
+                    value={filterTopDataSet}
+                    onChange={(e) => {
+                      setFilterTopDataSet(e.target.value);
+                      setTopPage(0);
+                    }}
+                    fullWidth
+                  />
+                </TableCell>
+
+                {/* Note Filter */}
+                <TableCell sx={{ p: 1.5 }}>
+                  <TextField
+                    size="small"
+                    label="Contains"
+                    value={filterTopNote}
+                    onChange={(e) => {
+                      setFilterTopNote(e.target.value);
+                      setTopPage(0);
+                    }}
+                    fullWidth
+                  />
+                </TableCell>
+
+                {/* Created Filter */}
+                <TableCell sx={{ p: 1.5 }}>
+                  <TextField
+                    size="small"
+                    label="Contains"
+                    value={filterTopCreated}
+                    onChange={(e) => {
+                      setFilterTopCreated(e.target.value);
+                      setTopPage(0);
+                    }}
+                    fullWidth
+                  />
+                </TableCell>
+                <TableCell sx={{ p: 1.5 }}></TableCell>
+              </TableRow>
+
               {filteredTopRows
                 .slice(topPage * topRowsPerPage, topPage * topRowsPerPage + topRowsPerPage)
                 .map((row, idx) => {
@@ -421,9 +931,109 @@ export default function EnrollmentDashboardView() {
             >
               Add
             </Button>
-            <Button variant="toolbar" startIcon={<Filter size={16} />}>
+            <Button 
+              variant="toolbar" 
+              startIcon={<Filter size={16} />}
+              onClick={handleOpenPpFilters}
+            >
               Filters
             </Button>
+
+            <Popover
+              open={isPpFiltersOpen}
+              anchorEl={ppFilterAnchorEl}
+              onClose={handleClosePpFilters}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              slotProps={{
+                paper: {
+                  sx: {
+                    p: 3,
+                    mt: 0.5,
+                    borderRadius: 2,
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }
+                }
+              }}
+            >
+              <IconButton 
+                size="small" 
+                onClick={() => {
+                  setPpFilterValue('');
+                  handleClosePpFilters();
+                }}
+                sx={{ color: GREY[700] }}
+              >
+                <X size={18} />
+              </IconButton>
+
+              <TextField
+                select
+                label="Columns"
+                value={ppFilterColumn}
+                onChange={(e) => {
+                  setPpFilterColumn(e.target.value as keyof PotentialProvider);
+                  setBottomPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 140 }}
+              >
+                {PP_REPORT_COLUMNS.map((col) => (
+                  <option key={col.key} value={col.key}>
+                    {col.label}
+                  </option>
+                ))}
+              </TextField>
+
+              <TextField
+                select
+                label="Operator"
+                value={ppFilterOperator}
+                onChange={(e) => {
+                  setPpFilterOperator(e.target.value);
+                  setBottomPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 160 }}
+              >
+                <option value="contains">contains</option>
+                <option value="does not contain">does not contain</option>
+                <option value="equals">equals</option>
+                <option value="does not equal">does not equal</option>
+                <option value="starts with">starts with</option>
+                <option value="ends with">ends with</option>
+                <option value="is empty">is empty</option>
+                <option value="is not empty">is not empty</option>
+                <option value="is any of">is any of</option>
+              </TextField>
+
+              <TextField
+                label="Value"
+                placeholder="Filter value"
+                value={ppFilterValue}
+                onChange={(e) => {
+                  setPpFilterValue(e.target.value);
+                  setBottomPage(0);
+                }}
+                sx={{ minWidth: 160 }}
+              />
+            </Popover>
             <Button variant="toolbar" startIcon={<Download size={16} />}>
               Export
             </Button>
@@ -446,6 +1056,122 @@ export default function EnrollmentDashboardView() {
                 </TableRow>
               </TableHead>
               <TableBody>
+                <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
+                  {/* Notification */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpNotification}
+                      onChange={(e) => {
+                        setFilterPpNotification(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Data Set */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpDataSet}
+                      onChange={(e) => {
+                        setFilterPpDataSet(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* First Name */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpFirstName}
+                      onChange={(e) => {
+                        setFilterPpFirstName(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Last Name */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpLastName}
+                      onChange={(e) => {
+                        setFilterPpLastName(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Title */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpTitle}
+                      onChange={(e) => {
+                        setFilterPpTitle(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* NPI */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpNpi}
+                      onChange={(e) => {
+                        setFilterPpNpi(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Email */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpEmail}
+                      onChange={(e) => {
+                        setFilterPpEmail(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Start */}
+                  <TableCell sx={{ p: 1 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterPpStart}
+                      onChange={(e) => {
+                        setFilterPpStart(e.target.value);
+                        setBottomPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  <TableCell sx={{ p: 1 }}></TableCell>
+                </TableRow>
+
                 {filteredPP
                   .slice(bottomPage * bottomRowsPerPage, bottomPage * bottomRowsPerPage + bottomRowsPerPage)
                   .map((row, idx) => {
@@ -650,9 +1376,109 @@ export default function EnrollmentDashboardView() {
               sx={{ width: { xs: 1, sm: 300 } }}
             />
             <Box sx={{ flexGrow: 1 }} />
-            <Button variant="toolbar" startIcon={<Filter size={16} />}>
+            <Button 
+              variant="toolbar" 
+              startIcon={<Filter size={16} />}
+              onClick={handleOpenEnrollFilters}
+            >
               Filters
             </Button>
+
+            <Popover
+              open={isEnrollFiltersOpen}
+              anchorEl={enrollFilterAnchorEl}
+              onClose={handleCloseEnrollFilters}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              slotProps={{
+                paper: {
+                  sx: {
+                    p: 3,
+                    mt: 0.5,
+                    borderRadius: 2,
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }
+                }
+              }}
+            >
+              <IconButton 
+                size="small" 
+                onClick={() => {
+                  setEnrollFilterValue('');
+                  handleCloseEnrollFilters();
+                }}
+                sx={{ color: GREY[700] }}
+              >
+                <X size={18} />
+              </IconButton>
+
+              <TextField
+                select
+                label="Columns"
+                value={enrollFilterColumn}
+                onChange={(e) => {
+                  setEnrollFilterColumn(e.target.value as keyof ProviderEnrollment);
+                  setEnrollPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 140 }}
+              >
+                {ENROLL_REPORT_COLUMNS.map((col) => (
+                  <option key={col.key} value={col.key}>
+                    {col.label}
+                  </option>
+                ))}
+              </TextField>
+
+              <TextField
+                select
+                label="Operator"
+                value={enrollFilterOperator}
+                onChange={(e) => {
+                  setEnrollFilterOperator(e.target.value);
+                  setEnrollPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 160 }}
+              >
+                <option value="contains">contains</option>
+                <option value="does not contain">does not contain</option>
+                <option value="equals">equals</option>
+                <option value="does not equal">does not equal</option>
+                <option value="starts with">starts with</option>
+                <option value="ends with">ends with</option>
+                <option value="is empty">is empty</option>
+                <option value="is not empty">is not empty</option>
+                <option value="is any of">is any of</option>
+              </TextField>
+
+              <TextField
+                label="Value"
+                placeholder="Filter value"
+                value={enrollFilterValue}
+                onChange={(e) => {
+                  setEnrollFilterValue(e.target.value);
+                  setEnrollPage(0);
+                }}
+                sx={{ minWidth: 160 }}
+              />
+            </Popover>
             <Button variant="toolbar" startIcon={<Download size={16} />}>
               Export
             </Button>
@@ -688,6 +1514,198 @@ export default function EnrollmentDashboardView() {
                 </TableRow>
               </TableHead>
               <TableBody>
+                <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
+                  {/* Data Set */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollDataSet}
+                      onChange={(e) => {
+                        setFilterEnrollDataSet(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Provider */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollProvider}
+                      onChange={(e) => {
+                        setFilterEnrollProvider(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* First */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollFirst}
+                      onChange={(e) => {
+                        setFilterEnrollFirst(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Last */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollLast}
+                      onChange={(e) => {
+                        setFilterEnrollLast(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Program */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollProgram}
+                      onChange={(e) => {
+                        setFilterEnrollProgram(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Provider# */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollProviderNum}
+                      onChange={(e) => {
+                        setFilterEnrollProviderNum(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Tracking# */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollTrackingNum}
+                      onChange={(e) => {
+                        setFilterEnrollTrackingNum(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Notification */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollNotification}
+                      onChange={(e) => {
+                        setFilterEnrollNotification(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Entry */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollEntry}
+                      onChange={(e) => {
+                        setFilterEnrollEntry(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Sent */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollSent}
+                      onChange={(e) => {
+                        setFilterEnrollSent(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Notes */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollNotes}
+                      onChange={(e) => {
+                        setFilterEnrollNotes(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Carrier */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      size="small"
+                      label="Contains"
+                      value={filterEnrollCarrier}
+                      onChange={(e) => {
+                        setFilterEnrollCarrier(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      fullWidth
+                    />
+                  </TableCell>
+
+                  {/* Completed */}
+                  <TableCell sx={{ p: 1.5 }}>
+                    <TextField
+                      select
+                      size="small"
+                      label="Is"
+                      value={filterEnrollCompleted}
+                      onChange={(e) => {
+                        setFilterEnrollCompleted(e.target.value);
+                        setEnrollPage(0);
+                      }}
+                      slotProps={{
+                        select: { native: true }
+                      }}
+                      fullWidth
+                    >
+                      <option value="All">All</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </TextField>
+                  </TableCell>
+                </TableRow>
+
                 {filteredEnrollments
                   .slice(enrollPage * enrollRowsPerPage, enrollPage * enrollRowsPerPage + enrollRowsPerPage)
                   .map((row, idx) => {

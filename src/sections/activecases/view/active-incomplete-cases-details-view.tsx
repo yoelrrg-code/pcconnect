@@ -17,9 +17,11 @@ import {
   alpha,
   TablePagination,
   Card,
-  IconButton
+  IconButton,
+  Popover
 } from '@mui/material';
-import { Search, Filter, Download, MessageSquare } from 'lucide-react';
+import { Search, Filter, Download, MessageSquare, X } from 'lucide-react';
+import { GREY } from '../../../theme/palette';
 import { fadeInUp } from '../../../theme/effects';
 
 import {
@@ -39,7 +41,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
 
   // PC Queue State
   const [pcSearch, setPcSearch] = useState('');
-  const [pcShowFilters, setPcShowFilters] = useState(true);
   const [pcPage, setPcPage] = useState(0);
   const [pcRowsPerPage, setPcRowsPerPage] = useState(10);
   
@@ -55,9 +56,35 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
   const [filterPcComment, setFilterPcComment] = useState('');
   const [filterPcSubmitted, setFilterPcSubmitted] = useState('');
 
+  // PC Popover States
+  const [pcFilterAnchorEl, setPcFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [pcFilterColumn, setPcFilterColumn] = useState<keyof PCQueueCase>('patientName');
+  const [pcFilterOperator, setPcFilterOperator] = useState('contains');
+  const [pcFilterValue, setPcFilterValue] = useState('');
+
+  const handleOpenPcFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPcFilterAnchorEl(event.currentTarget);
+  };
+  const handleClosePcFilters = () => {
+    setPcFilterAnchorEl(null);
+  };
+  const isPcFiltersOpen = Boolean(pcFilterAnchorEl);
+
+  const PC_REPORT_COLUMNS: { key: keyof PCQueueCase; label: string }[] = [
+    { key: 'createdInConnect', label: 'Created in Connect' },
+    { key: 'account', label: 'Account#' },
+    { key: 'mrn', label: 'MR#' },
+    { key: 'dos', label: 'DOS' },
+    { key: 'patientName', label: 'Patient Name' },
+    { key: 'provider', label: 'Provider' },
+    { key: 'scribe', label: 'Scribe' },
+    { key: 'reason', label: 'Reason' },
+    { key: 'lastComment', label: 'Last Comment' },
+    { key: 'submittedBy', label: 'Submitted By' },
+  ];
+
   // Waiting Review State
   const [wrSearch, setWrSearch] = useState('');
-  const [wrShowFilters, setWrShowFilters] = useState(true);
   const [wrPage, setWrPage] = useState(0);
   const [wrRowsPerPage, setWrRowsPerPage] = useState(10);
 
@@ -71,6 +98,32 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
   const [filterWrReason, setFilterWrReason] = useState('');
   const [filterWrComment, setFilterWrComment] = useState('');
   const [filterWrSubmitted, setFilterWrSubmitted] = useState('');
+
+  // WR Popover States
+  const [wrFilterAnchorEl, setWrFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [wrFilterColumn, setWrFilterColumn] = useState<keyof WaitingReviewCase>('patientName');
+  const [wrFilterOperator, setWrFilterOperator] = useState('contains');
+  const [wrFilterValue, setWrFilterValue] = useState('');
+
+  const handleOpenWrFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setWrFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseWrFilters = () => {
+    setWrFilterAnchorEl(null);
+  };
+  const isWrFiltersOpen = Boolean(wrFilterAnchorEl);
+
+  const WR_REPORT_COLUMNS: { key: keyof WaitingReviewCase; label: string }[] = [
+    { key: 'account', label: 'Account#' },
+    { key: 'mrn', label: 'MR#' },
+    { key: 'dos', label: 'DOS' },
+    { key: 'patientName', label: 'Patient Name' },
+    { key: 'provider', label: 'Provider' },
+    { key: 'scribe', label: 'Scribe' },
+    { key: 'reason', label: 'Reason' },
+    { key: 'lastComment', label: 'Last Comment' },
+    { key: 'submittedBy', label: 'Submitted By' },
+  ];
 
   // PC Queue Filtering
   const filteredPcQueue = useMemo(() => {
@@ -97,9 +150,64 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
       const matchesComment = filterPcComment === '' || item.lastComment.toLowerCase().includes(filterPcComment.toLowerCase());
       const matchesSubmitted = filterPcSubmitted === '' || item.submittedBy.toLowerCase().includes(filterPcSubmitted.toLowerCase()) || (item.submittedTime && item.submittedTime.toLowerCase().includes(filterPcSubmitted.toLowerCase()));
 
-      return matchesGlobal && matchesCreated && matchesAccount && matchesMrn && matchesDos && matchesPatient && matchesProvider && matchesScribe && matchesReason && matchesComment && matchesSubmitted;
+      if (!(matchesGlobal && matchesCreated && matchesAccount && matchesMrn && matchesDos && matchesPatient && matchesProvider && matchesScribe && matchesReason && matchesComment && matchesSubmitted)) {
+        return false;
+      }
+
+      // Popover Filter
+      if (pcFilterValue === '' && pcFilterOperator !== 'is empty' && pcFilterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        pcFilterColumn === 'createdInConnect' ? `${item.createdInConnect} ${item.createdTime || ''}`.trim() :
+        pcFilterColumn === 'submittedBy' ? `${item.submittedBy} ${item.submittedTime || ''}`.trim() :
+        (item[pcFilterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = pcFilterValue.toLowerCase();
+
+      switch (pcFilterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
     });
-  }, [pcSearch, filterPcCreated, filterPcAccount, filterPcMrn, filterPcDos, filterPcPatient, filterPcProvider, filterPcScribe, filterPcReason, filterPcComment, filterPcSubmitted]);
+  }, [
+    pcSearch,
+    filterPcCreated,
+    filterPcAccount,
+    filterPcMrn,
+    filterPcDos,
+    filterPcPatient,
+    filterPcProvider,
+    filterPcScribe,
+    filterPcReason,
+    filterPcComment,
+    filterPcSubmitted,
+    pcFilterColumn,
+    pcFilterOperator,
+    pcFilterValue
+  ]);
 
   // Waiting Review Filtering
   const filteredWaitingReview = useMemo(() => {
@@ -124,9 +232,62 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
       const matchesComment = filterWrComment === '' || item.lastComment.toLowerCase().includes(filterWrComment.toLowerCase());
       const matchesSubmitted = filterWrSubmitted === '' || item.submittedBy.toLowerCase().includes(filterWrSubmitted.toLowerCase()) || (item.submittedTime && item.submittedTime.toLowerCase().includes(filterWrSubmitted.toLowerCase()));
 
-      return matchesGlobal && matchesAccount && matchesMrn && matchesDos && matchesPatient && matchesProvider && matchesScribe && matchesReason && matchesComment && matchesSubmitted;
+      if (!(matchesGlobal && matchesAccount && matchesMrn && matchesDos && matchesPatient && matchesProvider && matchesScribe && matchesReason && matchesComment && matchesSubmitted)) {
+        return false;
+      }
+
+      // Popover Filter
+      if (wrFilterValue === '' && wrFilterOperator !== 'is empty' && wrFilterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        wrFilterColumn === 'submittedBy' ? `${item.submittedBy} ${item.submittedTime || ''}`.trim() :
+        (item[wrFilterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = wrFilterValue.toLowerCase();
+
+      switch (wrFilterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
     });
-  }, [wrSearch, filterWrAccount, filterWrMrn, filterWrDos, filterWrPatient, filterWrProvider, filterWrScribe, filterWrReason, filterWrComment, filterWrSubmitted]);
+  }, [
+    wrSearch,
+    filterWrAccount,
+    filterWrMrn,
+    filterWrDos,
+    filterWrPatient,
+    filterWrProvider,
+    filterWrScribe,
+    filterWrReason,
+    filterWrComment,
+    filterWrSubmitted,
+    wrFilterColumn,
+    wrFilterOperator,
+    wrFilterValue
+  ]);
 
   const visiblePcQueue = useMemo(() => {
     return filteredPcQueue.slice(pcPage * pcRowsPerPage, pcPage * pcRowsPerPage + pcRowsPerPage);
@@ -244,10 +405,106 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
             variant="toolbar"
             color="inherit"
             startIcon={<Filter size={16} />}
-            onClick={() => setPcShowFilters(!pcShowFilters)}
+            onClick={handleOpenPcFilters}
           >
             Filters
           </Button>
+
+          <Popover
+            open={isPcFiltersOpen}
+            anchorEl={pcFilterAnchorEl}
+            onClose={handleClosePcFilters}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  p: 3,
+                  mt: 0.5,
+                  borderRadius: 2,
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                  background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }
+              }
+            }}
+          >
+            <IconButton 
+              size="small" 
+              onClick={() => {
+                setPcFilterValue('');
+                handleClosePcFilters();
+              }}
+              sx={{ color: GREY[700] }}
+            >
+              <X size={18} />
+            </IconButton>
+
+            <TextField
+              select
+              label="Columns"
+              value={pcFilterColumn}
+              onChange={(e) => {
+                setPcFilterColumn(e.target.value as keyof PCQueueCase);
+                setPcPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 140 }}
+            >
+              {PC_REPORT_COLUMNS.map((col) => (
+                <option key={col.key} value={col.key}>
+                  {col.label}
+                </option>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              label="Operator"
+              value={pcFilterOperator}
+              onChange={(e) => {
+                setPcFilterOperator(e.target.value);
+                setPcPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 160 }}
+            >
+              <option value="contains">contains</option>
+              <option value="does not contain">does not contain</option>
+              <option value="equals">equals</option>
+              <option value="does not equal">does not equal</option>
+              <option value="starts with">starts with</option>
+              <option value="ends with">ends with</option>
+              <option value="is empty">is empty</option>
+              <option value="is not empty">is not empty</option>
+              <option value="is any of">is any of</option>
+            </TextField>
+
+            <TextField
+              label="Value"
+              placeholder="Filter value"
+              value={pcFilterValue}
+              onChange={(e) => {
+                setPcFilterValue(e.target.value);
+                setPcPage(0);
+              }}
+              sx={{ minWidth: 160 }}
+            />
+          </Popover>
           <Button
             variant="toolbar"
             color="inherit"
@@ -277,7 +534,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
             </TableHead>
 
             <TableBody>
-              {pcShowFilters && (
                 <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterPcCreated} onChange={(e) => { setFilterPcCreated(e.target.value); setPcPage(0); }} /></TableCell>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterPcAccount} onChange={(e) => { setFilterPcAccount(e.target.value); setPcPage(0); }} /></TableCell>
@@ -290,7 +546,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterPcComment} onChange={(e) => { setFilterPcComment(e.target.value); setPcPage(0); }} /></TableCell>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterPcSubmitted} onChange={(e) => { setFilterPcSubmitted(e.target.value); setPcPage(0); }} /></TableCell>
                 </TableRow>
-              )}
 
               {visiblePcQueue.length === 0 ? (
                 <TableRow>
@@ -459,10 +714,106 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
             variant="toolbar"
             color="inherit"
             startIcon={<Filter size={16} />}
-            onClick={() => setWrShowFilters(!wrShowFilters)}
+            onClick={handleOpenWrFilters}
           >
             Filters
           </Button>
+
+          <Popover
+            open={isWrFiltersOpen}
+            anchorEl={wrFilterAnchorEl}
+            onClose={handleCloseWrFilters}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  p: 3,
+                  mt: 0.5,
+                  borderRadius: 2,
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                  background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }
+              }
+            }}
+          >
+            <IconButton 
+              size="small" 
+              onClick={() => {
+                setWrFilterValue('');
+                handleCloseWrFilters();
+              }}
+              sx={{ color: GREY[700] }}
+            >
+              <X size={18} />
+            </IconButton>
+
+            <TextField
+              select
+              label="Columns"
+              value={wrFilterColumn}
+              onChange={(e) => {
+                setWrFilterColumn(e.target.value as keyof WaitingReviewCase);
+                setWrPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 140 }}
+            >
+              {WR_REPORT_COLUMNS.map((col) => (
+                <option key={col.key} value={col.key}>
+                  {col.label}
+                </option>
+              ))}
+            </TextField>
+
+            <TextField
+              select
+              label="Operator"
+              value={wrFilterOperator}
+              onChange={(e) => {
+                setWrFilterOperator(e.target.value);
+                setWrPage(0);
+              }}
+              slotProps={{
+                select: { native: true }
+              }}
+              sx={{ minWidth: 160 }}
+            >
+              <option value="contains">contains</option>
+              <option value="does not contain">does not contain</option>
+              <option value="equals">equals</option>
+              <option value="does not equal">does not equal</option>
+              <option value="starts with">starts with</option>
+              <option value="ends with">ends with</option>
+              <option value="is empty">is empty</option>
+              <option value="is not empty">is not empty</option>
+              <option value="is any of">is any of</option>
+            </TextField>
+
+            <TextField
+              label="Value"
+              placeholder="Filter value"
+              value={wrFilterValue}
+              onChange={(e) => {
+                setWrFilterValue(e.target.value);
+                setWrPage(0);
+              }}
+              sx={{ minWidth: 160 }}
+            />
+          </Popover>
           <Button
             variant="toolbar"
             color="inherit"
@@ -491,7 +842,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
             </TableHead>
 
             <TableBody>
-              {wrShowFilters && (
                 <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterWrAccount} onChange={(e) => { setFilterWrAccount(e.target.value); setWrPage(0); }} /></TableCell>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterWrMrn} onChange={(e) => { setFilterWrMrn(e.target.value); setWrPage(0); }} /></TableCell>
@@ -503,7 +853,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterWrComment} onChange={(e) => { setFilterWrComment(e.target.value); setWrPage(0); }} /></TableCell>
                   <TableCell sx={{ p: 1.5 }}><TextField size="small" label="Contains" value={filterWrSubmitted} onChange={(e) => { setFilterWrSubmitted(e.target.value); setWrPage(0); }} /></TableCell>
                 </TableRow>
-              )}
 
               {visibleWaitingReview.length === 0 ? (
                 <TableRow>

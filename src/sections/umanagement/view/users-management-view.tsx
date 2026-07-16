@@ -16,15 +16,17 @@ import {
   TablePagination,
   IconButton,
   InputBase,
-  NativeSelect
+  NativeSelect,
+  Popover
 } from '@mui/material';
-import { Search, Filter, Download, Plus, RotateCcw } from 'lucide-react';
+import { Search, Filter, Download, Plus, RotateCcw, X } from 'lucide-react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import dayjs from 'dayjs';
 import { AddUser } from './add-user-view';
 import { fadeInUp } from '../../../theme/effects';
+import { GREY } from '../../../theme/palette';
 // ----------------------------------------------------------------------
 
 /**
@@ -106,7 +108,31 @@ export default function UsersManagementView() {
   const [filterFrequency, setFilterFrequency] = useState('All');
   const [filterActive, setFilterActive] = useState('All');
   
-  const [showFiltersRow, setShowFiltersRow] = useState(true);
+  // Popover Filter States
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [filterColumn, setFilterColumn] = useState<keyof User>('email');
+  const [filterOperator, setFilterOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
+
+  const handleOpenFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseFilters = () => {
+    setFilterAnchorEl(null);
+  };
+  const isFiltersOpen = Boolean(filterAnchorEl);
+
+  const REPORT_COLUMNS: { key: keyof User; label: string }[] = [
+    { key: 'email', label: 'Email' },
+    { key: 'role', label: 'Roles' },
+    { key: 'lastName', label: 'Last Name' },
+    { key: 'firstName', label: 'First Name' },
+    { key: 'title', label: 'Title' },
+    { key: 'lastLogin', label: 'Last Login' },
+    { key: 'allowPrint', label: 'Allow Print' },
+    { key: 'frequency', label: 'Frequency' },
+    { key: 'active', label: 'Active' },
+  ];
 
   // Pagination states
   const [page, setPage] = useState(0);
@@ -207,7 +233,7 @@ export default function UsersManagementView() {
         filterActive === 'All' ||
         u.active === filterActive;
 
-      return (
+      if (!(
         matchesGlobal &&
         matchesEmail &&
         matchesRole &&
@@ -218,7 +244,46 @@ export default function UsersManagementView() {
         matchesAllowPrint &&
         matchesFrequency &&
         matchesActive
-      );
+      )) {
+        return false;
+      }
+
+      // Popover Filter
+      if (filterValue === '' && filterOperator !== 'is empty' && filterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        filterColumn === 'lastLogin' ? formatDateDisplay(u.lastLogin) :
+        (u[filterColumn] ?? '').toString();
+
+      const val = targetValue.toLowerCase();
+      const term = filterValue.toLowerCase();
+
+      switch (filterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
     });
   }, [
     globalSearch,
@@ -231,6 +296,9 @@ export default function UsersManagementView() {
     filterAllowPrint,
     filterFrequency,
     filterActive,
+    filterColumn,
+    filterOperator,
+    filterValue,
     users
   ]);
 
@@ -315,10 +383,106 @@ export default function UsersManagementView() {
             <Button
                 variant="toolbar"
                 startIcon={<Filter size={16} />}
-                onClick={() => setShowFiltersRow(!showFiltersRow)}
+                onClick={handleOpenFilters}
             >
                 Filters
             </Button>
+
+            <Popover
+              open={isFiltersOpen}
+              anchorEl={filterAnchorEl}
+              onClose={handleCloseFilters}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              slotProps={{
+                paper: {
+                  sx: {
+                    p: 3,
+                    mt: 0.5,
+                    borderRadius: 2,
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }
+                }
+              }}
+            >
+              <IconButton 
+                size="small" 
+                onClick={() => {
+                  setFilterValue('');
+                  handleCloseFilters();
+                }}
+                sx={{ color: GREY[700] }}
+              >
+                <X size={18} />
+              </IconButton>
+
+              <TextField
+                select
+                label="Columns"
+                value={filterColumn}
+                onChange={(e) => {
+                  setFilterColumn(e.target.value as keyof User);
+                  setPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 140 }}
+              >
+                {REPORT_COLUMNS.map((col) => (
+                  <option key={col.key} value={col.key}>
+                    {col.label}
+                  </option>
+                ))}
+              </TextField>
+
+              <TextField
+                select
+                label="Operator"
+                value={filterOperator}
+                onChange={(e) => {
+                  setFilterOperator(e.target.value);
+                  setPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 160 }}
+              >
+                <option value="contains">contains</option>
+                <option value="does not contain">does not contain</option>
+                <option value="equals">equals</option>
+                <option value="does not equal">does not equal</option>
+                <option value="starts with">starts with</option>
+                <option value="ends with">ends with</option>
+                <option value="is empty">is empty</option>
+                <option value="is not empty">is not empty</option>
+                <option value="is any of">is any of</option>
+              </TextField>
+
+              <TextField
+                label="Value"
+                placeholder="Filter value"
+                value={filterValue}
+                onChange={(e) => {
+                  setFilterValue(e.target.value);
+                  setPage(0);
+                }}
+                sx={{ minWidth: 160 }}
+              />
+            </Popover>
 
             <Button
                 variant="toolbar"
@@ -350,7 +514,6 @@ export default function UsersManagementView() {
 
                 <TableBody>
                   {/* Contains Filter Input Row */}
-                    {showFiltersRow && (
                     <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                         {/* Email Filter */}
                         <TableCell sx={{ p: 1.5 }}>
@@ -515,7 +678,6 @@ export default function UsersManagementView() {
                         {/* Empty filter space for actions */}
                         <TableCell sx={{ p: 1.5 }}></TableCell>
                     </TableRow>
-                    )}
                     {visibleUsers.length === 0 ? (
                     <TableRow>
                         <TableCell colSpan={10} align="center" sx={{ py: 6, color: 'text.secondary' }}>
