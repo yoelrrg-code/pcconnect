@@ -16,9 +16,11 @@ import {
   alpha,
   TablePagination,
   Switch,
-  Card
+  Card,
+  Popover,
+  IconButton
 } from '@mui/material';
-import { Search, Filter, Download, Plus } from 'lucide-react';
+import { Search, Filter, Download, Plus, X } from 'lucide-react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -249,8 +251,33 @@ export default function ClientManagementView({
   const [filterStart, setFilterStart] = useState('');
   const [filterEnd, setFilterEnd] = useState('');
   const [filterActive, setFilterActive] = useState('All');
-  
-  const [showFiltersRow, setShowFiltersRow] = useState(true);
+
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [filterColumn, setFilterColumn] = useState<keyof Client>('name');
+  const [filterOperator, setFilterOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
+
+  const handleOpenFilters = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFilterAnchorEl(event.currentTarget);
+  };
+  const handleCloseFilters = () => {
+    setFilterAnchorEl(null);
+  };
+  const isFiltersOpen = Boolean(filterAnchorEl);
+
+  const REPORT_COLUMNS: { key: keyof Client; label: string }[] = [
+    { key: 'dataSet', label: 'Data Set' },
+    { key: 'name', label: 'Name' },
+    { key: 'address', label: 'Address' },
+    { key: 'city', label: 'City' },
+    { key: 'state', label: 'State' },
+    { key: 'zip', label: 'Zip' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'fax', label: 'Fax' },
+    { key: 'start', label: 'Start' },
+    { key: 'end', label: 'End' },
+    { key: 'active', label: 'Active' },
+  ];
 
   // Pagination states
   const [page, setPage] = useState(0);
@@ -259,7 +286,7 @@ export default function ClientManagementView({
   // Filter logic
   const filteredClients = useMemo(() => {
     return clients.filter((c) => {
-      // Global search matches any of the text fields
+      // 1. Global search matches any of the text fields
       const matchesGlobal = 
         globalSearch === '' ||
         c.dataSet.toLowerCase().includes(globalSearch.toLowerCase()) ||
@@ -273,6 +300,9 @@ export default function ClientManagementView({
         formatDateDisplay(c.start).includes(globalSearch) ||
         formatDateDisplay(c.end).includes(globalSearch);
 
+      if (!matchesGlobal) return false;
+
+      // 2. Inline column filters
       const matchesDataSet = 
         filterDataSet === '' ||
         c.dataSet.toLowerCase().includes(filterDataSet.toLowerCase()) ||
@@ -318,8 +348,7 @@ export default function ClientManagementView({
         filterActive === 'All' ||
         c.active === filterActive;
 
-      return (
-        matchesGlobal &&
+      if (!(
         matchesDataSet &&
         matchesName &&
         matchesAddress &&
@@ -331,7 +360,56 @@ export default function ClientManagementView({
         matchesStart &&
         matchesEnd &&
         matchesActive
-      );
+      )) {
+        return false;
+      }
+
+      // 3. Popover Filter
+      if (filterValue === '' && filterOperator !== 'is empty' && filterOperator !== 'is not empty') {
+        return true;
+      }
+
+      const targetValue = 
+        filterColumn === 'start' ? formatDateDisplay(c.start) :
+        filterColumn === 'end' ? formatDateDisplay(c.end) :
+        (c[filterColumn] ?? '').toString();
+
+      if (filterColumn === 'dataSet') {
+        const matchedDataSet = targetValue.toLowerCase().includes(filterValue.toLowerCase()) ||
+          `los: ${c.los}`.toLowerCase().includes(filterValue.toLowerCase());
+        if (filterOperator === 'contains') return matchedDataSet;
+        if (filterOperator === 'does not contain') return !matchedDataSet;
+        if (filterOperator === 'equals') return targetValue.toLowerCase() === filterValue.toLowerCase() || `los: ${c.los}`.toLowerCase() === filterValue.toLowerCase();
+        if (filterOperator === 'does not equal') return targetValue.toLowerCase() !== filterValue.toLowerCase() && `los: ${c.los}`.toLowerCase() !== filterValue.toLowerCase();
+      }
+
+      const val = targetValue.toLowerCase();
+      const term = filterValue.toLowerCase();
+
+      switch (filterOperator) {
+        case 'contains':
+          return val.includes(term);
+        case 'does not contain':
+          return !val.includes(term);
+        case 'equals':
+          return val === term;
+        case 'does not equal':
+          return val !== term;
+        case 'starts with':
+          return val.startsWith(term);
+        case 'ends with':
+          return val.endsWith(term);
+        case 'is empty':
+          return val.trim() === '';
+        case 'is not empty':
+          return val.trim() !== '';
+        case 'is any of': {
+          const terms = term.split(',').map(t => t.trim()).filter(Boolean);
+          return terms.length === 0 || terms.some(t => val.includes(t));
+        }
+        default:
+          return true;
+      }
     });
   }, [
     globalSearch,
@@ -346,6 +424,9 @@ export default function ClientManagementView({
     filterStart,
     filterEnd,
     filterActive,
+    filterColumn,
+    filterOperator,
+    filterValue,
     clients
   ]);
 
@@ -392,8 +473,6 @@ export default function ClientManagementView({
   const visibleClients = useMemo(() => {
     return filteredClients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [filteredClients, page, rowsPerPage]);
-
-
 
   const switchStyles = {
     '&.MuiSwitch-root': {
@@ -1071,10 +1150,106 @@ export default function ClientManagementView({
             <Button
                 variant="toolbar"
                 startIcon={<Filter size={16} />}
-                onClick={() => setShowFiltersRow(!showFiltersRow)}
+                onClick={handleOpenFilters}
             >
                 Filters
             </Button>
+
+            <Popover
+              open={isFiltersOpen}
+              anchorEl={filterAnchorEl}
+              onClose={handleCloseFilters}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              slotProps={{
+                paper: {
+                  sx: {
+                    p: 3,
+                    mt: 0.5,
+                    borderRadius: 2,
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(135deg, rgba(255, 240, 240, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                  }
+                }
+              }}
+            >
+              <IconButton 
+                size="small" 
+                onClick={() => {
+                  setFilterValue('');
+                  handleCloseFilters();
+                }}
+                sx={{ color: GREY[700] }}
+              >
+                <X size={18} />
+              </IconButton>
+
+              <TextField
+                select
+                label="Columns"
+                value={filterColumn}
+                onChange={(e) => {
+                  setFilterColumn(e.target.value as keyof Client);
+                  setPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 140 }}
+              >
+                {REPORT_COLUMNS.map((col) => (
+                  <option key={col.key} value={col.key}>
+                    {col.label}
+                  </option>
+                ))}
+              </TextField>
+
+              <TextField
+                select
+                label="Operator"
+                value={filterOperator}
+                onChange={(e) => {
+                  setFilterOperator(e.target.value);
+                  setPage(0);
+                }}
+                slotProps={{
+                  select: { native: true }
+                }}
+                sx={{ minWidth: 160 }}
+              >
+                <option value="contains">contains</option>
+                <option value="does not contain">does not contain</option>
+                <option value="equals">equals</option>
+                <option value="does not equal">does not equal</option>
+                <option value="starts with">starts with</option>
+                <option value="ends with">ends with</option>
+                <option value="is empty">is empty</option>
+                <option value="is not empty">is not empty</option>
+                <option value="is any of">is any of</option>
+              </TextField>
+
+              <TextField
+                label="Value"
+                placeholder="Filter value"
+                value={filterValue}
+                onChange={(e) => {
+                  setFilterValue(e.target.value);
+                  setPage(0);
+                }}
+                sx={{ minWidth: 160 }}
+              />
+            </Popover>
 
             <Button
                 variant="toolbar"
@@ -1106,8 +1281,6 @@ export default function ClientManagementView({
                 </TableHead>
 
                 <TableBody>
-                  {/* Contains Filter Input Row */}
-                    {showFiltersRow && (
                     <TableRow sx={{ bgcolor: theme.palette.mode === 'light' ? '#FCFDFE' : '#212B36' }}>
                         {/* Data Set Filter */}
                         <TableCell sx={{ p: 1.5 }}>
@@ -1266,6 +1439,7 @@ export default function ClientManagementView({
                               size="small"
                               label="Is"
                               value={filterActive}
+                              className='inline'
                               onChange={(e) => {
                                 setFilterActive(e.target.value);
                                 setPage(0);
@@ -1281,7 +1455,6 @@ export default function ClientManagementView({
                           </TextField>
                         </TableCell>
                     </TableRow>
-                    )}
                     {visibleClients.length === 0 ? (
                     <TableRow>
                         <TableCell colSpan={11} align="center" sx={{ py: 6, color: GREY[700] }}>
