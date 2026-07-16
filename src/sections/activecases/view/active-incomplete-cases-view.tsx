@@ -349,7 +349,7 @@ export default function ActiveIncompleteCasesView() {
                         href="#" 
                         onClick={(e) => { e.preventDefault(); setSelectedProvider(row.provider); }}
                         sx={{ 
-                          fontSize: '16px',
+                          fontSize: '14px',
                           fontWeight: 400, 
                           color: theme.palette.text.primary,
                           textDecoration: 'underline',
@@ -363,23 +363,23 @@ export default function ActiveIncompleteCasesView() {
                     </TableCell>
 
                     {/* Case Count */}
-                    <TableCell sx={{ px: 2.5, color: 'text.primary', fontWeight: 400, fontSize: '16px' }}>
+                    <TableCell sx={{ px: 2.5}}>
                       {row.caseCount}
                     </TableCell>
 
                     {/* Last Comment Date & Time stacked */}
-                    <TableCell sx={{ px: 2.5, fontSize: '16px' }}>
+                    <TableCell sx={{ px: 2.5 }}>
                       {row.isInvalidDate ? (
-                        <Typography variant="body2" sx={{ fontSize: '16px', color: 'text.secondary', fontWeight: 400, textTransform: 'capitalize' }}>
+                        <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
                           {row.lastCommentDate}
                         </Typography>
                       ) : (
                         <Box>
-                          <Typography variant="body2" sx={{ fontSize: '16px', color: 'text.primary', fontWeight: 400 }}>
+                          <Typography variant="body2" sx={{ fontSize: '13px', fontWeight: 400 }}>
                             {row.lastCommentDate}
                           </Typography>
                           {row.time && (
-                            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.2 }}>
+                            <Typography variant="caption" sx={{ fontSize: '12px', color: 'text.secondary', display: 'block', mt: 0.2 }}>
                               {row.time}
                             </Typography>
                           )}

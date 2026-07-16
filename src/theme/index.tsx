@@ -45,12 +45,14 @@ declare module '@mui/material/Button' {
 
 declare module '@mui/material/InputBase' {
   interface InputBaseProps {
-    variant?: 'cellEdit';
+    variant?: 'cellEdit' | 'cellEditLarge';
   }
   interface InputBasePropsVariantOverrides {
     cellEdit: true;
+    cellEditLarge: true;
   }
 }
+
 
 interface ThemeProviderProps {
   children: ReactNode;

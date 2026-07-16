@@ -1316,6 +1316,7 @@ export default function ClientManagementView({
                                 className="dataset-link"
                                 onClick={() => handleSelectClient(row)}
                                 sx={{ 
+                                  fontSize: '14px',
                                   fontWeight: 600, 
                                   color: '#737373', 
                                   textDecoration: 'underline', 
@@ -1326,7 +1327,7 @@ export default function ClientManagementView({
                               >
                                 {row.dataSet}
                               </Box>
-                              <Box sx={{ fontSize: '11px', color: GREY[700], fontWeight: 500, mt: 0.5 }}>LOS: {row.los}</Box>
+                              <Box sx={{ fontSize: '12px', color: GREY[700], fontWeight: 500, mt: 0.5 }}>LOS: {row.los}</Box>
                             </TableCell>
 
                             {/* Name Cell */}

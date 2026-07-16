@@ -328,7 +328,7 @@ export default function EnrollmentDashboardView() {
                         '& td': { py: 1.2, px: 2 }
                       }}
                     >
-                      <TableCell sx={{ fontWeight: 400, textDecoration: 'underline' }}>
+                      <TableCell sx={{ fontSize: '14px', fontWeight: 400, textDecoration: 'underline' }}>
                         {row.name}
                       </TableCell>
                       <TableCell>{row.dataSet || '—'}</TableCell>
@@ -663,7 +663,7 @@ export default function EnrollmentDashboardView() {
             <Table sx={{ minWidth: 1500 }}>
               <TableHead>
                 {/* Row 1: Top Level */}
-                <TableRow sx={{ '& th': { fontSize: '12px', borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0', textAlign: 'center' } }}>
+                <TableRow sx={{ '& th': { borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0', textAlign: 'center' } }}>
                   <TableCell rowSpan={3} sx={{ borderRight: '1px solid #E0E0E0', textAlign: 'left !important' }}>Data Set</TableCell>
                   <TableCell rowSpan={3} sx={{ borderRight: '1px solid #E0E0E0', textAlign: 'left !important' }}>Provider</TableCell>
                   <TableCell rowSpan={3} sx={{ borderRight: '1px solid #E0E0E0', textAlign: 'left !important' }}>First</TableCell>
@@ -674,14 +674,14 @@ export default function EnrollmentDashboardView() {
                   <TableCell colSpan={6}>Enrollment</TableCell>
                 </TableRow>
                 {/* Row 2: Mid Level */}
-                <TableRow sx={{ '& th': { fontSize: '12px', borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0', textAlign: 'center' } }}>
+                <TableRow sx={{ '& th': { borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0', textAlign: 'center' } }}>
                   <TableCell rowSpan={2} sx={{ borderRight: '1px solid #E0E0E0' }}>Notification</TableCell>
                   <TableCell colSpan={3} sx={{ borderRight: '1px solid #E0E0E0' }}>Provider</TableCell>
                   <TableCell rowSpan={2} sx={{ borderRight: '1px solid #E0E0E0' }}>Carrier</TableCell>
                   <TableCell rowSpan={2}>Completed</TableCell>
                 </TableRow>
                 {/* Row 3: Bottom Level */}
-                <TableRow sx={{ '& th': { fontSize: '12px', borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0' } }}>
+                <TableRow sx={{ '& th': { borderBottom: '1px solid #E0E0E0', borderRight: '1px solid #E0E0E0' } }}>
                   <TableCell sx={{ borderRight: '1px solid #E0E0E0' }}>Entry</TableCell>
                   <TableCell sx={{ borderRight: '1px solid #E0E0E0' }}>Sent</TableCell>
                   <TableCell sx={{ borderRight: '1px solid #E0E0E0' }}>Missing/Notes</TableCell>
@@ -711,15 +711,15 @@ export default function EnrollmentDashboardView() {
                               }
                             }
                           },
-                          '& td': { py: 1.5, px: 1, fontSize: '11px', borderBottom: '1px solid #EEE', borderRight: '1px solid #EEE', verticalAlign: 'top', color: '#333' }
+                          '& td': { py: 1.5, px: 1, fontSize: '13px', borderBottom: '1px solid #EEE', borderRight: '1px solid #EEE', verticalAlign: 'top', color: '#333' }
                         }}
                       >
-                        <TableCell sx={{ fontWeight: 600 }}>{row.dataSet}</TableCell>
+                        <TableCell sx={{ fontSize: '14px', fontWeight: 600 }}>{row.dataSet}</TableCell>
                         <TableCell>
-                          <Typography sx={{ fontSize: '11px', fontWeight: 700, color: theme.palette.primary.main }}>
+                          <Typography sx={{ fontSize: '13px', fontWeight: 600, color: theme.palette.primary.main }}>
                             {row.providerName}
                           </Typography>
-                          <Typography sx={{ fontSize: '9px', color: 'text.secondary' }}>
+                          <Typography sx={{ fontSize: '12px', color: 'text.secondary' }}>
                             {row.providerEmail}
                           </Typography>
                         </TableCell>
@@ -734,10 +734,10 @@ export default function EnrollmentDashboardView() {
                         
                         {/* Entry */}
                         <TableCell>
-                          <Typography sx={{ fontSize: '11px' }}>
+                          <Typography sx={{ fontSize: '13px' }}>
                             {dayjs(row.entryDate).format('MM/DD/YYYY')}
                           </Typography>
-                          <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '9px', fontWeight: 700 }}>
+                          <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '12px', fontWeight: 700 }}>
                             {row.entryDays} Days
                           </Box>
                         </TableCell>
@@ -746,11 +746,11 @@ export default function EnrollmentDashboardView() {
                         <TableCell>
                           {row.sentDate ? (
                             <>
-                              <Typography sx={{ fontSize: '11px' }}>
+                              <Typography sx={{ fontSize: '13px' }}>
                                 {dayjs(row.sentDate).format('MM/DD/YYYY')}
                               </Typography>
                               {row.sentDays !== undefined && (
-                                <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '9px', fontWeight: 700 }}>
+                                <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '12px', fontWeight: 700 }}>
                                   {row.sentDays} Days
                                 </Box>
                               )}
@@ -765,11 +765,11 @@ export default function EnrollmentDashboardView() {
                         <TableCell>
                           {row.carrierDate ? (
                             <>
-                              <Typography sx={{ fontSize: '11px' }}>
+                              <Typography sx={{ fontSize: '13px' }}>
                                 {dayjs(row.carrierDate).format('MM/DD/YYYY')}
                               </Typography>
                               {row.carrierDays !== undefined && (
-                                <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '9px', fontWeight: 700 }}>
+                                <Box sx={{ mt: 0.5, bgcolor: '#4caf50', color: '#FFF', px: 1, py: 0.2, borderRadius: 1, display: 'inline-block', fontSize: '12px', fontWeight: 700 }}>
                                   {row.carrierDays} Days
                                 </Box>
                               )}

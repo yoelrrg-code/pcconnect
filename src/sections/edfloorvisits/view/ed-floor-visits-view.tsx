@@ -487,6 +487,7 @@ export default function EDFloorVisitsView() {
                     size="small"
                     label="Is"
                     value={filterStatus}
+                    className='inline'
                     onChange={(e) => {
                       setFilterStatus(e.target.value);
                       setPage(0);
@@ -556,7 +557,7 @@ export default function EDFloorVisitsView() {
                     }}
                   >
                     {/* Site */}
-                    <TableCell sx={{ px: 2 }}>{row.site}</TableCell>
+                    <TableCell sx={{ fontSize: '14px', px: 2 }}>{row.site}</TableCell>
 
                     {/* ACCT# */}
                     <TableCell sx={{ px: 2 }}>{row.acct || '—'}</TableCell>
@@ -602,23 +603,10 @@ export default function EDFloorVisitsView() {
                     {/* Status (Editable Select) */}
                     <TableCell sx={{ px: 2 }}>
                       <NativeSelect
+                        className="cellEdit"
                         value={row.status}
                         onChange={(e) => handleCellEdit(row.id, 'status', e.target.value)}
                         disableUnderline
-                        sx={{
-                          fontSize: '14px',
-                          fontFamily: 'Poppins, sans-serif',
-                          color: 'text.primary',
-                          width: '100%',
-                          '& .MuiNativeSelect-select': {
-                            padding: '4px 0',
-                            borderBottom: '2px solid transparent',
-                            transition: 'border-bottom-color 0.2s',
-                            '&:focus': {
-                              borderBottom: `2px solid ${theme.palette.primary.main}`,
-                            }
-                          }
-                        }}
                       >
                         <option value="All">All</option>
                         <option value="New">New</option>

@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import Logo from '../logo';
+import CircularProgress from '@mui/material/CircularProgress';
+import Favicon from '../favicon';
 import { pulse } from '../../theme/effects';
+
 // ----------------------------------------------------------------------
 
 export default function LoadingScreen() {
-
   return (
     <Box
       sx={{
@@ -18,54 +18,47 @@ export default function LoadingScreen() {
         width: '100%',
         flexGrow: 1,
         // Smooth backdrop blur and fade-in
-        animation: 'fadeIn 0.3s ease-out',
+        animation: 'fadeIn 0.8s ease-out',
         '@keyframes fadeIn': {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          p: 4,
-          borderRadius: 3
-        }}
-      >
-        {/* Pulsing logo */}
-        <Box
+      <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Track circle (gray/white background) */}
+        <CircularProgress
+          variant="determinate"
+          value={100}
+          size={100}
+          thickness={2.5}
           sx={{
-            mb: 3,
-            animation: `${pulse} 1s infinite ease-in-out`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            color: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.08)'
+                : 'rgba(0, 0, 0, 0.05)',
           }}
-        >
-          <Logo disabledLink height={34} />
-        </Box>
-
-        {/* Modern styled progress bar */}
-        <Box sx={{ width: 180 }}>
-          <LinearProgress
-            sx={{
-              height: 4,
-              borderRadius: 2,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark'
-                  ? 'rgba(255, 255, 255, 0.08)'
-                  : 'rgba(0, 0, 0, 0.06)',
-              '& .MuiLinearProgress-bar': {
-                borderRadius: 2,
-                backgroundImage: (theme) =>
-                  `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`,
-              },
-            }}
-          />
+        />
+        {/* Active spinning progress arc */}
+        <CircularProgress
+          variant="indeterminate"
+          size={100}
+          thickness={2.5}
+          sx={{
+            color: 'primary.main',
+            position: 'absolute',
+            left: 0,
+            '& .MuiCircularProgress-circle': {
+              strokeLinecap: 'round',
+            },
+          }}
+        />
+        {/* Favicon in the center */}
+        <Box sx={{ position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: `${pulse} 1s infinite ease-in-out`, }}>
+          <Favicon disabledLink height={36} />
         </Box>
       </Box>
     </Box>
   );
 }
+

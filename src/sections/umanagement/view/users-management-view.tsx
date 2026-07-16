@@ -448,12 +448,13 @@ export default function UsersManagementView() {
                               size="small"
                               label="Is"
                               value={filterAllowPrint}
+                              className='inline'
                               onChange={(e) => {
                                 setFilterAllowPrint(e.target.value);
                                 setPage(0);
                               }}
                               slotProps={{
-                                select: { native: true }
+                                select: { native: true },
                               }}
                               fullWidth
                           >
@@ -470,6 +471,7 @@ export default function UsersManagementView() {
                               size="small"
                               label="Is"
                               value={filterFrequency}
+                              className='inline'
                               onChange={(e) => {
                                 setFilterFrequency(e.target.value);
                                 setPage(0);
@@ -494,6 +496,7 @@ export default function UsersManagementView() {
                               size="small"
                               label="Is"
                               value={filterActive}
+                              className='inline'
                               onChange={(e) => {
                                 setFilterActive(e.target.value);
                                 setPage(0);
@@ -549,7 +552,7 @@ export default function UsersManagementView() {
                             {/* Email Cell (Editable text) */}
                             <TableCell sx={{ px: 2 }}>
                               <InputBase
-                                variant="cellEdit"
+                                variant="cellEditLarge"
                                 value={row.email}
                                 onChange={(e) => handleCellEdit(row.id, 'email', e.target.value)}
                               />
@@ -607,23 +610,10 @@ export default function UsersManagementView() {
                             {/* Allow Print Cell (Editable select) */}
                             <TableCell sx={{ px: 2 }}>
                               <NativeSelect
+                                className="cellEdit"
                                 value={row.allowPrint}
                                 onChange={(e) => handleCellEdit(row.id, 'allowPrint', e.target.value)}
                                 disableUnderline
-                                sx={{
-                                  fontSize: '15px',
-                                  fontFamily: 'Poppins, sans-serif',
-                                  color: 'text.primary',
-                                  width: '100%',
-                                  '& .MuiNativeSelect-select': {
-                                    padding: '4px 0',
-                                    borderBottom: '2px solid transparent',
-                                    transition: 'border-bottom-color 0.2s',
-                                    '&:focus': {
-                                      borderBottom: `2px solid ${theme.palette.primary.main}`,
-                                    }
-                                  }
-                                }}
                               >
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -633,23 +623,10 @@ export default function UsersManagementView() {
                             {/* Frequency Cell (Editable select) */}
                             <TableCell sx={{ px: 2 }}>
                               <NativeSelect
+                                className="cellEdit"
                                 value={row.frequency}
                                 onChange={(e) => handleCellEdit(row.id, 'frequency', e.target.value)}
                                 disableUnderline
-                                sx={{
-                                  fontSize: '15px',
-                                  fontFamily: 'Poppins, sans-serif',
-                                  color: 'text.primary',
-                                  width: '100%',
-                                  '& .MuiNativeSelect-select': {
-                                    padding: '4px 0',
-                                    borderBottom: '2px solid transparent',
-                                    transition: 'border-bottom-color 0.2s',
-                                    '&:focus': {
-                                      borderBottom: `2px solid ${theme.palette.primary.main}`,
-                                    }
-                                  }
-                                }}
                               >
                                 <option value="Never">Never</option>
                                 <option value="Weekly">Weekly</option>
@@ -661,23 +638,10 @@ export default function UsersManagementView() {
                             {/* Active Cell (Editable select) */}
                             <TableCell sx={{ px: 2 }}>
                               <NativeSelect
+                                className="cellEdit"
                                 value={row.active}
                                 onChange={(e) => handleCellEdit(row.id, 'active', e.target.value)}
                                 disableUnderline
-                                sx={{
-                                  fontSize: '15px',
-                                  fontFamily: 'Poppins, sans-serif',
-                                  color: 'text.primary',
-                                  width: '100%',
-                                  '& .MuiNativeSelect-select': {
-                                    padding: '4px 0',
-                                    borderBottom: '2px solid transparent',
-                                    transition: 'border-bottom-color 0.2s',
-                                    '&:focus': {
-                                      borderBottom: `2px solid ${theme.palette.primary.main}`,
-                                    }
-                                  }
-                                }}
                               >
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>

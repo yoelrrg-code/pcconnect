@@ -282,6 +282,9 @@ export function getComponents(
           '&.MuiInputBase-inputSizeSmall': {
             padding: '6px',
           },
+          '.inline &': {
+            fontSize: '13px',
+          },
         },
         notchedOutline: {
           borderColor: palette.grey[500],
@@ -294,11 +297,38 @@ export function getComponents(
       },
     },
     MuiInputBase: {
+      styleOverrides: {
+        root: {
+          '&.cellEdit': {
+            fontSize: '13px',
+            fontFamily: 'Poppins, sans-serif',
+            color: palette.text.primary,
+            width: '100%',
+          }
+        }
+      },
       variants: [
         {
           props: { variant: 'cellEdit' },
           style: {
             fontSize: '13px',
+            fontFamily: 'Poppins, sans-serif',
+            color: palette.text.primary,
+            width: '100%',
+            '& .MuiInputBase-input': {
+              padding: '4px 0',
+              borderBottom: '2px solid transparent',
+              transition: 'border-bottom-color 0.2s',
+              '&:focus': {
+                borderBottom: `2px solid ${palette.primary.main}`,
+              }
+            }
+          }
+        },
+        {
+          props: { variant: 'cellEditLarge' },
+          style: {
+            fontSize: '14px',
             fontFamily: 'Poppins, sans-serif',
             color: palette.text.primary,
             width: '100%',
@@ -327,6 +357,25 @@ export function getComponents(
           '&:focus': {
             borderRadius: '8px',
           },
+          '.cellEdit &': {
+            fontSize: '13px',
+            fontFamily: 'Poppins, sans-serif',
+            color: palette.text.primary,
+            padding: '4px 0',
+            borderBottom: '2px solid transparent',
+            transition: 'border-bottom-color 0.2s',
+            height: 'auto',
+            backgroundColor: 'transparent',
+            paddingLeft: 0,
+            borderRadius: 0,
+            '&:focus': {
+              borderBottom: `2px solid ${palette.primary.main}`,
+              borderRadius: 0,
+            }
+          },
+          '.inline &': {
+            fontSize: '13px',
+          }
         },
       },
     },
@@ -407,14 +456,18 @@ export function getComponents(
             sx: {
               width: '140px',
               height: 40,
+              '&.inline .MuiOutlinedInput-input': {
+                fontSize: '13px',
+              },
               '&.inline .MuiInputBase-input, &.inline .MuiPickersSectionList-sectionContent': {
-                fontSize: '15px',
+                fontSize: '13px',
               },
               '&.inline .MuiPickersOutlinedInput-notchedOutline': {
                 borderColor: 'transparent',
               },
               '&.small': {
-                height: 30
+                height: 30,
+                fontSize: '13px',
               },
               '&.large-input': {
                 width: '100%',

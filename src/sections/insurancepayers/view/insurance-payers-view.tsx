@@ -293,6 +293,7 @@ export default function InsurancePayersView() {
                     size="small"
                     label="Is"
                     value={filterActive}
+                    className='inline'
                     onChange={(e) => {
                       setFilterActive(e.target.value);
                       setPage(0);
@@ -343,7 +344,7 @@ export default function InsurancePayersView() {
                     {/* Name (Editable) */}
                     <TableCell sx={{ px: 2 }}>
                       <InputBase
-                        variant="cellEdit"
+                        variant="cellEditLarge"
                         value={row.name}
                         onChange={(e) => handleCellEdit(row.id, 'name', e.target.value)}
                         fullWidth
@@ -353,23 +354,10 @@ export default function InsurancePayersView() {
                     {/* Active (Editable Select) */}
                     <TableCell sx={{ px: 2 }}>
                       <NativeSelect
+                        className="cellEdit"
                         value={row.active}
                         onChange={(e) => handleCellEdit(row.id, 'active', e.target.value as 'Yes' | 'No')}
                         disableUnderline
-                        sx={{
-                          fontSize: '14px',
-                          fontFamily: 'Poppins, sans-serif',
-                          color: 'text.primary',
-                          width: '100%',
-                          '& .MuiNativeSelect-select': {
-                            padding: '4px 0',
-                            borderBottom: '2px solid transparent',
-                            transition: 'border-bottom-color 0.2s',
-                            '&:focus': {
-                              borderBottom: `2px solid ${theme.palette.primary.main}`,
-                            }
-                          }
-                        }}
                       >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>

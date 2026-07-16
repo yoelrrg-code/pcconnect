@@ -440,6 +440,7 @@ export default function PlaidManagementView() {
                     size="small"
                     label="Is"
                     value={filterActive}
+                    className="inline"
                     onChange={(e) => {
                       setFilterActive(e.target.value);
                       setPage(0);
@@ -488,13 +489,13 @@ export default function PlaidManagementView() {
                     }}
                   >
                     {/* Data Set */}
-                    <TableCell sx={{ px: 2 }}>{row.dataSet}</TableCell>
+                    <TableCell sx={{ fontSize: '14px', px: 2 }}>{row.dataSet}</TableCell>
 
                     {/* Url */}
                     <TableCell sx={{ px: 2, maxWidth: 340 }}>
-                      <Box sx={{ fontSize: '13px', color: 'text.secondary', wordBreak: 'break-all' }}>
+                      <Typography variant="body1" sx={{ fontSize: '13px', wordBreak: 'break-all' }}>
                         {row.url}
-                      </Box>
+                      </Typography>
                     </TableCell>
 
                     {/* Bank Name */}
@@ -516,23 +517,10 @@ export default function PlaidManagementView() {
                     {/* Active (Editable Select) */}
                     <TableCell sx={{ px: 2 }}>
                       <NativeSelect
+                        className="cellEdit"
                         value={row.active}
                         onChange={(e) => handleCellEdit(row.id, 'active', e.target.value as 'Yes' | 'No')}
                         disableUnderline
-                        sx={{
-                          fontSize: '14px',
-                          fontFamily: 'Poppins, sans-serif',
-                          color: 'text.primary',
-                          width: '100%',
-                          '& .MuiNativeSelect-select': {
-                            padding: '4px 0',
-                            borderBottom: '2px solid transparent',
-                            transition: 'border-bottom-color 0.2s',
-                            '&:focus': {
-                              borderBottom: `2px solid ${theme.palette.primary.main}`,
-                            }
-                          }
-                        }}
                       >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>

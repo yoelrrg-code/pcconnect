@@ -352,6 +352,7 @@ export default function ClientGroupsView() {
                       size="small"
                       label="Is"
                       value={filterEnrollment}
+                      className='inline'
                       onChange={(e) => {
                         setFilterEnrollment(e.target.value);
                         setPage(0);
@@ -405,7 +406,7 @@ export default function ClientGroupsView() {
                       }}
                     >
                       {/* Name */}
-                      <TableCell sx={{ px: 2, fontWeight: isSelected ? 600 : 400 }}>{row.name}</TableCell>
+                      <TableCell sx={{ fontSize: '14px', px: 2, fontWeight: isSelected ? 600 : 400 }}>{row.name}</TableCell>
 
                       {/* Emails */}
                       <TableCell sx={{ px: 2, maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

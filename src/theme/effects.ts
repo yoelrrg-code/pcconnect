@@ -23,7 +23,7 @@ export const fadeIn = keyframes`
 export const pulse = keyframes`
   0% {
     transform: scale(0.76);
-    opacity: 0.6;
+    opacity: 0.8;
   }
   50% {
     transform: scale(1.04);
@@ -31,6 +31,6 @@ export const pulse = keyframes`
   }
   100% {
     transform: scale(0.76);
-    opacity: 0.6;
+    opacity: 0.8;
   }
 `;

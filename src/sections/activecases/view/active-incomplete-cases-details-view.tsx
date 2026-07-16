@@ -323,7 +323,7 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                             {row.createdInConnect}
                           </Typography>
                           {row.createdTime && (
-                            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.2 }}>
+                            <Typography variant="caption" sx={{ fontSize: '12px', color: 'text.secondary', display: 'block', mt: 0.2 }}>
                               {row.createdTime}
                             </Typography>
                           )}
@@ -336,8 +336,6 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                           href="#" 
                           onClick={(e) => { e.preventDefault(); onSelectAccount?.(row.account, row); }}
                           sx={{ 
-                            fontSize: '14px',
-                            fontWeight: 500, 
                             color: theme.palette.primary.main,
                             textDecoration: 'underline',
                             '&:hover': { textDecoration: 'none' }
@@ -348,26 +346,26 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                       </TableCell>
 
                       {/* MR# */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.mrn}</TableCell>
+                      <TableCell>{row.mrn}</TableCell>
 
                       {/* DOS */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.dos}</TableCell>
+                      <TableCell>{row.dos}</TableCell>
 
                       {/* Patient Name */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.patientName}</TableCell>
+                      <TableCell>{row.patientName}</TableCell>
 
                       {/* Provider */}
-                      <TableCell sx={{ fontSize: '14px' }}>
+                      <TableCell>
                         {row.provider ? (
                           <Box>
-                            <Typography variant="body2" sx={{ fontSize: '14px', fontWeight: 500 }}>
+                            <Typography variant="body2" sx={{ fontSize: '13px', fontWeight: 500 }}>
                               {row.provider}
                             </Typography>
                             {row.providerEmail && (
                               <Link
                                 href="#"
                                 onClick={(e) => e.preventDefault()}
-                                sx={{ fontSize: '11px', color: 'text.secondary', textDecoration: 'underline' }}
+                                sx={{ fontSize: '12px', color: 'text.secondary', textDecoration: 'underline' }}
                               >
                                 {row.providerEmail}
                               </Link>
@@ -377,24 +375,24 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                       </TableCell>
 
                       {/* Scribe */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.scribe}</TableCell>
+                      <TableCell>{row.scribe}</TableCell>
 
                       {/* Reason */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.reason}</TableCell>
+                      <TableCell>{row.reason}</TableCell>
 
                       {/* Last Comment */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.lastComment}</TableCell>
+                      <TableCell>{row.lastComment}</TableCell>
 
                       {/* Submitted By & Chat icon */}
-                      <TableCell sx={{ fontSize: '14px' }}>
+                      <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                           {row.submittedBy ? (
                             <Box>
-                              <Typography variant="body2" sx={{ fontSize: '14px', color: 'text.primary' }}>
+                              <Typography variant="body2" sx={{ fontSize: '13px', color: 'text.primary' }}>
                                 {row.submittedBy}
                               </Typography>
                               {row.submittedTime && (
-                                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
+                                <Typography variant="caption" sx={{ fontSize: '12px', color: 'text.secondary', display: 'block' }}>
                                   {row.submittedTime}
                                 </Typography>
                               )}
@@ -549,26 +547,26 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                       </TableCell>
 
                       {/* MR# */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.mrn}</TableCell>
+                      <TableCell>{row.mrn}</TableCell>
 
                       {/* DOS */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.dos}</TableCell>
+                      <TableCell>{row.dos}</TableCell>
 
                       {/* Patient Name */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.patientName}</TableCell>
+                      <TableCell>{row.patientName}</TableCell>
 
                       {/* Provider */}
-                      <TableCell sx={{ fontSize: '14px' }}>
+                      <TableCell>
                         {row.provider ? (
                           <Box>
-                            <Typography variant="body2" sx={{ fontSize: '14px', fontWeight: 500 }}>
+                            <Typography variant="body2" sx={{ fontSize: '13px', fontWeight: 500 }}>
                               {row.provider}
                             </Typography>
                             {row.providerEmail && (
                               <Link
                                 href="#"
                                 onClick={(e) => e.preventDefault()}
-                                sx={{ fontSize: '11px', color: 'text.secondary', textDecoration: 'underline' }}
+                                sx={{ fontSize: '12px', color: 'text.secondary', textDecoration: 'underline' }}
                               >
                                 {row.providerEmail}
                               </Link>
@@ -578,23 +576,23 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
                       </TableCell>
 
                       {/* Scribe */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.scribe}</TableCell>
+                      <TableCell>{row.scribe}</TableCell>
 
                       {/* Reason */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.reason}</TableCell>
+                      <TableCell>{row.reason}</TableCell>
 
                       {/* Last Comment */}
-                      <TableCell sx={{ fontSize: '14px' }}>{row.lastComment}</TableCell>
+                      <TableCell>{row.lastComment}</TableCell>
 
                       {/* Submitted By */}
-                      <TableCell sx={{ fontSize: '14px' }}>
+                      <TableCell>
                         {row.submittedBy ? (
                           <Box>
-                            <Typography variant="body2" sx={{ fontSize: '14px', color: 'text.primary' }}>
+                            <Typography variant="body2" sx={{ fontSize: '13px', color: 'text.primary' }}>
                               {row.submittedBy}
                             </Typography>
                             {row.submittedTime && (
-                              <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
+                              <Typography variant="caption" sx={{ fontSize: '12px', color: 'text.secondary', display: 'block' }}>
                                 {row.submittedTime}
                               </Typography>
                             )}
