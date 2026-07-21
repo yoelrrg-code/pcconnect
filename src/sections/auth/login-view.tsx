@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { signInWithPassword } from '../../auth/context/jwt/action';
+import { useAuthContext } from '../../auth/hooks/use-auth-context';
 import { 
   Box, 
   Typography, 
@@ -40,23 +42,20 @@ const RecaptchaLogo = () => (
   </svg>
 );
 
-interface LoginViewProps {
-  onLogin: () => void;
-}
-
-//{ onLogin }: LoginViewProps este es el parametro de la LoginView
-export default function LoginView({ onLogin }: LoginViewProps) {
+export default function LoginView() {
   const theme = useTheme();
+  const { checkUserSession } = useAuthContext();
   const [view, setView] = useState<'login' | 'register' | 'forgot'>('login');
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('demo@pcconnect.com');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [hipaaChecked, setHipaaChecked] = useState(false);
   const [registerEmail, setRegisterEmail] = useState('');
   const [recaptchaChecked, setRecaptchaChecked] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (view === 'login') {
       if (!email || !password) {
@@ -67,8 +66,16 @@ export default function LoginView({ onLogin }: LoginViewProps) {
         setError('You must acknowledge and accept the HIPAA disclaimer.');
         return;
       }
-      setError('Login disabled!');
-      onLogin();
+      try {
+        setIsSubmitting(true);
+        setError('');
+        await signInWithPassword({ email, password });
+        await checkUserSession?.();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Login failed. Please check your credentials.');
+      } finally {
+        setIsSubmitting(false);
+      }
     } else if (view === 'forgot') {
       if (!registerEmail) {
         setError('Please enter your email address.');
@@ -268,9 +275,10 @@ export default function LoginView({ onLogin }: LoginViewProps) {
                     type="submit"
                     fullWidth
                     variant="signIn"
+                    disabled={isSubmitting}
                     sx={{ mt: 2 }}
                   >
-                    Sign In
+                    {isSubmitting ? 'Signing in...' : 'Sign In'}
                   </Button>
                 </Stack>
               </form>

@@ -285,6 +285,10 @@ export function getComponents(
           '.inline &': {
             fontSize: '13px',
           },
+          '&:-webkit-autofill': {
+            WebkitBoxShadow: `0 0 0 1000px ${isLight ? '#FFFFFF' : palette.background.paper} inset !important`,
+            WebkitTextFillColor: `${isLight ? palette.grey[700] : palette.text.primary} !important`,
+          },
         },
         notchedOutline: {
           borderColor: palette.grey[500],

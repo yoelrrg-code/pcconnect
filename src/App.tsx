@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { SettingsProvider } from './components/settings/settings-provider';
 import { ThemeProvider } from './theme';
 import DashboardLayout from './layouts/dashboard';
@@ -17,36 +17,34 @@ import ClientGroupsView from './sections/clientgroups/view/client-groups-view';
 import ReportManagementView from './sections/reports/view/report-management-view';
 import EnrollmentDashboardView from './sections/enrollmentdashboard/view/enrollment-dashboard-view';
 import LoadingScreen from './components/loading-screen';
-// ----------------------------------------------------------------------
+import { AuthProvider } from './auth/context/jwt/auth-provider';
+import { useAuthContext } from './auth/hooks/use-auth-context';
+import { navConfig } from './layouts/dashboard/config-navigation';
 
-/**
- * Propiedades para el componente principal de contenido una vez autenticado.
- */
-interface AppContentProps {
-  onLogout: () => void;
-}
+// ----------------------------------------------------------------------
 
 /**
  * Renderiza el layout principal y el contenido de la pestaña (ruta simulada) activa.
  * Mantiene el estado de navegación (activeTab) y coordina las transiciones visuales.
- * 
- * @param props - Las propiedades del componente.
- * @param props.onLogout - Función callback que se ejecuta para cerrar la sesión del usuario.
  */
-function AppContent({ onLogout }: AppContentProps) {
-  const [activeTab, setActiveTab] = useState('#dashboard');
+function AppContent() {
+  const [activeTab, setActiveTab] = useState(window.location.hash || '#dashboard');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleTabChange = (newTab: string) => {
+  const handleTabChange = useCallback((newTab: string) => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-    
-    const isClientSubTransition = 
+
+    const isClientSubTransition =
       (activeTab === '#client-management' && newTab === '#client-profile') ||
       (activeTab === '#client-profile' && newTab === '#client-management');
+
+    if (window.location.hash !== newTab) {
+      window.location.hash = newTab;
+    }
 
     if (isClientSubTransition) {
       setActiveTab(newTab);
@@ -57,7 +55,25 @@ function AppContent({ onLogout }: AppContentProps) {
         setIsLoading(false);
       }, 600);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.location.hash = '#dashboard';
+    }
+
+    const handleHashChange = () => {
+      const currentHash = window.location.hash || '#dashboard';
+      if (currentHash !== activeTab) {
+        handleTabChange(currentHash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [activeTab, handleTabChange]);
 
   useEffect(() => {
     return () => {
@@ -68,7 +84,6 @@ function AppContent({ onLogout }: AppContentProps) {
   }, []);
 
   const renderTabContent = () => {
-    // Map paths from mockup navigation sections
     switch (activeTab) {
       case '#dashboard':
         return <AppView onNavigate={handleTabChange} />;
@@ -103,59 +118,60 @@ function AppContent({ onLogout }: AppContentProps) {
   };
 
   return (
-    <DashboardLayout 
+    <DashboardLayout
       onOpenSettings={() => setSettingsOpen(true)}
       activeTab={activeTab}
       setActiveTab={handleTabChange}
     >
       {isLoading ? <LoadingScreen /> : renderTabContent()}
-      <SettingsDrawer 
-        open={settingsOpen} 
-        onClose={() => setSettingsOpen(false)} 
-        onLogout={onLogout}
+      <SettingsDrawer
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        onNavigate={handleTabChange}
+        data={navConfig.flatMap((group) =>
+          group.items.map((item) => ({
+            label: item.title,
+            href: item.path,
+            icon: item.icon,
+          }))
+        )}
       />
     </DashboardLayout>
   );
 }
 
+// ----------------------------------------------------------------------
+
+/**
+ * Renderiza el contenido apropiado según el estado de autenticación
+ * que provee el AuthProvider del contexto padre.
+ */
+function AppRouter() {
+  const { authenticated, unauthenticated, loading } = useAuthContext();
+
+  if (loading) return <LoadingScreen />;
+  if (authenticated) return <AppContent />;
+  if (unauthenticated) return <LoginView />;
+
+  return <LoadingScreen />;
+}
+
+// ----------------------------------------------------------------------
+
 /**
  * Componente raíz de la aplicación.
- * Se encarga de inicializar los proveedores globales (Settings, Theme)
- * y manejar el estado de autenticación y carga inicial.
+ * Inicializa los proveedores globales (Settings, Theme, Auth).
  */
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAppLoading, setIsAppLoading] = useState(true);
-
-  // Initial load loading effect (F5)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAppLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleLogin = () => {
-    setIsAppLoading(true);
-    setTimeout(() => {
-      setIsAuthenticated(true);
-      setIsAppLoading(false);
-    }, 800);
-  };
-
   return (
     <SettingsProvider>
       <ThemeProvider>
-        {isAppLoading ? (
-          <LoadingScreen />
-        ) : isAuthenticated ? (
-          <AppContent onLogout={() => setIsAuthenticated(false)} />
-        ) : (
-          //onLogin={handleLogin} parametro de LoginView
-          <LoginView onLogin={handleLogin} />
-        )}
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
       </ThemeProvider>
     </SettingsProvider>
   );
 }
+
 export { App };
