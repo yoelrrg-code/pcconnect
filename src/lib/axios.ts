@@ -5,7 +5,7 @@ import axios from 'axios';
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.DEV ? '' : import.meta.env.VITE_SERVER_URL,
+  baseURL: '',
   headers: {
     'Content-Type': 'application/json',
   },
