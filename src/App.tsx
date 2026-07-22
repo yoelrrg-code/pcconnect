@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
 import { SettingsProvider } from './components/settings/settings-provider';
 import { ThemeProvider } from './theme';
 import DashboardLayout from './layouts/dashboard';
@@ -25,56 +26,69 @@ import { navConfig } from './layouts/dashboard/config-navigation';
 // ----------------------------------------------------------------------
 
 /**
- * Renderiza el layout principal y el contenido de la pestaña (ruta simulada) activa.
- * Mantiene el estado de navegación (activeTab) y coordina las transiciones visuales.
+ * Renderiza el layout principal y la vista correspondiente a la ruta actual.
+ * Coordina la navegación con BrowserRouter y mantiene compatibilidad con URLs legacy con #.
  */
 function AppContent() {
-  const [activeTab, setActiveTab] = useState(window.location.hash || '#dashboard');
+  const location = useLocation();
+  const navigate = useNavigate();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleTabChange = useCallback((newTab: string) => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
+  // Normaliza el pathname actual (ej: '/' -> '/dashboard', '#logs' -> '/logs')
+  const normalizePath = (pathname: string, hash: string): string => {
+    if (hash && hash.length > 1) {
+      const cleanHash = hash.replace('#', '/');
+      return cleanHash.startsWith('/') ? cleanHash : `/${cleanHash}`;
     }
-
-    const isClientSubTransition =
-      (activeTab === '#client-management' && newTab === '#client-profile') ||
-      (activeTab === '#client-profile' && newTab === '#client-management');
-
-    if (window.location.hash !== newTab) {
-      window.location.hash = newTab;
+    if (pathname === '/' || !pathname) {
+      return '/dashboard';
     }
+    return pathname;
+  };
 
-    if (isClientSubTransition) {
-      setActiveTab(newTab);
-    } else {
-      setIsLoading(true);
-      setActiveTab(newTab);
-      timerRef.current = setTimeout(() => {
-        setIsLoading(false);
-      }, 600);
-    }
-  }, [activeTab]);
+  const activeTab = normalizePath(location.pathname, location.hash);
 
+  // Redirección automática si se accede con una URL legacy que contiene hash (ej: /#logs -> /logs)
   useEffect(() => {
-    if (!window.location.hash) {
-      window.location.hash = '#dashboard';
+    if (location.hash && location.hash.length > 1) {
+      const targetPath = location.hash.replace('#', '/');
+      const cleanPath = targetPath.startsWith('/') ? targetPath : `/${targetPath}`;
+      navigate(cleanPath, { replace: true });
+    } else if (location.pathname === '/') {
+      navigate('/dashboard', { replace: true });
     }
+  }, [location.hash, location.pathname, navigate]);
 
-    const handleHashChange = () => {
-      const currentHash = window.location.hash || '#dashboard';
-      if (currentHash !== activeTab) {
-        handleTabChange(currentHash);
+  const handleTabChange = useCallback(
+    (newTab: string) => {
+      const targetPath = newTab.startsWith('#')
+        ? newTab.replace('#', '/')
+        : newTab;
+      const cleanPath = targetPath.startsWith('/') ? targetPath : `/${targetPath}`;
+
+      if (cleanPath === activeTab) return;
+
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
       }
-    };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, [activeTab, handleTabChange]);
+      const isClientSubTransition =
+        (activeTab === '/client-management' && cleanPath === '/client-profile') ||
+        (activeTab === '/client-profile' && cleanPath === '/client-management');
+
+      navigate(cleanPath);
+
+      if (!isClientSubTransition) {
+        setIsLoading(true);
+        timerRef.current = setTimeout(() => {
+          setIsLoading(false);
+        }, 600);
+      }
+    },
+    [activeTab, navigate]
+  );
 
   useEffect(() => {
     return () => {
@@ -86,37 +100,51 @@ function AppContent() {
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case '/dashboard':
       case '#dashboard':
         return <AppView onNavigate={handleTabChange} />;
+      case '/users-management':
       case '#users-management':
         return <UsersManagementView />;
+      case '/insurance-payers':
       case '#insurance-payers':
         return <InsurancePayersView />;
+      case '/plaid':
       case '#plaid':
         return <PlaidManagementView />;
+      case '/enrollment-dashboard':
       case '#enrollment-dashboard':
         return <EnrollmentDashboardView />;
+      case '/provider-management':
       case '#provider-management':
         return <ProviderManagementView />;
+      case '/client-management':
       case '#client-management':
+      case '/client-profile':
       case '#client-profile':
         return (
           <ClientManagementView activeTab={activeTab} setActiveTab={handleTabChange} />
         );
+      case '/client-group':
       case '#client-group':
         return <ClientGroupsView />;
+      case '/active-incomplete-cases':
       case '#active-incomplete-cases':
         return <ActiveIncompleteCasesView />;
+      case '/ed-floor-visits':
       case '#ed-floor-visits':
         return <EDFloorVisitsView />;
+      case '/educational-resources':
       case '#educational-resources':
         return <EducationalResourcesView />;
+      case '/report-management':
       case '#report-management':
         return <ReportManagementView />;
+      case '/logs':
       case '#logs':
         return <LogsReportsView />;
       default:
-        return <AppView />;
+        return <AppView onNavigate={handleTabChange} />;
     }
   };
 
@@ -163,17 +191,19 @@ function AppRouter() {
 
 /**
  * Componente raíz de la aplicación.
- * Inicializa los proveedores globales (Settings, Theme, Auth).
+ * Inicializa BrowserRouter y los proveedores globales (Settings, Theme, Auth).
  */
 export default function App() {
   return (
-    <SettingsProvider>
-      <ThemeProvider>
-        <AuthProvider>
-          <AppRouter />
-        </AuthProvider>
-      </ThemeProvider>
-    </SettingsProvider>
+    <BrowserRouter>
+      <SettingsProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <AppRouter />
+          </AuthProvider>
+        </ThemeProvider>
+      </SettingsProvider>
+    </BrowserRouter>
   );
 }
 

@@ -107,7 +107,7 @@ export default function ReportManagementView() {
           '& .MuiTab-root': {
             fontFamily: 'Poppins, sans-serif',
             fontWeight: 600,
-            fontSize: '15px',
+            fontSize: '16px',
             textTransform: 'none',
             px: 3,
             py: 1.5,

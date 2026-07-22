@@ -203,7 +203,7 @@ export default function ClientManagementView({
     setProfileMalCarrierAgg('');
 
     if (setActiveTab) {
-      setActiveTab('#client-profile');
+      setActiveTab('/client-profile');
     }
   };
 
@@ -226,7 +226,7 @@ export default function ClientManagementView({
     }
     setSelectedClient(null);
     if (setActiveTab) {
-      setActiveTab('#client-management');
+      setActiveTab('/client-management');
     }
   };
 
@@ -503,7 +503,7 @@ export default function ClientManagementView({
   };
 
   // Render Client Profile View if #client-profile route is active
-  if (activeTab === '#client-profile' && selectedClient) {
+  if ((activeTab === '/client-profile' || activeTab === '#client-profile') && selectedClient) {
     return (
       <Box key={`profile-${selectedClient.id}`} sx={{ pb: 5, animation: `${fadeInUp} 0.3s ease-in-out` }}>
         {/* Breadcrumbs */}

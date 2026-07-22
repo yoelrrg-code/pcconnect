@@ -36,17 +36,17 @@ export const navConfig: NavGroup[] = [
     items: [
       {
         title: 'Users Management',
-        path: '#users-management',
+        path: '/users-management',
         icon: <UsersIcon />,
       },
       {
         title: 'Insurance Payers',
-        path: '#insurance-payers',
+        path: '/insurance-payers',
         icon: <CreditCardIcon />,
       },
       {
         title: 'Plaid',
-        path: '#plaid',
+        path: '/plaid',
         icon: <PlaidLockIcon />,
       },
     ],
@@ -56,22 +56,22 @@ export const navConfig: NavGroup[] = [
     items: [
       {
         title: 'Dashboard',
-        path: '#enrollment-dashboard',
+        path: '/enrollment-dashboard',
         icon: <LayoutGridIcon />,
       },
       {
         title: 'Provider Management',
-        path: '#provider-management',
+        path: '/provider-management',
         icon: <UserCheckIcon />,
       },
       {
         title: 'Client Management',
-        path: '#client-management',
+        path: '/client-management',
         icon: <BuildingIcon />,
       },
       {
         title: 'Client Group',
-        path: '#client-group',
+        path: '/client-group',
         icon: <UsersGroupIcon />,
       },
     ],
@@ -81,22 +81,22 @@ export const navConfig: NavGroup[] = [
     items: [
       {
         title: 'Home',
-        path: '#dashboard',
+        path: '/dashboard',
         icon: <HomeIcon />,
       },
       {
         title: 'Active Incomplete Cases',
-        path: '#active-incomplete-cases',
+        path: '/active-incomplete-cases',
         icon: <FileCheckIcon />,
       },
       {
         title: 'ED Floor Visits',
-        path: '#ed-floor-visits',
+        path: '/ed-floor-visits',
         icon: <ActivityIcon />,
       },
       {
         title: 'Educational Resources',
-        path: '#educational-resources',
+        path: '/educational-resources',
         icon: <GraduationCapIcon />,
       },
     ],
@@ -106,7 +106,7 @@ export const navConfig: NavGroup[] = [
     items: [
       {
         title: 'Report Management',
-        path: '#report-management',
+        path: '/report-management',
         icon: <ClipboardListIcon />,
       },
     ],
@@ -116,7 +116,7 @@ export const navConfig: NavGroup[] = [
     items: [
       {
         title: 'Logs',
-        path: '#logs',
+        path: '/logs',
         icon: <LogsIcon />,
       },
     ],
