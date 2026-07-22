@@ -235,7 +235,7 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
                 position: { vertical: "top", horizontal: "start" },
               },
             }}
-            margin={{ top: 10, right: 10, bottom:40, left: 60 }}
+            margin={{ top: 10, right: 10, bottom: 10, left: 60 }}
             sx={{
               "& text.MuiBarChart-label": {
                 fill: "#ffffff !important",
