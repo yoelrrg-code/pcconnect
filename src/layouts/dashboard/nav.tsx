@@ -9,6 +9,7 @@ import {
 import PCTooltip from '../../components/pc-tooltip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Logo from '../../components/logo';
+import ScrollArea from '../../components/scroll-area';
 import { navConfig } from './config-navigation';
 import { GREY } from '../../theme/palette';
 
@@ -75,17 +76,21 @@ export default function Nav({
         }} 
       />
 
-      <Box 
-        component="nav" 
-        sx={{ 
-          px: 0, 
+      <ScrollArea
+        sx={{
           flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          overflowY: 'auto',
+          px: 0,
           pb: 2,
         }}
       >
+        <Box 
+          component="nav" 
+          sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            pr: isCollapsed ? 0 : 0.5,
+          }}
+        >
         {navConfig.map((group, index) => (
           <Box key={group.subheader} sx={{ mb: isCollapsed ? 0 : 2.5 }}>
             {/* Group divider top for all groups except the first */}
@@ -234,8 +239,9 @@ export default function Nav({
           </Box>
         ))}
       </Box>
-    </Box>
-  );
+    </ScrollArea>
+  </Box>
+);
 
   return (
     <Box
@@ -301,23 +307,23 @@ export default function Nav({
         {renderContent}
       </Drawer>
 
-      {/* Collapse Toggle Button (Positioned outside Drawer paper to prevent clipping) */}
+      {/* Collapse Toggle Button (Positioned fixed to screen edge to prevent scrolling with main) */}
       <IconButton
         onClick={onToggleCollapse}
         sx={{
           display: { xs: 'none', lg: 'flex' },
-          position: 'absolute',
+          position: 'fixed',
           top: 32,
-          right: -16, // Floats exactly half outside the sidebar border
+          left: (isCollapsed ? 90 : NAV_WIDTH) - 16,
           width: 32,
           height: 32,
           bgcolor: 'background.paper',
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
-          zIndex: theme.zIndex.drawer, // Float above Drawer and Main content
+          zIndex: theme.zIndex.drawer + 1,
           p: 0.2,
           color: theme.palette.mode === 'light' ? GREY[800] : GREY[300],
-          transition: theme.transitions.create(['color', 'background-color'], {
+          transition: theme.transitions.create(['left', 'color', 'background-color'], {
             duration: theme.transitions.duration.shorter,
           }),
           '&:hover': {

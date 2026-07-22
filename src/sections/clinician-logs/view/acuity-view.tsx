@@ -6,6 +6,7 @@ import {
   TextField,
   Button,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { fadeInUp } from "../../../theme/effects";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -68,6 +69,7 @@ const xlabels = [
 
 export default function AcuityView({ resetKey }: { resetKey: string }) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [adminFilter, setAdminFilter] = useState("");
   const [timeFilter, setTimeFilter] = useState("");
   const [secondaryFilter, setSecondaryFilter] = useState("");
@@ -200,7 +202,7 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
           width: "100%",
         }}
       >
-        <Box sx={{ width: "100%", height: 700, minHeight: 700 }}>
+        <Box sx={{ width: "100%", height: 'auto', minHeight: 700 }}>
           <BarChart
             key={resetKey}
             series={series}
@@ -228,14 +230,16 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
                 }).format,
               },
             ]}
-            height={750}
+            height={700}
             slotProps={{
               legend: {
-                direction: "vertical",
-                position: { vertical: "top", horizontal: "start" },
+                direction: isMobile ? "horizontal" : "vertical",
+                position: isMobile
+                  ? { vertical: "top", horizontal: "center" }
+                  : { vertical: "top", horizontal: "start" },
               },
             }}
-            margin={{ top: 30, right: 10, bottom:60, left: 60 }}
+            margin={{ top: isMobile ? 40 : 30, right: isMobile ? 0 : 10, bottom: isMobile ? 20 : 30, left: isMobile ? 0 : 60 }}
             sx={{
               "& text.MuiBarChart-label": {
                 fill: "#ffffff !important",
