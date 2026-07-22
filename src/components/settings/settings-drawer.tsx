@@ -4,9 +4,9 @@ import {
   Drawer, 
   IconButton, 
   Avatar,
-  MenuItem,
-  MenuList,
-  Link, 
+  // MenuItem,
+  // MenuList,
+  // Link, 
   Typography
 } from '@mui/material';
 import { useTheme} from '@mui/material/styles';
@@ -30,68 +30,69 @@ export type SettingsDrawerProps = IconButtonProps & {
   }[];
 }
 
-export default function SettingsDrawer({ open, onClose, onNavigate, data = [] }: SettingsDrawerProps) {
+export default function SettingsDrawer({ open, onClose, /* onNavigate, data = []  */ }: SettingsDrawerProps) {
   const theme = useTheme();
   const { user } = useAuthContext();
   const displayName = user ? `${user.firstName} ${user.lastName}` : '';
+  const userName = user ? `${user.userName}` : '';
 
-  const renderList = () => (
-    <MenuList
-      disablePadding
-      sx={[
-        (theme) => ({
-          py: 1,
-          px: 0,
-          borderTop: `dashed 1px ${theme.palette.divider}`,
-          borderBottom: `dashed 1px ${theme.palette.divider}`,
-          '& li': { p: 0 },
-        }),
-      ]}
-    >
-      {data.map((option) => {
-        const rootLabel = 'Home';
-        const rootHref = '#dashboard';
-        const targetHref = option.label === 'Home' ? rootHref : option.href;
+  // const renderList = () => (
+  //   <MenuList
+  //     disablePadding
+  //     sx={[
+  //       (theme) => ({
+  //         py: 1,
+  //         px: 0,
+  //         borderTop: `dashed 1px ${theme.palette.divider}`,
+  //         borderBottom: `dashed 1px ${theme.palette.divider}`,
+  //         '& li': { p: 0 },
+  //       }),
+  //     ]}
+  //   >
+  //     {data.map((option) => {
+  //       const rootLabel = 'Home';
+  //       const rootHref = '#dashboard';
+  //       const targetHref = option.label === 'Home' ? rootHref : option.href;
 
-        return (
-          <MenuItem key={option.label}>
-            <Link
-              href={targetHref}
-              color="inherit"
-              underline="none"
-              onClick={(e) => {
-                e.preventDefault();
-                onNavigate?.(targetHref);
-                onClose();
-              }}
-              sx={{
-                p: 1,
-                width: 1,
-                display: 'flex',
-                typography: 'body2',
-                alignItems: 'center',
-                color: 'text.secondary',
-                '& svg': { width: 24, height: 24 },
-                '&:hover': { color: 'text.primary' },
-              }}
-            >
-              {option.icon}
+  //       return (
+  //         <MenuItem key={option.label}>
+  //           <Link
+  //             href={targetHref}
+  //             color="inherit"
+  //             underline="none"
+  //             onClick={(e) => {
+  //               e.preventDefault();
+  //               onNavigate?.(targetHref);
+  //               onClose();
+  //             }}
+  //             sx={{
+  //               p: 1,
+  //               width: 1,
+  //               display: 'flex',
+  //               typography: 'body2',
+  //               alignItems: 'center',
+  //               color: 'text.secondary',
+  //               '& svg': { width: 24, height: 24 },
+  //               '&:hover': { color: 'text.primary' },
+  //             }}
+  //           >
+  //             {option.icon}
 
-              <Box component="span" sx={{ ml: 2 }}>
-                {option.label === 'Home' ? rootLabel : option.label}
-              </Box>
+  //             <Box component="span" sx={{ ml: 2 }}>
+  //               {option.label === 'Home' ? rootLabel : option.label}
+  //             </Box>
 
-              {option.info && (
-                <Box sx={{ ml: 1 }}>
-                  {option.info}
-                </Box>
-              )}
-            </Link>
-          </MenuItem>
-        );
-      })}
-    </MenuList>
-  );
+  //             {option.info && (
+  //               <Box sx={{ ml: 1 }}>
+  //                 {option.info}
+  //               </Box>
+  //             )}
+  //           </Link>
+  //         </MenuItem>
+  //       );
+  //     })}
+  //   </MenuList>
+  // );
 
   return (
     <Drawer
@@ -130,11 +131,14 @@ export default function SettingsDrawer({ open, onClose, onNavigate, data = [] }:
           </Avatar>
         </Box>
 
-        <Typography variant="subtitle1" noWrap sx={{ mt: 2, mb: 4 }}>
+        <Typography variant="subtitle1" align='center' noWrap sx={{ mt: 2, mb: 0 }}>
           {displayName}
         </Typography>
+        <Typography variant="subtitle2" align='center' noWrap sx={{ mt: 1, mb: 4 }}>
+          {userName}
+        </Typography>
 
-        {renderList()}
+        {/* {renderList()} */}
       </Box>
       
 
