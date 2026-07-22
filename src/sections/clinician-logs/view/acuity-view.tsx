@@ -228,14 +228,14 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
                 }).format,
               },
             ]}
-            height={700}
+            height={750}
             slotProps={{
               legend: {
                 direction: "vertical",
                 position: { vertical: "top", horizontal: "start" },
               },
             }}
-            margin={{ top: 10, right: 10, bottom: 10, left: 60 }}
+            margin={{ top: 30, right: 10, bottom:60, left: 60 }}
             sx={{
               "& text.MuiBarChart-label": {
                 fill: "#ffffff !important",
