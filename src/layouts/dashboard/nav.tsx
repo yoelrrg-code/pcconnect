@@ -253,9 +253,6 @@ export default function Nav({
       <Drawer
         open={openNav}
         onClose={onCloseNav}
-        ModalProps={{
-          keepMounted: true,
-        }}
         slotProps={{
           paper: {
             sx: {
@@ -267,6 +264,9 @@ export default function Nav({
         }}
         sx={{
           display: { xs: 'block', lg: 'none' },
+          '& .MuiDrawer-paper': {
+            display: { xs: 'block', lg: 'none' },
+          },
         }}
       >
         {renderContent}
@@ -292,6 +292,9 @@ export default function Nav({
         }}
         sx={{
           display: { xs: 'none', lg: 'block' },
+          '& .MuiDrawer-paper': {
+            display: { xs: 'none', lg: 'block' },
+          },
         }}
       >
         {renderContent}
