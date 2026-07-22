@@ -30,25 +30,40 @@ interface HeaderProps {
 }
 
 const TAB_TITLES: Record<string, string> = {
+  '/dashboard': 'Hi, Welcome Back 👋',
   '#dashboard': 'Hi, Welcome Back 👋',
+  '/users-management': 'Users Management',
   '#users-management': 'Users Management',
+  '/insurance-payers': 'Insurance Payers',
   '#insurance-payers': 'Insurance Payers',
+  '/plaid': 'Plaid Integration',
   '#plaid': 'Plaid Integration',
+  '/enrollment-dashboard': 'Enrollment Analytics',
   '#enrollment-dashboard': 'Enrollment Analytics',
+  '/provider-management': 'Provider Management',
   '#provider-management': 'Provider Management',
+  '/client-management': 'Client Management',
   '#client-management': 'Client Management',
+  '/client-profile': 'Client Profile',
   '#client-profile': 'Client Profile',
+  '/client-group': 'Client Groups',
   '#client-group': 'Client Groups',
+  '/active-incomplete-cases': 'Active Incomplete Cases',
   '#active-incomplete-cases': 'Active Incomplete Cases',
+  '/ed-floor-visits': 'ED Floor Visits',
   '#ed-floor-visits': 'ED Floor Visits',
+  '/educational-resources': 'Educational Resources',
   '#educational-resources': 'Educational Resources',
+  '/report-management': 'Report Management',
   '#report-management': 'Report Management',
+  '/logs': 'Logs',
   '#logs': 'Logs',
 };
 
 export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ activeTab, navWidth = 360 }: HeaderProps) {
   const theme = useTheme();
-  const pageTitle = TAB_TITLES[activeTab] || 'Dashboard';
+  const normalizedKey = activeTab.startsWith('/') ? `#${activeTab.slice(1)}` : activeTab;
+  const pageTitle = TAB_TITLES[activeTab] || TAB_TITLES[normalizedKey] || 'Dashboard';
 
   return (
     <AppBar
@@ -73,7 +88,7 @@ export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ active
         key={activeTab}
         sx={{
           height: 1,
-          ml: { lg: 7.5 },
+          ml: { lg: 6},
           mr: { lg: 6 },
           p: { lg: 0, md: 0.5, sm: 0.5, xs: 0.5 },
           pr: { lg: 0, md: 2, sm: 2, xs: 2 },

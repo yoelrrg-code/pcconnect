@@ -273,7 +273,7 @@ export default function ProviderManagementView() {
     <Box sx={{ animation: `${fadeInUp} 0.3s ease-in-out` }}>
       
       {/* Top Query Builder Card (Filters) */}
-      <Card sx={{ p: 3, mb: 3, borderRadius: 2, boxShadow: '0px 0px 16px 0px rgba(0, 0, 0, 0.05)' }}>
+      <Card sx={{ p: 3, mb: 3, borderRadius: 2, boxShadow: 'none' }}>
         <Typography variant="h5" sx={{ mb: 1 }}>
           Filters
         </Typography>
@@ -407,7 +407,7 @@ export default function ProviderManagementView() {
       </Card>
 
       {/* Main Table Card */}
-      <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', boxShadow: '0px 0px 16px 0px rgba(0, 0, 0, 0.05)' }}>
+      <Box sx={{ pt: 2.5, mb: 5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', boxShadow: 'none' }}>
         
         {/* Action Toolbar */}
         <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>

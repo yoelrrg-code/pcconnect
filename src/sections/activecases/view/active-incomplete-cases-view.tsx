@@ -162,12 +162,12 @@ export default function ActiveIncompleteCasesView() {
       }
 
       // custom fallback for date / time fields
-      let targetValue = '';
-      if (filterColumn === 'lastCommentDate') {
-        targetValue = c.isInvalidDate ? 'invalid date' : `${c.lastCommentDate} ${c.time || ''}`.trim();
-      } else {
-        targetValue = (c[filterColumn] ?? '').toString();
-      }
+      const targetValue =
+        filterColumn === 'lastCommentDate'
+          ? c.isInvalidDate
+            ? 'invalid date'
+            : `${c.lastCommentDate} ${c.time || ''}`.trim()
+          : (c[filterColumn] ?? '').toString();
 
       const val = targetValue.toLowerCase();
       const term = filterValue.toLowerCase();
@@ -276,7 +276,7 @@ export default function ActiveIncompleteCasesView() {
   }
 
   return (
-    <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
+    <Box sx={{ pt: 2.5, mb: 5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
 
       {/* Action Toolbar */}
       <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>

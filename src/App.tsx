@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
+import { Box, useTheme, useMediaQuery } from '@mui/material';
 import { SettingsProvider } from './components/settings/settings-provider';
 import { ThemeProvider } from './theme';
 import DashboardLayout from './layouts/dashboard';
@@ -30,6 +31,8 @@ import { navConfig } from './layouts/dashboard/config-navigation';
  * Coordina la navegación con BrowserRouter y mantiene compatibilidad con URLs legacy con #.
  */
 function AppContent() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
   const navigate = useNavigate();
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -84,7 +87,7 @@ function AppContent() {
         setIsLoading(true);
         timerRef.current = setTimeout(() => {
           setIsLoading(false);
-        }, 600);
+        }, 400);
       }
     },
     [activeTab, navigate]
@@ -154,7 +157,23 @@ function AppContent() {
       activeTab={activeTab}
       setActiveTab={handleTabChange}
     >
-      {isLoading ? <LoadingScreen /> : renderTabContent()}
+      {isLoading ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 'calc(100vh - 220px)',
+            width: '100%',
+            transform: isMobile ? 'none' : 'translate(-50px, -50px)',
+          }}
+        >
+          <LoadingScreen />
+        </Box>
+      ) : (
+        renderTabContent()
+      )}
       <SettingsDrawer
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}

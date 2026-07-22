@@ -26,6 +26,8 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   const checkUserSession = useCallback(async () => {
+    const startTime = Date.now();
+    setState((prev) => ({ ...prev, loading: true }));
     try {
       await Promise.resolve();
       const accessToken = sessionStorage.getItem(ACCESS_KEY);
@@ -37,6 +39,11 @@ export function AuthProvider({ children }: Props) {
         const res = await axios.get(endpoints.auth.me);
         const { userName, firstName, lastName, isStaff, showAdmin, showLogs } = res.data;
 
+        const elapsedTime = Date.now() - startTime;
+        if (elapsedTime < 600) {
+          await new Promise((r) => setTimeout(r, 600 - elapsedTime));
+        }
+
         if (isValidUser(accessToken, res.data)) {
           setState({
             user: { userName, firstName, lastName, isStaff, showAdmin, showLogs, accessToken },
@@ -46,10 +53,18 @@ export function AuthProvider({ children }: Props) {
           resetSession();
         }
       } else {
+        const elapsedTime = Date.now() - startTime;
+        if (elapsedTime < 800) {
+          await new Promise((r) => setTimeout(r, 800 - elapsedTime));
+        }
         resetSession();
       }
     } catch (error) {
       console.error(error);
+      const elapsedTime = Date.now() - startTime;
+      if (elapsedTime < 800) {
+        await new Promise((r) => setTimeout(r, 800 - elapsedTime));
+      }
       resetSession();
     }
   }, [resetSession]);

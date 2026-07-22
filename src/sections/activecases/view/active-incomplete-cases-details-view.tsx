@@ -681,7 +681,7 @@ export default function ActiveIncompleteCasesDetailsView({ providerName, onBack,
       </Card>
 
       {/* 2. Waiting for Review from Client */}
-      <Card sx={{ borderRadius: 2, bgcolor: theme.palette.background.paper, boxShadow: 'none' }}>
+      <Card sx={{ borderRadius: 2, mb: 5, bgcolor: theme.palette.background.paper, boxShadow: 'none' }}>
       
         {/* Toolbar */}
         <Box sx={{ px: 2.5, pt: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>

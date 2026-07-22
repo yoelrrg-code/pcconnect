@@ -12,6 +12,7 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  background-color: #0C1017;
 }
 
 #root {

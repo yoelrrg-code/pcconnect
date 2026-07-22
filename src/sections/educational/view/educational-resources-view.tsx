@@ -396,7 +396,7 @@ export default function EducationalResourcesView() {
   };
 
   return (
-    <Box sx={{ width: 1, pb: 5, mt: 0, animation: `${fadeInUp} 0.3s ease-in-out`, }}>
+    <Box sx={{ width: 1, pb: 5, mt: 0, mb: 5, animation: `${fadeInUp} 0.3s ease-in-out`, }}>
       {/* Main 2-Column Layout */}
       <Box 
         sx={{ 

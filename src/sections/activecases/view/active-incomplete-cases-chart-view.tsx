@@ -153,7 +153,7 @@ export default function ActiveIncompleteCasesChartView({
   };
 
   return (
-    <Box sx={{ animation: `${fadeInUp} 0.3s ease-in-out` }}>
+    <Box sx={{ mb: 5, animation: `${fadeInUp} 0.3s ease-in-out` }}>
       
       {/* Title & Chevron Back */}
       <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', pl: 0, ml: 0 }}>
@@ -226,7 +226,7 @@ export default function ActiveIncompleteCasesChartView({
       </Card>
 
       {/* Comment History Card */}
-      <Card sx={{ p: 3, mb: 3, borderRadius: 2, bgcolor: theme.palette.background.paper, boxShadow: 'none' }}>
+      <Card sx={{ p: 3, mb: 5, borderRadius: 2, bgcolor: theme.palette.background.paper, boxShadow: 'none' }}>
         <Typography variant="h5" sx={{ mb: 3, pb: 1, borderBottom: `1px solid ${theme.palette.divider}` }}>
           Comment History
         </Typography>

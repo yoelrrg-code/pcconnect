@@ -109,7 +109,12 @@ export default function LoginView() {
         display: 'flex', 
         minHeight: '100vh', 
         width: '100%',
-        bgcolor: 'background.default'
+        bgcolor: 'background.default',
+        animation: 'fadeIn 0.4s ease-out',
+        '@keyframes fadeIn': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
       }}
     >
       {/* LEFT PANEL: Login Form */}

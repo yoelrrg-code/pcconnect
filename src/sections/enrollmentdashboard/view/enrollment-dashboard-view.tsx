@@ -1827,7 +1827,7 @@ export default function EnrollmentDashboardView() {
 
       {/* --- TAB 3: CLIENT REVALIDATION (EMPTY STATE) --- */}
       {activeTab === 2 && (
-        <Card sx={{ p: 8, textAlign: 'center', border: `1px dashed ${theme.palette.divider}`, borderRadius: 2 }}>
+        <Card sx={{ p: 8, textAlign: 'center', border: `1px dashed ${theme.palette.divider}`, borderRadius: 2, boxShadow: 'none' }}>
           <Building size={48} style={{ color: theme.palette.text.disabled, marginBottom: 16 }} />
           <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>
             Client Revalidation
@@ -1840,7 +1840,7 @@ export default function EnrollmentDashboardView() {
 
       {/* --- TAB 4: PROVIDER REVALIDATION (EMPTY STATE) --- */}
       {activeTab === 3 && (
-        <Card sx={{ p: 8, textAlign: 'center', border: `1px dashed ${theme.palette.divider}`, borderRadius: 2 }}>
+        <Card sx={{ p: 8, textAlign: 'center', border: `1px dashed ${theme.palette.divider}`, borderRadius: 2, boxShadow: 'none' }}>
           <UserCheck size={48} style={{ color: theme.palette.text.disabled, marginBottom: 16 }} />
           <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>
             Provider Revalidation

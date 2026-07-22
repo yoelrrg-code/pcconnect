@@ -294,7 +294,7 @@ export default function ClientGroupsView() {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       
       {/* Table Card */}
-      <Box sx={{ pt: 2.5, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
+      <Box sx={{ pt: 2.5, mb: 3, bgcolor: theme.palette.background.paper, borderRadius: 2, overflow: 'hidden', animation: `${fadeInUp} 0.3s ease-in-out` }}>
         
         {/* Action Toolbar */}
         <Box sx={{ px: 2.5, display: 'flex', gap: 2, mb: 2, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -612,6 +612,7 @@ export default function ClientGroupsView() {
         <Card 
           sx={{ 
             p: 3, 
+            mb: 5,
             borderRadius: 2, 
             boxShadow: 'none',
             animation: `${fadeInUp} 0.3s ease-in-out`

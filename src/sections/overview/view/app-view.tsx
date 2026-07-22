@@ -257,6 +257,7 @@ export default function AppView({ onNavigate }: AppViewProps) {
       {/* Bottom News Box widget */}
       <Card 
         sx={{ 
+          mb: 5,
           borderRadius: 3, 
           border: `none`, 
           boxShadow: `none`,

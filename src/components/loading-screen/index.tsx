@@ -3,9 +3,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Favicon from '../favicon';
 import { pulse } from '../../theme/effects';
 
+import type { BoxProps } from '@mui/material/Box';
+
 // ----------------------------------------------------------------------
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ sx, ...other }: BoxProps) {
   return (
     <Box
       sx={{
@@ -13,17 +15,18 @@ export default function LoadingScreen() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
-        minHeight: '400px',
+        height: '100vh',
         width: '100%',
         flexGrow: 1,
         // Smooth backdrop blur and fade-in
-        animation: 'fadeIn 0.8s ease-out',
+        animation: 'fadeIn 0.4s ease-out',
         '@keyframes fadeIn': {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
+        ...sx,
       }}
+      {...other}
     >
       <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
         {/* Track circle (gray/white background) */}
