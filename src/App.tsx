@@ -15,6 +15,7 @@ import InsurancePayersView from './sections/insurancepayers/view/insurance-payer
 import PlaidManagementView from './sections/plaid/view/plaid-management-view';
 import ClientGroupsView from './sections/clientgroups/view/client-groups-view';
 import ReportManagementView from './sections/reports/view/report-management-view';
+import LogsReportsView from './sections/logs/view/logs-reports-view';
 import EnrollmentDashboardView from './sections/enrollmentdashboard/view/enrollment-dashboard-view';
 import LoadingScreen from './components/loading-screen';
 import { AuthProvider } from './auth/context/jwt/auth-provider';
@@ -112,6 +113,8 @@ function AppContent() {
         return <EducationalResourcesView />;
       case '#report-management':
         return <ReportManagementView />;
+      case '#logs':
+        return <LogsReportsView />;
       default:
         return <AppView />;
     }

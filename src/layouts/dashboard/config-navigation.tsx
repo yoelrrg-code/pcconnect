@@ -12,6 +12,7 @@ import {
   ActivityIcon,
   GraduationCapIcon,
   ClipboardListIcon,
+  LogsIcon
 } from './nav-icons';
 
 // ----------------------------------------------------------------------
@@ -107,6 +108,16 @@ export const navConfig: NavGroup[] = [
         title: 'Report Management',
         path: '#report-management',
         icon: <ClipboardListIcon />,
+      },
+    ],
+  },
+  {
+    subheader: 'Logs',
+    items: [
+      {
+        title: 'Logs',
+        path: '#logs',
+        icon: <LogsIcon />,
       },
     ],
   },

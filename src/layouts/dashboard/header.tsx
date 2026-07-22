@@ -43,6 +43,7 @@ const TAB_TITLES: Record<string, string> = {
   '#ed-floor-visits': 'ED Floor Visits',
   '#educational-resources': 'Educational Resources',
   '#report-management': 'Report Management',
+  '#logs': 'Logs',
 };
 
 export default function Header({ onOpenNav, onOpenSettings, /*onLogout,*/ activeTab, navWidth = 360 }: HeaderProps) {

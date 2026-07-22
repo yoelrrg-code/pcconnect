@@ -61,6 +61,12 @@ const ReportsIcon = () => (
   </svg>
 );
 
+const LogsIcon = () => (
+  <svg width="42" height="56" viewBox="0 0 42 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M37.2568 0.00683594C39.8989 0.140529 42 2.32472 42 5V51L41.9932 51.2568C41.8638 53.8138 39.8138 55.8638 37.2568 55.9932L37 56H5C2.32472 56 0.140529 53.8989 0.00683594 51.2568L0 51V5C5.15422e-07 2.23858 2.23858 8.05321e-09 5 0H37L37.2568 0.00683594ZM5 2C3.34315 2 2 3.34315 2 5V51C2 52.6569 3.34315 54 5 54H37C38.6569 54 40 52.6569 40 51V5C40 3.34315 38.6569 2 37 2H5ZM31.1025 44.0049C31.6067 44.0562 32 44.4823 32 45C32 45.5177 31.6067 45.9438 31.1025 45.9951L31 46H11C10.4477 46 10 45.5523 10 45C10 44.4477 10.4477 44 11 44H31L31.1025 44.0049ZM31.1025 38.0049C31.6067 38.0562 32 38.4823 32 39C32 39.5177 31.6067 39.9438 31.1025 39.9951L31 40H11C10.4477 40 10 39.5523 10 39C10 38.4477 10.4477 38 11 38H31L31.1025 38.0049ZM24 30H26V18H32V30H34C34.5523 30 35 30.4477 35 31C35 31.5177 34.6067 31.9438 34.1025 31.9951L34 32H8L7.89746 31.9951C7.39333 31.9438 7 31.5177 7 31C7 30.4477 7.44772 30 8 30H10V22H16V30H18V10H24V30ZM12 30H14V24H12V30ZM20 30H22V12H20V30ZM28 30H30V20H28V30Z" fill="white"/>
+  </svg>
+);
+
 // ----------------------------------------------------------------------
 
 interface MenuCardProps {
@@ -228,6 +234,22 @@ export default function AppView({ onNavigate }: AppViewProps) {
             icon={<ReportsIcon />} 
             bgImage={cardBgTech} // Use custom background image here
             onClick={() => onNavigate?.('#report-management')}
+          />
+        </Grid>
+
+        <Grid 
+          size={{ xs: 12, md: 6 }}
+          sx={{
+            opacity: 0,
+            animation: `${fadeInUp} 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) forwards`,
+            animationDelay: '500ms'
+          }}
+        >
+          <MenuCard 
+            title="Clinician Dashboard" 
+            icon={<LogsIcon />} 
+            bgImage={cardBgTech} // Use custom background image here
+            onClick={() => onNavigate?.('#logs')}
           />
         </Grid>
       </Grid>

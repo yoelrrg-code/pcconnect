@@ -145,7 +145,7 @@ export default function Nav({
                       minHeight: isCollapsed ? 60 : 40,
                       borderRadius: isCollapsed ? '100%' : 3,
                       px: isCollapsed ? 0 : 2,
-                      py: isCollapsed ? 0 : 1.5,
+                      py: isCollapsed ? 0 : 1.1,
                       mb: isCollapsed ? 0 : 0.5,
                       display: 'flex',
                       flexDirection: isCollapsed ? 'column' : 'row',
