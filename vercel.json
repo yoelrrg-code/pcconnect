@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://secure.physchoice.com/PCConnect_Dev/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
