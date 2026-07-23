@@ -115,7 +115,7 @@ export const navConfig: NavGroup[] = [
     subheader: 'Logs',
     items: [
       {
-        title: 'Logs',
+        title: 'Clinician Dashboard',
         path: '/logs',
         icon: <LogsIcon />,
       },

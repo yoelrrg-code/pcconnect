@@ -15,85 +15,25 @@ import { BarChart } from "@mui/x-charts/BarChart";
 
 const series = [
   {
-    label: "CODED AT REDUCED LEVEL - D1010",
-    data: [0, 1, 1],
-    color: "#FFB522",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "DOWNCODED MDM - DATA - D655",
-    data: [6, 11, 13],
-    color: "#AE006E",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "POTENTIAL  CRITICAL CARE , NOT DOCUMENTED - D765",
-    data: [1, 38, 43],
-    color: "#728AAB",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "DOWNCODED CC TO 5, NO UNSTABLE DOC. - D865",
-    data: [2, 87, 91],
-    color: "#7E39B1",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "LACK OF DOCUMENTATION, ECG INTERP. - D900",
-    data: [23, 217, 290],
+    label: "3 Months",
+    data: [3.2228797468354444, 3.426316323940067, 3.261572073524633],
     color: "#00B79F",
-    stack: "cpt",
+    stack: "rvu-3",
     stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
   },
   {
-    label: "LACK OF IMAGE ARCHIVAL, ULTRASOUND - D950",
-    data: [10, 38, 44],
-    color: "#EE7BC5",
-    stack: "cpt",
+    label: "6 Months",
+    data: [3.297459239130433, 3.4498340638697473, 3.2981354883078944],
+    color: "#FFB63B",
+    stack: "rvu-6",
     stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
   },
   {
-    label: "POTENTIAL SHARED VISIT, NO MD SIG - D951",
-    data: [0, 0, 72],
-    color: "#242B38",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "POTENTIAL SHARED VST, MD SIG,NO DOC - D952",
-    data: [0, 0, 130],
-    color: "#008270",
-    stack: "cpt",
-    stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
-  },
-  {
-    label: "POTENTIAL SHARED VST, DEF MD DOC - D953",
-    data: [0, 2, 182],
+    label: "12 Months",
+    data: [3.382454373819979, 3.47923747807403, 3.3326218252330686],
     color: "#E533A5",
-    stack: "cpt",
+    stack: "rvu-12",
     stackOrder: "reverse",
-    barLabel: "value" as const,
-    stackOffset: "expand",
   },
 ] as const;
 
@@ -103,7 +43,7 @@ const xlabels = [
   "Facility (All)",
 ] as const;
 
-export default function DeficiencyView({ resetKey }: { resetKey: string }) {
+export default function RvuView({ resetKey }: { resetKey: string }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [adminFilter, setAdminFilter] = useState("");
@@ -239,6 +179,10 @@ export default function DeficiencyView({ resetKey }: { resetKey: string }) {
         }}
       >
         <Box sx={{ width: "100%", height: 'auto', minHeight: 700 }}>
+          <Typography variant="h3" sx={{ mb: 4 }}>
+            Work RVU per Patient Comparison
+          </Typography>
+          
           <BarChart
             key={resetKey}
             series={series}
@@ -260,9 +204,10 @@ export default function DeficiencyView({ resetKey }: { resetKey: string }) {
                 width: 50,
                 valueFormatter: new Intl.NumberFormat("en-US", {
                   notation: "compact",
-                  style: "percent",
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
+                  style: "currency",
+                  currency: "USD",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
                 }).format,
               },
             ]}
@@ -282,15 +227,18 @@ export default function DeficiencyView({ resetKey }: { resetKey: string }) {
                 fontSize: 14,
                 fontWeight: 600,
               },
-              "& .MuiChartsLegend-label": {
-                fontSize: isMobile ? 11 : 13,
-              },
               "& .MuiChartsAxis-tickLabel, & .MuiChartsAxis-tickLabel tspan": {
                 fill: `${theme.palette.text.primary} !important`,
-                fontSize: "13px !important",
-                fontWeight: "500 !important",
+                fontSize: "14px !important",
+                fontWeight: "600 !important",
                 visibility: "visible !important",
                 opacity: "1 !important",
+              },
+              '& .MuiChartsAxis-directionY text tspan': {
+                fontWeight: "400 !important",
+              },
+              '& .MuiChartsLegend-series': {
+                fontSize: "14px !important",
               },
               "& .MuiChartsAxisHighlight-root": {
                 fill: "rgba(0, 0, 25, 0.40) !important",

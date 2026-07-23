@@ -203,6 +203,10 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
         }}
       >
         <Box sx={{ width: "100%", height: 'auto', minHeight: 700 }}>
+          <Typography variant="h3" sx={{ mb: 4 }}>
+            Acuity Distribution Comparison          
+          </Typography>
+
           <BarChart
             key={resetKey}
             series={series}
@@ -248,10 +252,16 @@ export default function AcuityView({ resetKey }: { resetKey: string }) {
               },
               "& .MuiChartsAxis-tickLabel, & .MuiChartsAxis-tickLabel tspan": {
                 fill: `${theme.palette.text.primary} !important`,
-                fontSize: "13px !important",
-                fontWeight: "500 !important",
+                fontSize: "14px !important",
+                fontWeight: "600 !important",
                 visibility: "visible !important",
                 opacity: "1 !important",
+              },
+              '& .MuiChartsAxis-directionY text tspan': {
+                fontWeight: "400 !important",
+              },
+              '& .MuiChartsLegend-series': {
+                fontSize: "14px !important",
               },
               "& .MuiChartsAxisHighlight-root": {
                 fill: "rgba(0, 0, 25, 0.40) !important",
